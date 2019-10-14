@@ -1,0 +1,190 @@
+\section{Theorie}
+	
+	Dieser Abschnitt befasst sich mit der Theorie, die diesem Versuch zugrunde liegt.
+	Dazu werden zunächst die Hilfseinheit Bel eingeführt, dann TEM-Leiter behandelt und zuletzt die im Versuch zu verwendenden Bauteile betrachtet.  
+	
+\subsection{Hilfseinheit Bel}
+
+	Für eine Gegenüberstellung von Datenpunkten bietet es sich häufig an auf logarithmische Darstellungen zu wechseln, um ein übersichtlicheres Bild zu schaffen.
+	Dazu wird in der Regel das Relativmaß $R$ verwendet, welches durch die Einheit Bel [\si{\bel}] charakterisiert wird.
+	Üblicherweise wird ein Zehntel Bel, das Dezibel [\si{\decibel}] verwendet.
+	Das Relativmaß lässt sich für Leistungen $P_1$ und $P_2$ schreiben als:
+	\begin{align}
+		R &= 10 \cdot \log_{10}\left(\frac{P_1}{P_2}\right)\si{\decibel} \label{eq:bel} \quad\quad \text{bzw.} \\
+		&= 20 \cdot \log_{10}\left(\frac{U_1}{U_2}\right) \label{eq:bel2},
+	\end{align}
+	wenn man für $P_i$ gerade $U_i \cdot I$ einsetzt.
+	Um den absoluten Pegel $L$ für z. B. Leistungsbereiche aufzutragen, wird weiterhin \cref{eq:bel} verwendet, nur dass $P_2$ auf eine Referenzleistung $P_\text{ref}$ festgesetzt wird und $P_1$ als $P$ variabel gehalten wird:
+	\begin{equation}
+		L = 10 \cdot \log_{10}\left(\frac{P}{P_\text{ref}}\right)\si{\decibel}.
+		\label{eq:leistungspegel}
+	\end{equation}
+	Wenn ein Leistungspegel in der Einheit \si{\decibelmilliwatt} angegeben wird, so bedeutet dies, dass die Referenzleistung exakt \SI{1}{\milli\watt} beträgt.
+
+\subsection{Leitungstheorie}
+	
+	In dem Versuch werden transversalelektromagnetische (TEM) Leiter untersucht.
+	Bei diesen handelt es sich um Hin- und Rückleitern, sogenannten Doppelleitern, bei denen sich elektrische und magnetische Felder senkrecht zum Leiter ausbreiten.
+	Hierbei lassen sich die Größen des E- und B-Feldes auf die Spannung $U$ und die Stromstärke $I$ reduzieren.
+	Ausgegangen wird im Folgenden von stationären Zuständen und der Vernachlässigung des Einschwingvorgangs.
+	Damit lassen sich Strom und Spannung in folgender Weise darstellen:
+	\begin{align}
+		I(x,t) = I(x)\cdot e^{i\omega t} \quad\quad \text{und} \quad\quad U(x,t) = U(x)\cdot e^{i\omega t},
+	\end{align}
+	dabei ist die Zeitabhängigkeit oftmals vernachlässigbar.
+	
+	\
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=.6\textwidth]{img/leitungsabschnitt.png}
+		\caption{Ersatzschaltbild für ein Leiterabschnitt der Länge $\Delta x$.\cite{wwu}}
+		\label{fig:leiterabschnitt}
+	\end{figure}
+	Unter Betrachtung eines homogenen Leiterabschnitts, dessen Ersatzschaltbild in \cref{fig:leiterabschnitt} abgebildet ist, lassen sich über die Kirchhoff'schen Regeln und infinitesimalen Kabelstücken ($\Delta x \rightarrow 0$) Differenzialgleichungen aufstellen:
+	\begin{align}
+		\frac{d^2}{dx^2} U(x) &= (R'+i\omega L') (G'+i\omega C') \cdot U(x) \label{eq:spannung} \\
+		\frac{d^2}{dx^2} I(x) &= (G'+i\omega C') (R'+i\omega L') \cdot I(x).
+	\end{align}
+	Dabei handelt es sich bei den gestrichenen Komponenten um Impedanzbeläge, also längenbezogene komplexe Widerstände (bei $C'$ und $L'$ jeweils mit Vorfaktor $i\omega$).
+	Diese Gleichungen lassen sich leicht durch einen Exponenzialansatz für hin- und rücklaufende Welle lösen:
+	\begin{align}
+		U(x) &= U_\text{h}\cdot e^{-\gamma x} + U_\text{r}\cdot e^{\gamma x} \\
+		I(x) &= I_\text{h}\cdot e^{-\gamma x} + I_\text{r}\cdot e^{\gamma x} \\
+		\text{mit} \gamma &:= \sqrt{(R'+i\omega L') (G'+i\omega C')} = \alpha + i\beta.
+	\end{align}
+	Hierbei ist $\gamma$ der Ausbreitungskoeffizient für die Welle und $\alpha$ der Dämpfungskoeffizient.
+	
+	\
+	
+	Bildet man die erste Ableitung nach dem Ort statt wie in \cref{eq:spannung} nach der zweiten.
+	So wird ein Zusammenhang zwischen Strom und Spannung ersichtlich.
+	Dieser lässt sich auf einen frequenzabhängigen Faktor reduzieren, welcher als Wellenwiderstand definiert ist:
+	\begin{equation}
+		Z_\text{L} := \frac{U(x)}{I(x)} = \sqrt{\frac{R'+i\omega L'}{G'+i\omega C'}}.
+	\end{equation} 
+	Für verlustlose Leiter gehen $R'$ und $G'$ gegen null, die $i\omega$ kürzen sich weg und übrig bleibt, dass der Wellenwiderstand sich über das Verhältnis von Induktivitätsbelag $L'$ und Kapazitätsbelag $C'$ darstellen lässt:
+	\begin{equation}
+		Z_\text{L} = \sqrt{\frac{L'}{C'}}.
+	\end{equation}
+	
+	\
+	
+	Eine weitere relevante Größe ist der Reflexionskoeffizient, der den hin- und rücklaufenden Teil der Welle gegenüber stellt:
+	\begin{equation}
+		r(x) := \frac{U_\text{r}\cdot e^{\gamma x}}{U_\text{h}\cdot e^{-\gamma x}}.
+	\end{equation} 
+	Bei homogenen Leitern tritt Reflexion jedoch nur an den Enden der Leitung auf.
+	Sei ein Ende ohne Beschränkung der Allgemeinheit an der Stelle $x = 0$ mit einem Abschlusswiderstand $Z_\text{a}$, so folgt:
+	\begin{equation}
+		r = \frac{Z_\text{a}-Z_\text{L}}{Z_\text{a}+Z_\text{L}}.
+	\end{equation}
+	Es liegt also keine Reflexion vor, wenn $Z_\text{a}$ genau gleich $ Z_\text{L}$ ist.
+	Bei offenen Enden ($Z_\text{a} \rightarrow \infty$) geht $r$ gegen 1, also wird die gesamte Welle reflektiert und bei einem kurzgeschlossenen Ende ($Z_\text{a} \rightarrow \infty$) gegen -1.
+	
+	\
+	
+	Da die reflektierte Welle die gleiche Frequenz wie die Einlaufende besitzt, bilden sich Wanderwellen und im Falle von $\abs{r} = 1$ stehende Wellen, bei denen sich die Position der Amplitudenmaxima und -Minima zeitlich nicht ändern.
+	Ausschlaggebend für die Position dieser ist lediglich der Phasensprung am Punkt der Reflexion.
+	
+	\
+	
+	Wird die Welle mehrfach an den Enden innerhalb des Leiters reflektiert, so bilden sich Interferenzerscheinungen, sodass phasenrichtige Wellen gleicher Frequenz zur Resonanz führen.
+	Die transmittierte Leistung lässt sich in einem solchen Fall über eine Airy-Funktion schreiben, insofern die Leitung verlustfrei und ungedämpft ist:
+	\begin{equation}
+		P_\text{t} = \frac{\abs{U_h}^2}{Z_\text{L}} \cdot \left(\frac{T}{1-R}\right)^2 \cdot \frac{1}{1 + F\sin[2](\frac{\phi}{2})}. 
+	\end{equation}  
+	Hierbei sind $T$ und $R$ die Produkte der Transmissions- bzw. Reflexionskoeffizienten an den beiden Enden, $\phi$ die Phase und $F = 4R / (1-R)^2$ der Finesse-Faktor.
+	Die Resonanz wird also genau dann erreicht, wenn $P_\text{t}$ maximal ist, also $\sin[2](\frac{\phi}{2})$ verschwindet und dies ist der Fall, wenn $\phi = 2\pi n$ erfüllt ist.
+	Für ein Kabel der Länge $L$ müssen deswegen für die Phasen an beiden Enden gelten:
+	\begin{equation}
+		2k_n L - \varphi_1 - \varphi_2 = 2\pi n.
+	\end{equation}
+	Die Zahl n gibt hierbei die Anzahl der Knoten an und $k_n$ ist die zugehörige Wellenzahl.
+
+\subsection{Bauteile}
+
+	Als Nächstes sollen die zu untersuchenden Bauteile behandelt werden.
+	
+\subsubsection*{Koaxialkabel}
+
+	Koaxialkabel sind die am häufigsten verwendeten TEM-Leiter.
+	Sie setzen sich zusammen aus einem Innenleiter, der von einem Außenleiter umschlossen wird.
+	Zwischen den beiden Leitern liegt ein Dielektrikum vor.
+	Das elektrische Feld richtet sich vom Innen- zum Außenleiter und tritt nicht über letzteren hinaus.
+	Da auch das magnetische Feld sich nur im Inneren des Kabels befindet, ist das Kabel unempfindlich gegenüber äußeren Einflüssen.
+	Für die Spannung im Inneren des Kabels gilt:
+	\begin{equation}
+		U = \frac{Q}{2\pi\Delta x\varepsilon_0\varepsilon_\text{r}} \cdot \ln(\frac{d_\text{a}}{d_\text{i}})
+	\end{equation}
+	und mit der Ladung $Q = C U$ umgeformt nach dem Kapazitätsbelag:
+	\begin{equation}
+		C' = \frac{C}{\Delta x} = 2\pi\varepsilon_0\varepsilon_\text{r} \cdot\frac{1}{\ln(\frac{d_\text{a}}{d_\text{i}})}.
+	\end{equation}
+	Dabei sind $d_\text{a/i}$ die Durchmesser von Außen- bzw. Innenleiter und $\varepsilon_{0/r}$ die Dielektrizitätskonstanten des Vakuums bzw. des Dielektrikums.
+	Ähnlich gilt für den Induktivitätsbelag bei Koaxialkabeln:
+	\begin{equation}
+		L' = \frac{L}{\Delta x} = \frac{\mu_0\mu_\text{r}}{2\pi}\cdot\ln(\frac{d_\text{a}}{d_\text{i}}),
+	\end{equation}
+	wobei $\mu_{0/\text{r}}$ hier gerade die magnetische Feldkonstante im Vakuum bzw. im Dielektrikum darstellt.
+	Letztere liegt meist sehr nahe an 1 und ist deswegen zu vernachlässigen.
+	
+	Darüber hinaus lässt sich aus den Gleichungen noch der Wellenwiderstand zu
+	\begin{equation}
+		Z_\text{L} = \sqrt{\frac{L'}{C'}} = \frac{1}{2\pi} \sqrt{\frac{\mu_0\mu_{\text{r}}}{\varepsilon_0\varepsilon_\text{r}}} \cdot \ln(\frac{d_\text{a}}{d_\text{i}})
+	\end{equation}
+	bestimmen.
+	
+\subsubsection*{Richtleiter \& Zirkulator}
+	
+	Mit Richtleitern können Wellen, die verschiedene Ausbreitungsrichtungen besitzen, voneinander getrennt werden.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=.8\textwidth]{img/richtleiter.png}
+		\caption{Skizzierte Darstellung des Aufbaus eines Richtleiters.\cite{wwu}}
+		\label{fig:richtleiter}
+	\end{figure}
+	Sie verfügen über vier Ein- bzw. Ausgänge (Tore), welche sich in Haupt- und Nebenleitung aufteilen.
+	Die Leitungen sind wie in \cref{fig:richtleiter} miteinander gekoppelt, sodass Teile der Leistung an die Tore 3 oder 4 gelangen, wenn die Welle sich von 1 nach 2 bzw. 2 nach 1 ausbreitet.
+	Bei passendem Abschlusswiderstand wird die Leistung dort in Wärme umgewandelt.
+	Hierbei sind die Kenngrößen der Koppeldämpfung $\alpha_\text{K}$, der Isolation $\alpha_\text{I}$ und Einfügedämpfung $\alpha_\text{E}$ ein Maß für Kopplungsstärke, ungewollt abgegebene Leistung und Dämpfung auf der Hauptleitung:
+	\begin{align}
+		\alpha_\text{K} &=  10 \cdot \log_{10}\left(\frac{P_1}{P_4}\right)\si{\decibel} \\
+		\alpha_\text{I} &=  10 \cdot \log_{10}\left(\frac{P_2}{P_4}\right)\si{\decibel} \\
+		\alpha_\text{E} &=  10 \cdot \log_{10}\left(\frac{P_1}{P_2}\right)\si{\decibel}
+	\end{align}
+	mit Leistung $P_i$ an Tor $i$.
+	
+	Die Kopplungen zwischen Haupt- und Nebenleitungen stehen in einem Abstand von $\lambda/4$ zueinander, sodass es zu Überlagerung von Wellen in den Leitungen kommt.
+	Je nachdem, wie viel Strecke die unterschiedlichen Wellen zurückgelegt haben, interferieren sie konstruktiv oder destruktiv, da bei gleicher Strecke die Phase der Wellen gleich bleiben, aber falls eine der Wellen zwei mal $\lambda/4$ zusätzlich an Strecke zurückgelegt hat, unterscheiden sich die Phasen um $\pi$ und sie interferieren destruktiv.
+	Deswegen wird im Falle von konstruktiver Interferenz eine Leistung übertragen, ansonsten nicht.
+	
+	\
+	
+	Ähnlich dazu funktionieren Zirkulatoren, welche drei Tore besitzen, die alle direkt miteinander verbunden sind, jedoch nur in eine Richtung leiten (1 -> 2 -> 3 -> 1 ...).
+	Im Idealfall tritt die Gesamte Leistung, welche an einem Tor $i$ einläuft am Tor $i+1$ wieder heraus.
+	Analog zu den Kenngrößen beim Richtleiter gelten hier für die Durchlassdämpfung $\alpha_\text{D}$ und die Sperrdämpfung $\alpha_\text{S}$:
+	\begin{align}
+		\alpha_\text{D} &=  10 \cdot \log_{10}\left(\frac{P_1}{P_2}\right)\si{\decibel} \\
+		\alpha_\text{S} &=  10 \cdot \log_{10}\left(\frac{P_1}{P_3}\right)\si{\decibel} 
+	\end{align}
+	zyklisch.
+	Der Zirkulator funktioniert aufgrund des Faraday-Effektes, denn er sorgt dafür, dass das Material zirkular doppelbrechend wird, weswegen je nach Polarisationsrichtung der Welle unterschiedliche Ausbreitungsgeschwindigkeiten vorliegen und dies genutzt wird um konstruktive bzw. destruktive Interferenz an den Toren hervorzurufen.
+	
+	\
+	
+	Als Isolator bezeichnet man einen Zirkulator, bei dem Tor 3 mit angepasstem Abschlusswiderstand versehen ist.
+	So wird die Welle von Tor 1 nach 2 zwei nahezu ungehindert durchgelassen und in alle anderen Richtungen fast vollständig absorbiert, weswegen man Isolatoren ebenfalls Richtleiter nennt.
+	 
+\subsubsection*{Diode}
+
+	Dioden sind elektrische Bauteile, die sich im Wesentlichen dadurch auszeichnen, dass sie den elektrischen Strom nur in eine Richtung durchlassen und somit als Gleichrichter dienen.
+	In ihrer geläufigsten Form besteht sie aus p- und n-dotierten Halbleitern, die in Kontakt miteinander gebracht werden.
+	Dies führt dazu, dass überschüssige Elektronen von dem n-dotierten Halbleiter auf den p-dotierten übergehen und dort die "Löcher" füllen.
+	Durch diesen Vorgang bildet sich die Verarmungszone, welche letztlich durch ein elektrisches Feld zwischen p- und n-dotiertem Halbleiter beschrieben werden kann.
+	Wird eine Spannung an diesen pn-Übergang angelegt, so wird je nach Stromrichtung die Verarmungszone größer oder kleiner.
+	Nur in letzterem Falle kann der elektrische Strom die Diode passieren und das geschieht gerade dann, wenn der Pluspol an dem p-dotierten Halbleiter anliegt.
+	
+	Alternativ zu den Halbleiter-Halbleiter Dioden gibt es ebenso welche auf einer Metall-Halbleiter Basis (oft Schottky-Diode).
+	Diese reagieren schneller, vertragen hingegen weniger Leistung.
+	Statt des p-dotierten Halbleiters wird bei ihnen eine Metallelektrode verwendet.

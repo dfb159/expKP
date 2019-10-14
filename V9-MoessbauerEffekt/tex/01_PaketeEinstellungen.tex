@@ -1,0 +1,91 @@
+% Autor: Simon May
+% Datum: 2017-10-04
+
+% --- Pakete einbinden
+% --- Pakete erweitern LaTeX um zusätzliche Funktionen.
+%     Dies ist ein Satz nützlicher Pakete.
+
+% Silbentrennung etc.; Sprache wird durch Option bei \documentclass festgelegt
+\usepackage{babel}
+\usepackage{iftex}
+\ifLuaTeX
+	% Schriftart (Latin Modern)
+	\usepackage{fontspec}
+	\fontspec{Latin Modern Roman}
+\else
+	% Verwendung der Zeichentabelle T1 (für Sonderzeichen etc.)
+	\usepackage[T1]{fontenc}
+	% Legt die Eingabe-Zeichenkodierung fest, z.B. UTF-8
+	\usepackage[utf8]{inputenc}
+	% Schriftart (Latin Modern)
+	\usepackage{lmodern}
+	% Zusätzliche Sonderzeichen
+	\usepackage{textcomp}
+\fi
+
+\usepackage{upgreek}
+
+% Nutzen von +, -, *, / in \setlength u.ä. (z.B. \setlength{\a + 3cm})
+\usepackage{calc}
+% Wird benötigt, um \ifthenelse zu benutzen
+\usepackage{xifthen}
+% Optionen für eigene definierte Befehle
+\usepackage{xparse}
+
+% Verbessertes Aussehen des Schriftbilds durch kleine Anpassungen
+\usepackage{microtype}
+% Automatische Formatierung von Daten
+\usepackage[useregional]{datetime2}
+% Wird für Kopf- und Fußzeile benötigt
+\usepackage{scrlayer-scrpage}
+% Einfaches Wechseln zwischen unterschiedlichen Zeilenabständen
+\usepackage{setspace}
+% Optionen für Listen (enumerate, itemize, …)
+\usepackage{enumitem}
+% Automatische Anführungszeichen
+\usepackage{csquotes}
+% Zusätzliche Optionen für Tabellen (tabular)
+\usepackage{array}
+
+% Mathepaket (intlimits: Grenzen über/unter Integralzeichen)
+\usepackage[intlimits]{amsmath}
+% Mathe-Symbole, \mathbb etc.
+\usepackage{amssymb}
+% Weitere Mathebefehle
+\usepackage{mathtools}
+% „Schöne“ Brüche im Fließtext
+\usepackage{xfrac}
+% Ermöglicht die Nutzung von \SI{Zahl}{Einheit} u.a.
+\usepackage{siunitx}
+% Ermöglicht Nutzung von \pdv als Ableitungen
+\usepackage{physics}
+% Definition von Unicode-Symbolen; Nach [utf8]inputenc laden!
+\usepackage{newunicodechar}
+% Unicode-Formeln mit pdfLaTeX
+\input{tex/99_pdflatex_unicode-math.tex}
+
+% Farben
+\usepackage{xcolor}
+% Einbinden von Grafiken (\includegraphics)
+\usepackage{graphicx}
+% .tex-Dateien mit \includegraphics einbinden
+\usepackage{gincltex}
+% Größere Freiheiten bei Dateinamen mit \includegraphics
+\usepackage{grffile}
+% Abbildungen im Fließtext
+\usepackage{wrapfig}
+% Zitieren, Bibliographie (Biber als Bibliographie-Programm verwenden!)
+\usepackage[backend=biber]{biblatex}
+% Abbildungen nebeneinander (subfigure, subtable)
+\usepackage{subcaption}
+\usepackage{float}
+
+% Verlinkt Textstellen im PDF-Dokument (sollte am Ende geladen werden)
+\usepackage[unicode]{hyperref}
+% „Schlaue“ Referenzen (nach hyperref laden!)
+\usepackage{cleveref}
+%PDF einbinden
+%\usepackage{pdfpages}
+%Graphiken zeichnen
+%\usepackage{tikz}
+%\usetikzlibrary{angles,quotes,babel,3d}

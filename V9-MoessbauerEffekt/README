@@ -1,0 +1,12 @@
+Ordner für die einzelnen Dateien
+dat: Ausgangsdateien aus der Berechnung. Graphen und Werte
+img: Alle Bilder und Fotos
+raw: Alle Messdaten
+res: Alle Literatur
+tex: .tex files mit den einzelnen Versuchsteilen
+
+Dateien
+Ma-A-06.tex: HauptTEXdatei zum übersetzen des ganzen Protokolls
+TODO: alles was noch gemacht werden soll bitte hier mit eintragen, und auch löschen, wenn mans gemacht hat
+*.ipynb: Notebooks mit den Berechnungen
+

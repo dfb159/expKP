@@ -1,0 +1,41 @@
+% Autor: Simon May
+% Datum: 2016-10-13
+% Der Befehl \newcommand kann auch benutzt werden, um „Variablen“ zu definieren:
+
+% Nummer laut Praktikumsheft:
+\newcommand*{\varNum}{V2}
+% Name laut Praktikumsheft:
+\newcommand*{\varName}{Mößbauer-Effekt}
+% Datum der Durchführung:
+\newcommand*{\varDatum}{21.10.2019}
+% Autoren des Protokolls:
+\newcommand*{\varAutor}{C. Lippe, J. Sigrist, J. T. Zarnitz}
+\newcommand*{\varNameA}{Chris Lippe}
+\newcommand*{\varNameB}{Jonathan Sigrist}
+\newcommand*{\varNameC}{Jannik Tim Zarnitz}
+% Nummer der eigenen Gruppe:
+\newcommand*{\varGruppe}{Gruppe Ma-A-06}
+% E-Mail-Adressen der Autoren (kommagetrennt ohne Leerzeichen!):
+\newcommand{\varEmail}{jannik,j\_sigrist@wwu.de,chris}
+\newcommand{\varEmailA}{a\_oste16@wwu.de}
+\newcommand{\varEmailB}{j\_sigrist@wwu.de}
+\newcommand{\varEmailC}{l\_wigg01@wwu.de}
+%betreuer Name
+\newcommand{\varBetreuer}{\normalsize betreut von Dr. Johann Jersch}
+% E-Mail-Adresse anzeigen (true/false):
+\newcommand*{\varZeigeEmail}{true}
+% Kopfzeile anzeigen (true/false):
+\newcommand*{\varZeigeKopfzeile}{true}
+% Inhaltsverzeichnis anzeigen (true/false):
+\newcommand*{\varZeigeInhaltsverzeichnis}{true}
+% Literaturverzeichnis anzeigen (true/false):
+\newcommand*{\varZeigeLiteraturverzeichnis}{true}
+
+\newboolean{showEmail}
+\setboolean{showEmail}{\varZeigeEmail}
+\newboolean{showHeader}
+\setboolean{showHeader}{\varZeigeKopfzeile}
+\newboolean{showTOC}
+\setboolean{showTOC}{\varZeigeInhaltsverzeichnis}
+\newboolean{showBibliography}
+\setboolean{showBibliography}{\varZeigeLiteraturverzeichnis}

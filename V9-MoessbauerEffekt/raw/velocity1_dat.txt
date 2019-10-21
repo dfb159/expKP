@@ -1,0 +1,14 @@
+Originaldaten in Datei '\\nwz.wwu.de\dfs\home\j\j_sigr01\Documents\Moessbauer\velocity1.txt' gespeichert.
+
+Es wurden 512 Kanäle gefunden.
+Negative Halbwelle zwischen Kanal 129 und Kanal 385 gefunden.
+
+Fourierkoeffizienten:
+a0 = 126.76953125
+a1 = 10458.6219485058
+b1 = 122.824408459953
+
+
+Geglättete Daten in Datei '\\nwz.wwu.de\dfs\home\j\j_sigr01\Documents\Moessbauer\velocity1_smoothed.txt' gespeichert.
+
+Geglättete Daten in Datei '\\nwz.wwu.de\dfs\home\j\j_sigr01\Documents\Moessbauer\velocity1_smoothed.mcs' gespeichert.

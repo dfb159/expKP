@@ -15,6 +15,7 @@
 	12pt,                   % Schriftgröße (beliebige Größen mit „fontsize=Xpt“)
 	english, ngerman,       % Sprache für z.B. Babel; ausgewählt: ngerman (letztgenannt)
 	%draft=true             % Entwurf-Modus; markiert zu lange und zu kurze Zeilen
+	parskip = half,         % Abstand nach Absatz
 ]{scrartcl}
 
 \input{tex/01_PaketeEinstellungen.tex}
@@ -49,13 +50,12 @@
 	\pagestyle{scrheadings}
 
 	% --- Den Inhalt der Arbeit einbinden
-	% --- Kurzfassung des gesammten Berichts (abstract)
 	\input{tex/10_Einleitung.tex}
-	\vspace{2cm}
-
-	% --- Einzelne Teilversuche einbinden
-%	\input{tex/11_Theorie.tex}
+	\newpage
+	\input{tex/11_Theorie.tex}
+	\newpage
 %	\input{tex/12_Durchfuehrung.tex}
+	%\newpage
 %	\input{tex/13_Auswertung.tex}
 
 	%\input{tex/name.tex}

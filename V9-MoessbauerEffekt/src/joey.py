@@ -225,8 +225,8 @@ Latex.SI(isoA / milli, "\\milli\\meter\\per\\second", "messungA_iso")
 
 xfit = np.linspace(0,256,2000)
 yfit = gaussUnc(xfit, *p)
-#x = speed[s](x) / milli
-#xfit = speed[s](xfit) / milli
+x = speed[s](x) / milli
+xfit = speed[s](xfit) / milli
 
 #fig = plt.Figure(figsize=sidescreen)
 #plt.plot(unv(xfit), unv(yfit), label="Doppelgauss-Fit", alpha=0.5)
@@ -359,5 +359,6 @@ def vglISO(im):
     for n, i in zip(names, np.abs(im-iso)):
         print("%.2f\t%s" % (unv(i),n))
 
+vglISO(-isoA/milli)
 vglISO(-isoB/milli)
 vglISO(-isoC/milli)

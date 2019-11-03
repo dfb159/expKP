@@ -1,0 +1,1 @@
+\SI{0,265 \pm 0,021}{\milli\meter\per\second}

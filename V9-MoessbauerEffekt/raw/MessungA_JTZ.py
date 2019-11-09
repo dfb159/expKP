@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.odr as odr
+from scipy import constants
 
 
 # Read data:
@@ -31,6 +32,10 @@ def Gaussian(parameter, x):
     A, mu, sigma, B = parameter
     return A * np.exp(-.5 * ((x - mu)/sigma)**2) + B
 
+def line(parameter, x):
+    m, n = parameter
+    return m * x + n
+
 def calculateFWHM(sigma):
     return 2 * np.sqrt(2 * np.log(2)) * sigma
 
@@ -39,6 +44,36 @@ def calculateMesseffekt(A, B):
 
 def calculateMesseffektUnc(A, B, A_err, B_err):
     return calculateMesseffekt(A, B) * np.sqrt((A_err / A)**2 + (B_err / B)**2)
+
+def f_A_StainlessSteel(T):
+    k_B = 8.617342e-05
+    Theta_D = 450.
+    p = 14.41295e03
+    M = 56.935398 * 931.494013e6
+    return np.exp(((-3. * p**2) / (4. * M * k_B * Theta_D)) * (1 + ((2. * (np.pi * T)**2) / (3. * Theta_D**2))))
+
+def f_A_StainlessSteel_Unc(T, T_err):
+    k_B = 8.617342e-05
+    Theta_D = 450.
+    p = 14.41295e03
+    M = 56.935398 * 931.494013e6
+    return (T * T_err * f_A_StainlessSteel(T) * (np.pi * p)**2)/(k_B * M * Theta_D**3)
+
+def Gamma_korr(T):
+    Gamma_nat = 0.097
+    sigma0 = 2.38e-18
+    eta = 0.0219
+    n = (0.0079 * (constants.value("speed of light in vacuum"))**2)/(56.845 * 931.494013e06 * constants.value("elementary charge"))
+    d = 0.0025
+    return (2.02 + 0.29*sigma0*eta*n*d*f_A_StainlessSteel(T) - 0.005*(sigma0*eta*n*d*f_A_StainlessSteel(T))**2)*Gamma_nat
+
+def Gamma_korr_Unc(T, T_err):
+    Gamma_nat = 0.097
+    sigma0 = 2.38e-18
+    eta = 0.0219
+    n = (0.0079 * (constants.value("speed of light in vacuum"))**2)/(56.845 * 931.494013e06 * constants.value("elementary charge"))
+    d = 0.0025
+    return (0.29*sigma0*eta*n*d - 0.01*f_A_StainlessSteel(T)*(sigma0*eta*n*d)**2)*Gamma_nat*T_err
 
 
 # Formulas for the velocity and its uncertainty with an adjustment of the scale:
@@ -85,6 +120,10 @@ model = odr.Model(Gaussian)
 data = odr.RealData(realVelocity, combinedCounts, sx=realVelocityUnc, sy=np.sqrt(combinedCounts))
 ODR = odr.ODR(data, model, beta0=[-80., -0.25, 0.25, 200.])
 output = ODR.run()
+
+
+# Temperature fit and calculation of the theoretical FWHM:
+
 
 
 # Sixth plot:

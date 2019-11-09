@@ -124,7 +124,7 @@ class Latex:
             f.write("\\bottomrule\n\\end{tabular}")
 
 # %% Konstanten; Werte von https://physics.nist.gov/cuu/Constants/index.html[0]
-c = 299792458 # m/s
+c0 = 299792458 # m/s
 k_B = unc.ufloat_fromstr("1.38064852(79)e-23") # J K-1 [0]
 h = unc.ufloat_fromstr("4.135667662(25)e-15") # eV s [0]
 K = 273.15 # kelvin
@@ -192,13 +192,13 @@ for col, i, (c,n), (k,l), v in zip(colors, range(4), [messungVel0, messungVel1, 
     plt.axvline(x=unv(p[1]))
     plt.fill_between(unv(xfit), unv(yfit) - 10*usd(yfit), unv(yfit) + 10*usd(yfit), alpha=0.2, color = color)
     plt.errorbar(unv(k), unv(l), usd(l), label = "Messung %s $\\pm 10 \\sigma$" % i, fmt=" ", color = color)
-plt.grid()
+    
 plt.xlabel("Channel $k$")
 plt.ylabel(u"Counts $N$")
 plt.xlim(0, 256)
 #plt.ylim(0, 2000)
 plt.legend(prop={'size':fig_legendsize})
-plt.tick_params(labelsize=fig_labelsize)
+plt.tick_params(labelsize=fig_labelsize, direction="in")
 #plt.xscale('log')
 #plt.yscale('log', nonposy='clip')
 plt.savefig(root + data_out + "velocity.png")
@@ -216,19 +216,20 @@ def gaussUnc(x, A, x1, d, y0):
 
 s = 1
 x, y = messungA
-p0 = [-100, 140, 10, 380]
+x = speed[s](x)
+p0 = [-100, 0.00025, 0.001, 200]
 p = Fit.fit(x,y,gauss, p0=p0)
 #Latex.value(p[1], "velocity_x0_%i" % i)
 #Latex.value(p[0], "velocity_A_%i" % i)
-isoA = speed[s](p[1])
+isoA = p[1]
 Latex.SI(isoA / milli, "\\milli\\meter\\per\\second", "messungA_iso")
 
-xfit = np.linspace(0,256,2000)
+xfit = np.linspace(min(x), max(x), 2000)
 yfit = gaussUnc(xfit, *p)
-x = speed[s](x) / milli
-xfit = speed[s](xfit) / milli
+x = x / milli
+xfit = xfit / milli
 
-#fig = plt.Figure(figsize=sidescreen)
+fig = plt.Figure()
 #plt.plot(unv(xfit), unv(yfit), label="Doppelgauss-Fit", alpha=0.5)
 #plt.axvline(x=unv(p[1]))
 kappa = 3
@@ -243,7 +244,7 @@ plt.ylabel(u"Counts $N$")
 plt.xlim(unv(min(x)), unv(max(x)))
 #plt.ylim(195, 455)
 plt.legend(prop={'size':fig_legendsize})
-plt.tick_params(labelsize=fig_labelsize)
+plt.tick_params(labelsize=fig_labelsize, direction="in")
 #plt.xscale('log')
 #plt.yscale('log', nonposy='clip')
 plt.savefig(root + data_out + "messungA.png")
@@ -261,18 +262,19 @@ def gauss2Unc(x, A1, x1, d1, A2, x2, d2, y0):
 
 s = 3
 x, y = messungB
-p0 = [-100, 115, 10, -100, 180, 10, 380]
+x = speed[s](x)
+p0 = [-100, -0.0005, 0.0002, -100, 0.0012, 0.0002, 380]
 p = Fit.fit(x,y,gauss2, p0=p0)
 #Latex.value(p[1], "velocity_x0_%i" % i)
 #Latex.value(p[0], "velocity_A_%i" % i)
 A1, x1, d1, A2, x2, d2, y0 = p
-isoB = speed[s]((x1 + x2) / 2)
+isoB = (x1 + x2) / 2
 Latex.SI(isoB / milli, "\\milli\\meter\\per\\second", "messungB_iso")
 
-xfit = np.linspace(0,256,2000)
+xfit = np.linspace(min(unv(x)),max(unv(x)),2000)
 yfit = gauss2Unc(xfit, *p)
-x = speed[s](x) / milli
-xfit = speed[s](xfit) / milli
+x = x / milli
+xfit = xfit / milli
 
 #fig = plt.Figure(figsize=sidescreen)
 #plt.plot(unv(xfit), unv(yfit), label="Doppelgauss-Fit", alpha=0.5)
@@ -280,8 +282,8 @@ xfit = speed[s](xfit) / milli
 kappa = 3
 plt.fill_between(unv(xfit), unv(yfit) - kappa*usd(yfit), unv(yfit) + kappa*usd(yfit), alpha=0.6, label="Fit$\\pm %s \\sigma$" % kappa, color="C1")
 plt.errorbar(unv(x), unv(y), usd(y), label = "Messung B", fmt=" ", color="C0")
-plt.axvline(x=unv(speed[s](x1) / milli), color="C1", linestyle="--")
-plt.axvline(x=unv(speed[s](x2) / milli), color="C1", linestyle="--")
+plt.axvline(x=unv(x1 / milli), color="C1", linestyle="--")
+plt.axvline(x=unv(x2 / milli), color="C1", linestyle="--")
 #plt.annotate("$v_{iso} = %s$" % iso, xy=(unv(isoB), unv(gauss2Unc(iso,*p))))
 
 plt.grid()
@@ -290,7 +292,7 @@ plt.ylabel(u"Counts $N$")
 plt.xlim(unv(min(x)), unv(max(x)))
 plt.ylim(195, 455)
 plt.legend(prop={'size':fig_legendsize})
-plt.tick_params(labelsize=fig_labelsize)
+plt.tick_params(labelsize=fig_labelsize, direction="in")
 #plt.xscale('log')
 #plt.yscale('log', nonposy='clip')
 plt.savefig(root + data_out + "messungB.png")
@@ -312,23 +314,24 @@ def gauss6Unc(x, A1, x1, d1, A2, x2, d2, A3, x3, d3, A4, x4, d4, A5, x5, d5, A6,
 
 s = 2
 x, y = messungC
-p0 = [-150, 50, 10,-150, 90, 7, -150, 120, 5, -150, 140, 5, -150, 170, 7, -150, 210, 10, 550]
+x = speed[s](x)
+p0 = [-150, -0.0043, 0.0003,-150, -0.0026, 0.0003, -150, -0.0007, 0.0003, -150, 0.001, 0.0003, -150, 0.003, 0.0003, -150, 0.005, 0.0003, 550]
 p = Fit.fit(x,y,gauss6, p0=p0)
 #Latex.value(p[1], "velocity_x0_%i" % i)
 #Latex.value(p[0], "velocity_A_%i" % i)
 x0 = [p[i] for i in [1,4,7,10,13,16]]
-isoC = speed[s](sum(x0) / len(x0))
+isoC = sum(x0) / len(x0)
 Latex.SI(isoC / milli, "\\milli\\meter\\per\\second", "messungC_iso")
 
-xfit = np.linspace(0,256,2000)
+xfit = np.linspace(min(unv(x)),max(unv(x)),2000)
 yfit = gauss6Unc(xfit, *p)
-x = speed[s](x) / milli
-xfit = speed[s](xfit) / milli
+x = x / milli
+xfit = xfit / milli
 
 fig = plt.Figure(figsize=sidescreen)
 #plt.plot(unv(xfit), unv(yfit), label="Doppelgauss-Fit", alpha=0.5)
 for v in x0:
-    plt.axvline(x=unv(speed[s](v) / milli), color="C1", linestyle="--")
+    plt.axvline(x=unv(v / milli), color="C1", linestyle="--")
 kappa = 3
 plt.fill_between(unv(xfit), unv(yfit) - kappa*usd(yfit), unv(yfit) + kappa*usd(yfit), alpha=0.6, label="Fit$\\pm %s \\sigma$" % kappa, color="C1")
 plt.errorbar(unv(x), unv(y), usd(y), label = "Messung C", fmt=" ", color="C0")
@@ -362,3 +365,26 @@ def vglISO(im):
 vglISO(-isoA/milli)
 vglISO(-isoB/milli)
 vglISO(-isoC/milli)
+
+# %% aufgabe 4
+# A
+
+S26 = 1.33
+Z = 26
+A = 57
+e = 1
+E = 14.4 / mega # GeV
+e0 = 55.26349406 # e2 GeV-1 fm-1
+R = 1.3 * A**(1/3) # fm
+a0 = 0.0529177210903 * nano # meter
+
+PA_Pd = unc.ufloat(11881.8, 0.1) # a0-3
+PA_ss =  unc.ufloat(11882.4, 0.1) # a0-3
+PA_KFe =  unc.ufloat(11882.3, 0.1) # a0-3
+
+dRR = isoA * 5 * E * e0 / (S26 * c0 * e**2 * Z * R**2 * (PA_ss - PA_Pd)) * (a0 / femto)**3 # 1
+PA_B = isoB * 5 * E * e0 / (S26 * c0 * e**2 * Z * R**2 * dRR) * (a0 / femto)**3 + PA_Pd # a03
+PA_C = isoC * 5 * E * e0 / (S26 * c0 * e**2 * Z * R**2 * dRR) * (a0 / femto)**3 + PA_Pd # a03
+
+Latex.SI(PA_B, "a_0^{-3}0", "electrondensity_B")
+Latex.SI(PA_C, "a_0^{-3}0", "electrondensity_C")

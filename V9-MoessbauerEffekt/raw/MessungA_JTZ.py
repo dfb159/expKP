@@ -1,100 +1,131 @@
 import numpy as np
-from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
+import scipy.odr as odr
 
 
 # Read data:
-messungA = "messungA1.txt"
-speedchannel = np.loadtxt(messungA, dtype = int, delimiter = " ", usecols = 0)
-counts = np.loadtxt(messungA, dtype = int, delimiter = " ", usecols = 1)
-velocity0 = "velocity1_smoothed.txt"
-channel = np.loadtxt(velocity0, dtype = int, delimiter = " ", usecols = 0)
-fake_velocity = np.loadtxt(velocity0, dtype = int, delimiter = " ", usecols = 1)
+counts = np.loadtxt("messungA1.txt", dtype = int, delimiter = " ", usecols = 1)
+fakeVelocity = np.loadtxt("velocity1_smoothed.txt", dtype = int, delimiter = " ", usecols = 1)
 
 
 # Initialize global variables:
 n = 256
-halfspeedchannel = np.zeros(n)
-for i in range(0, n):
-    halfspeedchannel[i] = i
+halfChannel = np.linspace(0, n-1, num=n)
 
 
-# Fit functions:
-def absKosinus(x, A, phi):
+# Some functions to fit and calculate:
+def absKosinus(parameter, x):
+    A, phi = parameter
     return A * np.absolute(np.cos((np.pi / 256.) * (x + phi)))
 
-def gaussian(x, A, mu, sigma, B):
+def minusKosinus(A, phi, x):
+    return -A * np.cos((np.pi / 256.) * (x + phi))
+
+def Sinus(A, phi, x):
+    return A * np.sin((np.pi / 256.) * (x + phi))
+
+def minusKosinusUnc(A, phi, A_err, phi_err, x):
+    return np.sqrt((minusKosinus(A_err, phi, x))**2 + (Sinus((A*np.pi*phi_err)/256., phi, x))**2)
+
+def Gaussian(parameter, x):
+    A, mu, sigma, B = parameter
     return A * np.exp(-.5 * ((x - mu)/sigma)**2) + B
+
+def calculateFWHM(sigma):
+    return 2 * np.sqrt(2 * np.log(2)) * sigma
+
+def calculateMesseffekt(A, B):
+    return -A / B
+
+def calculateMesseffektUnc(A, B, A_err, B_err):
+    return calculateMesseffekt(A, B) * np.sqrt((A_err / A)**2 + (B_err / B)**2)
+
+
+# Formulas for the velocity and its uncertainty with an adjustment of the scale:
+def calculateVelocity(N_k, frequency, wavelength, RunsPerMeasurement, N):
+    return ((N * N_k * frequency * wavelength)/(2. * RunsPerMeasurement)) * 1e-06
+
+def calculateVelocityUnc(N_k, frequency, wavelength, RunsPerMeasurement, wavelength_err, N):
+    return calculateVelocity(N_k, frequency, wavelength, RunsPerMeasurement, N) * np.sqrt((1/N) + (wavelength_err/wavelength)**2)
 
 
 # Kills the reflection:
 # For messungA1:
-combinedcounts = np.zeros(n)
+combinedCounts = np.zeros(n)
 for i in range(0, n):
-    combinedcounts[i] = counts[(n - 1) - i] + counts[n + i]
+    combinedCounts[i] = counts[n - 1 - i] + counts[n + i]
 # For velocity1_smoothed:
-combinedfake_velocity = np.zeros(n)
+combinedFakeVelocity = np.zeros(n)
 for i in range(0, n):
-    combinedfake_velocity[i] = fake_velocity[(n - 1) - i] + fake_velocity[n + i]
+    combinedFakeVelocity[i] = fakeVelocity[n - 1 - i] + fakeVelocity[n + i]
 
 
 # Calculate the acual velocity and its uncertainty:
-def calculateVelocity(N, N_k, frequency, wavelength, RunsPerMeasurement):
-    return (N * N_k * frequency * wavelength)/(2. * RunsPerMeasurement)
-
-def calculateVelocityUnc(N, N_k, frequency, wavelength, RunsPerMeasurement, errorwavelength):
-    return calculateVelocity(N, N_k, frequency, wavelength, RunsPerMeasurement) * np.sqrt((1/N) + (errorwavelength/wavelength)**2)
-
-velocity = np.zeros(n)
-velocityUnc = np.zeros(n)
-for i in range(0, n):
-    velocity[i] = calculateVelocity(combinedfake_velocity[i], n, 24., 635., 20000.)
-    velocityUnc[i] = calculateVelocityUnc(combinedfake_velocity[i], n, 24., 635., 20000., 5.)
+velocity = calculateVelocity(n, 24., 635., 20000., combinedFakeVelocity)
+velocityUnc = calculateVelocityUnc(n, 24., 635., 20000., 5., combinedFakeVelocity)
 
 
-# Fitting speed spectrum data:
-popt, pcov = curve_fit(absKosinus, halfspeedchannel, velocity, sigma=velocityUnc)
-print("A = ", popt[0], "+/-", np.sqrt(pcov[0][0]))
-print("phi = ", popt[1], "+/-", np.sqrt(pcov[1][1]))
+# Fitting velocity spectrum data:
+model0 = odr.Model(absKosinus)
+data0 = odr.RealData(halfChannel, velocity, sy=velocityUnc)
+ODR0 = odr.ODR(data0, model0, beta0=[2.06, 0.5])
+output0 = ODR0.run()
 
 
-# Change x axis from channel to speed:
-def Kosinus(x, A, phi):
-    return A * np.cos((np.pi / 256.) * (x + phi))
+# Change the x axis from channel to real velocity:
+realVelocity = minusKosinus(output0.beta[0], output0.beta[1], halfChannel)
 
-speed = np.zeros(n)
-for i in range(0, n):
-    speed[i] = Kosinus(halfspeedchannel[i], popt[0], popt[1])
+
+# The uncertainty of a real velocity value is the horizontal uncertainty of the corresponding data point:
+realVelocityUnc = minusKosinusUnc(output0.beta[0], output0.beta[1], output0.sd_beta[0], output0.sd_beta[1], halfChannel)
 
 
 # Fitting the spectrum of Messung A:
-
+model = odr.Model(Gaussian)
+data = odr.RealData(realVelocity, combinedCounts, sx=realVelocityUnc, sy=np.sqrt(combinedCounts))
+ODR = odr.ODR(data, model, beta0=[-80., -0.25, 0.25, 200.])
+output = ODR.run()
 
 
 # Sixth plot:
-plt.figure("Speed Spectrum")
-plt.errorbar(halfspeedchannel, velocity, yerr=velocityUnc, fmt="none")
-plt.plot(halfspeedchannel, absKosinus(halfspeedchannel, popt[0], popt[1]), "-r")
-plt.title("Speed Spectrum", fontsize=18)
-plt.xlabel("Channel", fontsize=14)
-plt.ylabel("Speed", fontsize=14)
+plt.figure("|Velocity| Spectrum")
+plt.errorbar(halfChannel, velocity, yerr=velocityUnc, fmt="none", label="Messwerte")
+plt.plot(halfChannel, absKosinus(output0.beta, halfChannel), "-r", label="Kalibrierungsfit")
+plt.legend(loc="best")
+plt.title("|Velocity| Spectrum", fontsize=18)
+plt.xlabel("Channel", fontsize=16)
+plt.ylabel("|Velocity| (in mm/s)", fontsize=16)
 plt.grid(True)
 plt.show()
+
+print("A =", output0.beta[0], "+/-", output0.sd_beta[0])
+print("phi =", output0.beta[1], "+/-", output0.sd_beta[1])
 
 # Second plot:
-plt.figure("Combined Spectrum")
-plt.plot(halfspeedchannel, combinedcounts, ".k")
-plt.title("Combined Spectrum", fontsize=18)
-plt.xlabel("Channel", fontsize=14)
-plt.ylabel("Counts", fontsize=14)
+#plt.figure("Combined Spectrum")
+#plt.plot(halfChannel, combinedCounts, ".k")
+#plt.title("Combined Spectrum", fontsize=18)
+#plt.xlabel("Channel", fontsize=16)
+#plt.ylabel("Counts", fontsize=16)
+#plt.grid(True)
+#plt.show()
+
+# Eighth plot:
+plt.figure("Spectrum Messung A")
+plt.errorbar(realVelocity, combinedCounts, xerr=realVelocityUnc, yerr=np.sqrt(combinedCounts), fmt="none", label="Messwerte")
+plt.plot(realVelocity, Gaussian(output.beta, realVelocity), "-r", label="Gaußsche Anpassungskurve")
+plt.legend(loc="best")
+plt.title("Spectrum Messung A", fontsize=18)
+plt.xlabel("Velocity (in mm/s)", fontsize=16)
+plt.ylabel("Counts", fontsize=16)
 plt.grid(True)
 plt.show()
 
-# Seventh plot:
-plt.figure("Spectrum Messung A")
-plt.plot(speed, combinedcounts, ".k")
-plt.title("Spectrum Messung A", fontsize=18)
-plt.xlabel("Speed (in nm/s)", fontsize=14)
-plt.ylabel("Counts", fontsize=14)
-plt.grid(True)
-plt.show()
+
+# Show the fit parameters and the values, that need to be calculated:
+print(output.beta)
+print(output.sd_beta)
+print(np.sqrt(np.diag(output.cov_beta * output.res_var)))
+print("Messeffekt: -A/B =", calculateMesseffekt(output.beta[0], output.beta[3]), "+/-", calculateMesseffektUnc(output.beta[0], output.beta[3], output.sd_beta[0], output.sd_beta[3]))
+print("Halbwertsbreite: FWHM =", calculateFWHM(output.beta[2]), "+/-", calculateFWHM(output.sd_beta[2]))
+print("Isomerieverschiebung: v_iso =", output.beta[1], "+/-", output.sd_beta[1])

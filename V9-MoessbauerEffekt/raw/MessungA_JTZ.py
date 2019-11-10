@@ -73,7 +73,7 @@ def Gamma_korr_Unc(T, T_err):
     eta = 0.0219
     n = (0.0079 * (constants.value("speed of light in vacuum"))**2)/(56.845 * 931.494013e06 * constants.value("elementary charge"))
     d = 0.0025
-    return (0.29*sigma0*eta*n*d - 0.01*f_A_StainlessSteel(T)*(sigma0*eta*n*d)**2)*Gamma_nat*T_err
+    return (0.29*sigma0*eta*n*d - 0.01*f_A_StainlessSteel(T)*(sigma0*eta*n*d)**2)*Gamma_nat*f_A_StainlessSteel_Unc(T, T_err)
 
 def calculateDeltaRR(v_iso):
     Z = 26.
@@ -83,7 +83,7 @@ def calculateDeltaRR(v_iso):
     a0 = 0.0529e-09
     Phi0_ss_squard = 11882.4/(a0**3)
     Phi0_Pd_squard = 11881.8/(a0**3)
-    return (5.*E_gamma*constants.value("electric constant")*np.abs(v_iso))/(S*Z*constants.value("speed of light in vacuum")*(Phi0_ss_squard - Phi0_Pd_squard)*(R*constants.value("elementary charge"))**2)
+    return (5.*E_gamma*constants.value("electric constant")*np.abs(v_iso)*1e-3)/(S*Z*constants.value("speed of light in vacuum")*(Phi0_ss_squard - Phi0_Pd_squard)*(R*constants.value("elementary charge"))**2)
 
 def calculateSingleTemperatureValueUnc(m_err, n_err, x_err, m, x):
     return np.sqrt((x * m_err)**2 + (n_err)**2 + (m * x_err)**2)
@@ -136,31 +136,41 @@ output = ODR.run()
 
 
 # Temperature fit and calculation of the theoretical FWHM:
-hours = []
-minutes = []
-minutesUnc = np.repeat(, 18)
+hours = [10., 10., 11., 11., 11., 11., 12., 12., 13., 13., 13., 13., 13., 14., 14., 14., 14., 15.]
+minutes = [47., 59., 5., 13., 34., 51., 5., 56., 15., 23., 40., 52., 58., 19., 27., 36., 48., 2.]
 time = np.zeros(18)
+timeUnc = np.repeat(0.5/(60.*np.sqrt(3)), 18)
 temperature = [19.8, 20., 20., 20.2, 20.6, 20.8, 21.2, 21.4, 21.4, 21.6, 21.6, 21.8, 21.8, 22., 22., 22.2, 22.2, 22.2]
 temperatureUnc = np.repeat(0.1/np.sqrt(3), 18)
 for i in range(0, 18):
     time[i] = minutes[i] / 60. + hours[i]
     temperature[i] = 273.15 + temperature[i]
 model2 = odr.Model(line)
-data2 = odr.RealData(time, temperature, sx=minutesUnc, sy=temperatureUnc)
-ODR2 = odr.ODR(data2, model2, beta0=[, ])
+data2 = odr.RealData(time, temperature, sx=timeUnc, sy=temperatureUnc)
+ODR2 = odr.ODR(data2, model2, beta0=[0.56, 280.])
 output2 = ODR2.run()
-output2.pprint()
+print("Messung A bei T =", line(output2.beta, 11. + 34./60.)-273.15, "+/-", calculateSingleTemperatureValueUnc(output2.sd_beta[0], output2.sd_beta[1], 0.5/(60.*np.sqrt(3)), output2.beta[0], 11. + 34./60.))
+print("Theoretisch Halbwertsbreite: FWHM_korr =", Gamma_korr(line(output2.beta, 11. + 34./60.)), "+/-", Gamma_korr_Unc(line(output2.beta, 11. + 34./60.), calculateSingleTemperatureValueUnc(output2.sd_beta[0], output2.sd_beta[1], 0.5/(60.*np.sqrt(3)), output2.beta[0], 11. + 34./60.)))
 
 
 # Show results:
+# Ninth plot:
+plt.figure("Entwicklung der Raumtemperatur im Labor")
+plt.errorbar(time, temperature, xerr=timeUnc, yerr=temperatureUnc, fmt="none", label="Messwerte")
+plt.plot(time, line(output2.beta, time), "-r", label="Lineare Anpassungskurve")
+plt.legend(loc="best")
+plt.xlabel("Zeit t (in h)", fontsize=16)
+plt.ylabel("Raumtemperatur T (in K)", fontsize=16)
+plt.grid(True)
+plt.show()
+
 # Sixth plot:
-plt.figure("|Velocity| Spectrum")
+plt.figure("Kanalspektrum")
 plt.errorbar(halfChannel, velocity, yerr=velocityUnc, fmt="none", label="Messwerte")
 plt.plot(halfChannel, absKosinus(output0.beta, halfChannel), "-r", label="Kalibrierungsfit")
 plt.legend(loc="best")
-plt.title("|Velocity| Spectrum", fontsize=18)
-plt.xlabel("Channel", fontsize=16)
-plt.ylabel("|Velocity| (in mm/s)", fontsize=16)
+plt.xlabel("Kanal", fontsize=16)
+plt.ylabel("Geschwindigkeit |v| (in mm/s)", fontsize=16)
 plt.grid(True)
 plt.show()
 
@@ -168,14 +178,20 @@ print("A =", output0.beta[0], "+/-", output0.sd_beta[0])
 print("phi =", output0.beta[1], "+/-", output0.sd_beta[1])
 
 # Eighth plot:
-plt.figure("Spectrum Messung A")
-plt.errorbar(realVelocity, combinedCounts, xerr=realVelocityUnc, yerr=np.sqrt(combinedCounts), fmt="none", label="Messwerte")
-plt.plot(realVelocity, Gaussian(output.beta, realVelocity), "-r", label="Gaußsche Anpassungskurve")
-plt.legend(loc="best")
-plt.title("Spectrum Messung A", fontsize=18)
-plt.xlabel("Velocity (in mm/s)", fontsize=16)
-plt.ylabel("Counts", fontsize=16)
+plt.figure("GeschwindigkeitsspektrumA", figsize=(10, 7.5))
+plt.axvline(x=output.beta[1], color="C1", linestyle=":", linewidth=3., zorder=3)
+plt.annotate(r"$v_{iso,A}$", xy=(-0.21, 227.5), fontsize=18, color="C1")
+plt.errorbar(realVelocity, combinedCounts, xerr=realVelocityUnc, yerr=np.sqrt(combinedCounts), capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Messwerte")
+plt.plot(realVelocity, Gaussian(output.beta, realVelocity), "-r", linewidth=3., zorder=5, label="Gaußsche Anpassungskurve")
+plt.plot(np.linspace(output.beta[1]-calculateFWHM(output.beta[2])/2, output.beta[1]+calculateFWHM(output.beta[2])/2, 100), np.repeat(output.beta[3]+output.beta[0]/2, 100), "--g", linewidth=3., zorder=4, label=r"Halbwertsbreite $\Gamma_{exp}$")
+plt.legend(loc="best", fontsize=18)
+plt.xlabel(r"Geschwindigkeit $v$ $\left[\frac{mm}{s}\right]$", fontsize=20)
+plt.ylabel(u"Counts $N$", fontsize=20)
+plt.xticks(np.linspace(-2., 2., 9, endpoint=True))
+plt.yticks(np.linspace(100., 300., 11, endpoint=True))
+plt.tick_params(labelsize=16)
 plt.grid(True)
+plt.savefig("GeschwindigkeitsspektrumA.pdf")
 plt.show()
 
 

@@ -75,6 +75,19 @@ def Gamma_korr_Unc(T, T_err):
     d = 0.0025
     return (0.29*sigma0*eta*n*d - 0.01*f_A_StainlessSteel(T)*(sigma0*eta*n*d)**2)*Gamma_nat*T_err
 
+def calculateDeltaRR(v_iso):
+    Z = 26.
+    S = 1.33
+    R = 1.3e-15 * 57**(1./3.)
+    E_gamma = 14.41295e03 * constants.value("elementary charge")
+    a0 = 0.0529e-09
+    Phi0_ss_squard = 11882.4/(a0**3)
+    Phi0_Pd_squard = 11881.8/(a0**3)
+    return (5.*E_gamma*constants.value("electric constant")*np.abs(v_iso))/(S*Z*constants.value("speed of light in vacuum")*(Phi0_ss_squard - Phi0_Pd_squard)*(R*constants.value("elementary charge"))**2)
+
+def calculateSingleTemperatureValueUnc(m_err, n_err, x_err, m, x):
+    return np.sqrt((x * m_err)**2 + (n_err)**2 + (m * x_err)**2)
+
 
 # Formulas for the velocity and its uncertainty with an adjustment of the scale:
 def calculateVelocity(N_k, frequency, wavelength, RunsPerMeasurement, N):
@@ -123,9 +136,23 @@ output = ODR.run()
 
 
 # Temperature fit and calculation of the theoretical FWHM:
+hours = []
+minutes = []
+minutesUnc = np.repeat(, 18)
+time = np.zeros(18)
+temperature = [19.8, 20., 20., 20.2, 20.6, 20.8, 21.2, 21.4, 21.4, 21.6, 21.6, 21.8, 21.8, 22., 22., 22.2, 22.2, 22.2]
+temperatureUnc = np.repeat(0.1/np.sqrt(3), 18)
+for i in range(0, 18):
+    time[i] = minutes[i] / 60. + hours[i]
+    temperature[i] = 273.15 + temperature[i]
+model2 = odr.Model(line)
+data2 = odr.RealData(time, temperature, sx=minutesUnc, sy=temperatureUnc)
+ODR2 = odr.ODR(data2, model2, beta0=[, ])
+output2 = ODR2.run()
+output2.pprint()
 
 
-
+# Show results:
 # Sixth plot:
 plt.figure("|Velocity| Spectrum")
 plt.errorbar(halfChannel, velocity, yerr=velocityUnc, fmt="none", label="Messwerte")
@@ -139,15 +166,6 @@ plt.show()
 
 print("A =", output0.beta[0], "+/-", output0.sd_beta[0])
 print("phi =", output0.beta[1], "+/-", output0.sd_beta[1])
-
-# Second plot:
-#plt.figure("Combined Spectrum")
-#plt.plot(halfChannel, combinedCounts, ".k")
-#plt.title("Combined Spectrum", fontsize=18)
-#plt.xlabel("Channel", fontsize=16)
-#plt.ylabel("Counts", fontsize=16)
-#plt.grid(True)
-#plt.show()
 
 # Eighth plot:
 plt.figure("Spectrum Messung A")
@@ -168,3 +186,4 @@ print(np.sqrt(np.diag(output.cov_beta * output.res_var)))
 print("Messeffekt: -A/B =", calculateMesseffekt(output.beta[0], output.beta[3]), "+/-", calculateMesseffektUnc(output.beta[0], output.beta[3], output.sd_beta[0], output.sd_beta[3]))
 print("Halbwertsbreite: FWHM =", calculateFWHM(output.beta[2]), "+/-", calculateFWHM(output.sd_beta[2]))
 print("Isomerieverschiebung: v_iso =", output.beta[1], "+/-", output.sd_beta[1])
+print("Relative Aenderung des Kernladungsradius: dR/R =", calculateDeltaRR(output.beta[1]), "+/-", calculateDeltaRR(output.sd_beta[1]))

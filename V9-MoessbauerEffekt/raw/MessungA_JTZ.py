@@ -164,7 +164,7 @@ plt.plot(11. + 34./60., line(output2.beta, 11. + 34./60.), "or", markersize=12, 
 plt.annotate(r"$\sim$11:34 Uhr", xy=(11.61, 293.08), fontsize=18, color="C1")
 plt.annotate(r"$T_{A}$", xy=(10.66, 293.71), fontsize=18, color="C1")
 plt.legend(loc="best", fontsize=18)
-plt.xlabel(u"Zeit $t$ [h]", fontsize=20)
+plt.xlabel(u"Uhrzeit $t$ [h]", fontsize=20)
 plt.ylabel(u"Raumtemperatur $T$ [K]", fontsize=20)
 plt.xlim(10.5, 15.5)
 plt.ylim(292.85, 295.65)

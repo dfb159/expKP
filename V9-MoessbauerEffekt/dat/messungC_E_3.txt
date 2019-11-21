@@ -1,0 +1,1 @@
+\SI{-3,72 \pm 0,16e-05}{\electronvolt}

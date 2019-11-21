@@ -1,0 +1,1 @@
+\SI{3,88 \pm 0,07e-08}{\electronvolt}

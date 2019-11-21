@@ -1,0 +1,1 @@
+\SI{-1,89 \pm 0,19e+22}{\volt\per\meter\squared}

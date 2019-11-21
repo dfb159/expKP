@@ -1,1 +1,1 @@
-\SI{0,138 \pm 0,009}{\milli\meter\per\second}
+\SI{-0,154 \pm 0,013}{\milli\meter\per\second}

@@ -1,3 +1,80 @@
 % Autor: Chris Lippe, Jonathan Sigrist, Jannik Tim Zarnitz
 % Datum: 2019-11
 % basiert auf der Vorlage für Versuchsprotokolle von Simon May
+
+\documentclass[
+a4paper,                % Papierformat (DIN A4)
+titlepage=firstiscover, % Separate Titelseite
+captions=tableheading,  % \caption bei Tabellen immer als Überschrift setzen
+toc=bibliography,       % Literaturverzeichnis im Inhaltsverzeichnis aufführen
+toc=listof,             % Abbildungsverzeichnis etc. im Inhaltsverzeichnis aufführen
+oneside,                % Einseitig
+%twoside,               % Zweiseitig
+%twocolumn,             % Zweispaltig
+automark,               % Abschnittstitel automatisch in Kopfzeile einfügen
+12pt,                   % Schriftgröße (beliebige Größen mit „fontsize=Xpt“)
+english, ngerman,       % Sprache für z.B. Babel; ausgewählt: ngerman (letztgenannt)
+%draft=true             % Entwurf-Modus; markiert zu lange und zu kurze Zeilen
+parskip = half,         % Abstand nach Absatz
+]{scrartcl}
+
+\input{tex/01_PaketeEinstellungen.tex}
+\input{tex/02_EigeneBefehle.tex}
+\input{tex/03_Variablen.tex}
+\input{tex/04_setup.tex}
+
+\begin{document}
+	
+	% Römische Seitenzahlen für Titelseite/Inhaltsverzeichnis
+	\pagenumbering{roman}
+	% Zunächst ohne Kopf-/Fußzeile
+	\pagestyle{scrplain}
+	
+	% --- Titelseite einbinden
+	%     Falls die Datei „res/titelbild.pdf“ existiert, wird sie auf der Titelseite
+	%     eingefügt
+	\IfFileExists{tex/05_Titelseite.tex}{
+		\input{tex/05_Titelseite.tex}
+	}{}
+	
+	% --- Inhaltsverzeichnis einbinden
+	\ifthenelse{\boolean{showTOC}}{
+		\tableofcontents
+		\clearpage
+	}{}
+	
+	% Zurücksetzen der Seitenzahlen auf arabische Ziffern
+	\pagenumbering{arabic}
+	% Ab hier mit Kopf- und Fußzeile
+	\pagestyle{scrheadings}
+	
+	% --- Den Inhalt der Arbeit einbinden
+	\input{tex/10_Einleitung.tex}
+	\newpage
+	\input{tex/11_Theorie.tex}
+	\newpage
+	%	\input{tex/12_Durchfuehrung.tex}
+	%\newpage
+	%	\input{tex/13_Auswertung.tex}
+	\input{tex/auswertung_joey.tex}
+	
+	%\input{tex/name.tex}
+	% --- Fazit des gesammten Versuchs einbinden, falls nötig
+	%	\IfFileExists{tex/19_Fazit.tex}{
+	%		\input{tex/19_Fazit.tex}
+	%	}{}
+	
+	% --- Anhang einbinden
+	%	\IfFileExists{tex/20_Anhang.tex}{
+	
+	%\appendix
+	%		\newpage
+	%		\section{Anhang}
+	%		\label{sec:anhang}
+	%		\input{tex/20_Anhang.tex}
+	%	}{}
+	
+	\clearpage
+	\printbibliography
+	
+\end{document}

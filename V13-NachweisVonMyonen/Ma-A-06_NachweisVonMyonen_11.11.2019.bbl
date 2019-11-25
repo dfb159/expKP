@@ -1,0 +1,94 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{gum}{booklet}{}
+      \name{author}{1}{}{%
+        {{hash=360dbfa65ff2d73c8af141b0387219bd}{%
+           family={Guides\bibnamedelimb in\bibnamedelima Metrology},
+           familyi={G\bibinitperiod\bibinitdelim i\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={Joint\bibnamedelima Committee},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod},
+           prefix={for},
+           prefixi={f\bibinitperiod}}}%
+      }
+      \strng{namehash}{360dbfa65ff2d73c8af141b0387219bd}
+      \strng{fullhash}{360dbfa65ff2d73c8af141b0387219bd}
+      \strng{bibnamehash}{360dbfa65ff2d73c8af141b0387219bd}
+      \strng{authorbibnamehash}{360dbfa65ff2d73c8af141b0387219bd}
+      \strng{authornamehash}{360dbfa65ff2d73c8af141b0387219bd}
+      \strng{authorfullhash}{360dbfa65ff2d73c8af141b0387219bd}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{month}{9}
+      \field{title}{Evaluation of measurement data — Guide to the expression of uncertainty in measurement}
+      \field{year}{2008}
+    \endentry
+    \entry{schatz}{book}{}
+      \name{author}{1}{}{%
+        {{hash=67a883cba42199b0a83498f4b7a1ffb5}{%
+           family={G.\bibnamedelimi Schatz},
+           familyi={G\bibinitperiod\bibinitdelim S\bibinitperiod},
+           given={A.\bibnamedelimi Weidinger},
+           giveni={A\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Teubner}%
+      }
+      \strng{namehash}{67a883cba42199b0a83498f4b7a1ffb5}
+      \strng{fullhash}{67a883cba42199b0a83498f4b7a1ffb5}
+      \strng{bibnamehash}{67a883cba42199b0a83498f4b7a1ffb5}
+      \strng{authorbibnamehash}{67a883cba42199b0a83498f4b7a1ffb5}
+      \strng{authornamehash}{67a883cba42199b0a83498f4b7a1ffb5}
+      \strng{authorfullhash}{67a883cba42199b0a83498f4b7a1ffb5}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Nukleare Festkörperphysik}
+      \field{year}{1985}
+    \endentry
+    \entry{wwu}{unpublished}{}
+      \name{author}{1}{}{%
+        {{hash=dc8693828c760182e3fb6fca06bdc845}{%
+           family={unbekannt},
+           familyi={u\bibinitperiod},
+           given={Autor},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{dc8693828c760182e3fb6fca06bdc845}
+      \strng{fullhash}{dc8693828c760182e3fb6fca06bdc845}
+      \strng{bibnamehash}{dc8693828c760182e3fb6fca06bdc845}
+      \strng{authorbibnamehash}{dc8693828c760182e3fb6fca06bdc845}
+      \strng{authornamehash}{dc8693828c760182e3fb6fca06bdc845}
+      \strng{authorfullhash}{dc8693828c760182e3fb6fca06bdc845}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Versuchsanleitung, ausgehändigt an der WWU Münster}
+      \field{title}{Der Mößbauer-Effekt}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

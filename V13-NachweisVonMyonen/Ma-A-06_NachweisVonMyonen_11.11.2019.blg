@@ -1,0 +1,17 @@
+[0] Config.pm:304> INFO - This is Biber 2.13
+[0] Config.pm:307> INFO - Logfile is 'Ma-A-06_NachweisVonMyonen_11.11.2019.blg'
+[29] biber-MSWIN32:315> INFO - === 
+[46] Biber.pm:375> INFO - Reading 'Ma-A-06_NachweisVonMyonen_11.11.2019.bcf'
+[146] Biber.pm:905> INFO - Found 3 citekeys in bib section 0
+[161] Biber.pm:4196> INFO - Processing section 0
+[163] Utils.pm:75> INFO - Globbing data source 'res/literatur.bib'
+[186] Utils.pm:91> INFO - Globbed data source 'res/literatur.bib' to res/literatur.bib
+[198] Biber.pm:4373> INFO - Looking for bibtex format file 'res/literatur.bib' for section 0
+[205] bibtex.pm:1462> INFO - LaTeX decoding ...
+[214] bibtex.pm:1281> INFO - Found BibTeX data source 'res/literatur.bib'
+[239] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[239] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'variable = shifted' with 'variable = non-ignorable'
+[239] Biber.pm:4024> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'de-DE'
+[239] Biber.pm:4030> INFO - No sort tailoring available for locale 'de-DE'
+[241] bbl.pm:648> INFO - Writing 'Ma-A-06_NachweisVonMyonen_11.11.2019.bbl' with encoding 'UTF-8'
+[242] bbl.pm:751> INFO - Output to Ma-A-06_NachweisVonMyonen_11.11.2019.bbl

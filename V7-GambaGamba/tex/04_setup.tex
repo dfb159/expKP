@@ -1,0 +1,76 @@
+
+% --- Einstellungen
+% -- LaTeX/KOMA
+% 1,5-facher Zeilenabstand
+\onehalfspacing
+\recalctypearea
+% Schrift bei Bildunterschriften ändern
+\addtokomafont{caption}{\small}
+\addtokomafont{captionlabel}{\bfseries}
+% Nummerierung der Formeln entsprechend des Abschnitts (z.B. 1.1)
+\numberwithin{equation}{section}
+% „Verwaiste“ Zeilen am Seitenanfang/-Ende stärker vermeiden
+\clubpenalty=1000
+\widowpenalty=1000
+% Auf mehrere Seiten aufgespaltene Fußnoten stärker vermeiden
+\interfootnotelinepenalty=3000
+
+% -- csquotes
+% Anführungszeichen automatisch umwandeln
+\MakeOuterQuote{"}
+
+% -- siunitx
+\sisetup{
+	locale=DE,
+	separate-uncertainty,
+	output-product=\cdot,
+	quotient-mode=fraction,
+	per-mode=fraction,
+	fraction-function=\sfrac
+}
+
+% -- hyperref
+\hypersetup{
+	% Links/Verweise mit Kasten der Dicke 0.5pt versehen
+	pdfborder={0 0 0.5}
+	pdftitle={Versuchsprotokoll: \varName},
+	pdfauthor={\varAutor},
+	pdfsubject={Masterpraktikum},
+	pdfkeywords={Physik, Münster, Praktikum, Versuchsprotokoll}
+}
+
+% -- cleveref
+\crefname{equation}{}{}
+\Crefname{equation}{}{}
+
+% -- biblatex (Literaturverzeichnis)
+\IfFileExists{res/literatur.bib}{
+	\addbibresource{res/literatur.bib}
+}{}
+
+% Innenseite der Fußzeile
+\ifoot{}
+% Mitte der Fußzeile          
+\cfoot{-~\pagemark~-}
+% Außenseite der Fußzeile
+\ofoot{}
+
+% Kopf- und Fußzeile konfigurieren
+\ifthenelse{\boolean{showHeader}}{
+	\KOMAoptions{headsepline}
+	\recalctypearea
+	\automark{section}
+	% Innenseite der Kopfzeile
+	\ihead{}
+	% Mitte der Kopfzeile
+	\chead{}
+	% Außenseite der Kopfzeile
+	\ohead{\headmark}
+}{}
+
+\renewcommand\maketitle{}
+\DeclareSIUnit\year{yr}
+\DeclareSIUnit\days{d}
+\DeclareSIUnit\decibelmilliwatt{dBm}
+\bibliography{res/literatur}
+\setlength\parindent{0pt}

@@ -1,17 +1,25 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.odr as odr
-from scipy import constants
+#from scipy import constants
 
 
 # Read data:
 pulse = np.loadtxt("calibration_period=0.64_range=10.24_working.txt", dtype=int, skiprows=12, usecols = 0)
 counts = np.loadtxt("Lebensdauer_working.txt", dtype=int, skiprows=12, usecols = 0)
+Counts0Deg = np.loadtxt("landau_0_new_working.txt", dtype=int, skiprows=12, usecols = 0)
+Counts30Deg = np.loadtxt("landau_30_working.txt", dtype=int, skiprows=12, usecols = 0) 
+Counts45Deg = np.loadtxt("landau_45_working.txt", dtype=int, skiprows=12, usecols = 0)
+Counts75Deg = np.loadtxt("landau_75_working.txt", dtype=int, skiprows=12, usecols = 0)
 
 
 # Initialize global variables:
 n = len(pulse)
 channel = np.linspace(0, n-1, num=n)
+ActiveMeasurementTime0Deg = 78561.
+ActiveMeasurementTime30Deg = 88443.
+ActiveMeasurementTime45Deg = 91368.
+ActiveMeasurementTime75Deg = 260489.
 
 
 # Some functions to fit and calculate:
@@ -28,7 +36,11 @@ def lineUnc(m, m_err, n_err, x):
 
 def exponential(parameter, x):
     N0, tau, y0 = parameter
-    return N0 * np.exp((-1. * x)/tau) +y0
+    return N0 * np.exp((-1. * x)/tau) + y0
+
+def LandauDistribution(parameter, x):
+    A, x0, b = parameter
+    return (A * np.exp( -.5 * ( (x-x0)/b + np.exp(-1.*(x-x0)/b) ) ))/np.sqrt(2.*np.pi)
 
 def OneOrGreater(arg):
     if arg > 0.0:
@@ -42,9 +54,6 @@ def OneOrGreaterReturnSqrt(arg):
     else:
         return 1.0
 
-#print(list(map(OneOrGreaterReturnSqrt, [25., 16., 4., 0.])))
-#a, b = [12., 13.]
-#print(a, b)
 
 # Fit and analyze the peaks:
 # Create a specified function, that returns an array:
@@ -97,7 +106,7 @@ TimeUnc = lineUnc(output0.beta[0], output0.sd_beta[0], output0.sd_beta[1], chann
 BinnedCounts = np.zeros(n)
 BinnedCountsUnc = np.zeros(n)
 for i in range(0, n, 8):
-    BinnedCounts[i] = .5 * (counts[i] + counts[i+1] + counts[i+2] + counts[i+3] + counts[i+4] + counts[i+5] + counts[i+6] + counts[i+7])
+    BinnedCounts[i] = .125 * (counts[i] + counts[i+1] + counts[i+2] + counts[i+3] + counts[i+4] + counts[i+5] + counts[i+6] + counts[i+7])
     BinnedCounts[i+1] = BinnedCounts[i]
     BinnedCounts[i+2] = BinnedCounts[i]
     BinnedCounts[i+3] = BinnedCounts[i]
@@ -105,7 +114,7 @@ for i in range(0, n, 8):
     BinnedCounts[i+5] = BinnedCounts[i]
     BinnedCounts[i+6] = BinnedCounts[i]
     BinnedCounts[i+7] = BinnedCounts[i]
-    BinnedCountsUnc[i] = .5 * np.sqrt(counts[i] + counts[i+1] + counts[i+2] + counts[i+3] + counts[i+4] + counts[i+5] + counts[i+6] + counts[i+7])
+    BinnedCountsUnc[i] = .125 * np.sqrt(counts[i] + counts[i+1] + counts[i+2] + counts[i+3] + counts[i+4] + counts[i+5] + counts[i+6] + counts[i+7])
     BinnedCountsUnc[i+1] = BinnedCountsUnc[i]
     BinnedCountsUnc[i+2] = BinnedCountsUnc[i]
     BinnedCountsUnc[i+3] = BinnedCountsUnc[i]
@@ -116,43 +125,124 @@ for i in range(0, n, 8):
 
 
 # Create an exponential fit for the lifetime and decay measurement:
-# In order to ignore the first data points, start at the array element 136:
+# In order to ignore the first/last data points, start at the array element 136 and end at the array element 8008:
 model1 = odr.Model(exponential)
 data1 = odr.RealData(Time[136:8008], BinnedCounts[136:8008], sx=TimeUnc[136:8008], sy=list(map(OneOrGreater, BinnedCountsUnc[136:8008])))
-ODR1 = odr.ODR(data1, model1, beta0=[150., 2.1, 3.])
+ODR1 = odr.ODR(data1, model1, beta0=[26., 2.1, 0.7])
 output1 = ODR1.run()
 
 
+#------------------------------------------------------------------------------
+
+
+# For the 0 degrees spectrum:
+# Bin the channels and their counts:
+BinnedCounts0Deg = np.zeros(n)
+BinnedCounts0DegUnc = np.zeros(n)
+for i in range(0, n, 4):
+    BinnedCounts0Deg[i] = .25 * (Counts0Deg[i] + Counts0Deg[i+1] + Counts0Deg[i+2] + Counts0Deg[i+3])
+    BinnedCounts0Deg[i+1] = BinnedCounts0Deg[i]
+    BinnedCounts0Deg[i+2] = BinnedCounts0Deg[i]
+    BinnedCounts0Deg[i+3] = BinnedCounts0Deg[i]
+    BinnedCounts0DegUnc[i] = .25 * np.sqrt(Counts0Deg[i] + Counts0Deg[i+1] + Counts0Deg[i+2] + Counts0Deg[i+3])
+    BinnedCounts0DegUnc[i+1] = BinnedCounts0DegUnc[i]
+    BinnedCounts0DegUnc[i+2] = BinnedCounts0DegUnc[i]
+    BinnedCounts0DegUnc[i+3] = BinnedCounts0DegUnc[i]
+
+# Create a Landau fit for the energy spectrum; because of background start at the array element 400:
+model2 = odr.Model(LandauDistribution)
+data2 = odr.RealData(channel[400:], BinnedCounts0Deg[400:]/ActiveMeasurementTime0Deg, sx=np.repeat(0.5/np.sqrt(3), int(n - 400)), sy=np.divide(list(map(OneOrGreater, BinnedCounts0DegUnc)), ActiveMeasurementTime0Deg)[400:])
+ODR2 = odr.ODR(data2, model2, beta0=[0.002, 500., 250.])
+output2 = ODR2.run()
+
+
+# For the 30 degrees spectrum:
+BinnedCounts30Deg = np.zeros(n)
+BinnedCounts30DegUnc = np.zeros(n)
+for i in range(0, n, 4):
+    BinnedCounts30Deg[i] = .25 * (Counts30Deg[i] + Counts30Deg[i+1] + Counts30Deg[i+2] + Counts30Deg[i+3])
+    BinnedCounts30Deg[i+1] = BinnedCounts30Deg[i]
+    BinnedCounts30Deg[i+2] = BinnedCounts30Deg[i]
+    BinnedCounts30Deg[i+3] = BinnedCounts30Deg[i]
+    BinnedCounts30DegUnc[i] = .25 * np.sqrt(Counts30Deg[i] + Counts30Deg[i+1] + Counts30Deg[i+2] + Counts30Deg[i+3])
+    BinnedCounts30DegUnc[i+1] = BinnedCounts30DegUnc[i]
+    BinnedCounts30DegUnc[i+2] = BinnedCounts30DegUnc[i]
+    BinnedCounts30DegUnc[i+3] = BinnedCounts30DegUnc[i]
+
+# Create a Landau fit for the energy spectrum; because of background start at the array element 400:
+model3 = odr.Model(LandauDistribution)
+data3 = odr.RealData(channel[400:], BinnedCounts30Deg[400:]/ActiveMeasurementTime30Deg, sx=np.repeat(0.5/np.sqrt(3), int(n - 400)), sy=np.divide(list(map(OneOrGreater, BinnedCounts30DegUnc)), ActiveMeasurementTime30Deg)[400:])
+ODR3 = odr.ODR(data3, model3, beta0=[0.01, 500., 50.])
+output3 = ODR3.run()
+
+
+#------------------------------------------------------------------------------
 # Show results:
 # Time calibration:
-plt.figure("Time calibration", figsize=(10, 7.5))
-plt.errorbar(PeakPositions, dt, xerr=PeakPositionsUnc, capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Data points")
-plt.plot(np.linspace(0., 4000., 2), line(output0.beta, np.linspace(0., 4000., 2)), "-r", linewidth=3., zorder=3, label="Linear fit")
-plt.legend(loc="best", fontsize=18)
-plt.xlabel(r"Channel $K$", fontsize=20)
-plt.ylabel(r"$\Delta$t $\left[ \mu s\right]$", fontsize=20)
-plt.xlim(0., 4000.)
-plt.tick_params(labelsize=16)
-plt.grid(True)
+#plt.figure("Time calibration", figsize=(10, 7.5))
+#plt.errorbar(PeakPositions, dt, xerr=PeakPositionsUnc, capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Data points")
+#plt.plot(np.linspace(0., 4000., 2), line(output0.beta, np.linspace(0., 4000., 2)), "-r", linewidth=3., zorder=3, label="Linear fit")
+#plt.legend(loc="best", fontsize=18)
+#plt.xlabel(r"Channel $K$", fontsize=20)
+#plt.ylabel(r"$\Delta$t $\left[ \mu s\right]$", fontsize=20)
+#plt.xlim(0., 4000.)
+#plt.tick_params(labelsize=16)
+#plt.grid(True)
 #plt.savefig("TimeCalibration.pdf")
-plt.show()
+#plt.show()
 
-print("Steigung: m = (", output0.beta[0], "+/-", output0.sd_beta[0], ")")
-print("y-Achsenabschnitt: n = (", output0.beta[1], "+/-", output0.sd_beta[1], ")")
+#print("Steigung: m = (", output0.beta[0], "+/-", output0.sd_beta[0], ")")
+#print("y-Achsenabschnitt: n = (", output0.beta[1], "+/-", output0.sd_beta[1], ")")
 
 # Mean lifetime and decay measurement:
-plt.figure("Mean lifetime and decay measurement", figsize=(10, 7.5))
-plt.axvline(x=Time[135], color="C1", linestyle="--", linewidth=2.5, zorder=4)
-plt.axvline(x=Time[8008], color="C1", linestyle="--", linewidth=2.5, zorder=4)
-plt.errorbar(Time, BinnedCounts, xerr=TimeUnc, yerr=BinnedCountsUnc, capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Data points")
-plt.plot(Time[136:8008], exponential(output1.beta, Time)[136:8008], "-r", linewidth=3.5, zorder=3, label="Exponential fit")
+#plt.figure("Mean lifetime and decay measurement", figsize=(10, 7.5))
+#plt.axvline(x=Time[135], color="C1", linestyle="--", linewidth=2.5, zorder=4)
+#plt.axvline(x=Time[8008], color="C1", linestyle="--", linewidth=2.5, zorder=4)
+#plt.errorbar(Time, BinnedCounts, xerr=TimeUnc, yerr=BinnedCountsUnc, capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Binned data points")
+#plt.plot(Time[136:8008], exponential(output1.beta, Time)[136:8008], "-r", linewidth=3.5, zorder=3, label="Exponential fit")
+#plt.legend(loc="best", fontsize=18)
+#plt.xlabel(r"Time $t$ $\left[ \mu s\right]$", fontsize=20)
+#plt.ylabel(r"Counts $N$", fontsize=20)
+#plt.tick_params(labelsize=16)
+#plt.grid(True)
+#plt.savefig("MeanLifetime.pdf")
+#plt.show()
+
+#print(output1.beta)
+#print(output1.sd_beta)
+
+# Energy spectrum at 0 degrees:
+plt.figure("Energy spectrum at 0 degrees", figsize=(10, 7.5))
+plt.axvline(x=channel[399], color="C1", linestyle="--", linewidth=2.5, zorder=4)
+plt.errorbar(channel, BinnedCounts0Deg/ActiveMeasurementTime0Deg, xerr=np.repeat(0.5/np.sqrt(3), n), yerr=BinnedCounts0DegUnc/ActiveMeasurementTime0Deg, capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Binned data points")
+plt.plot(channel, LandauDistribution(output2.beta, channel), "-r", linewidth=3.5, zorder=3, label="Landau fit")
 plt.legend(loc="best", fontsize=18)
-plt.xlabel(r"Time $t$ $\left[ \mu s\right]$", fontsize=20)
+plt.xlabel(r"Channel $K$", fontsize=20)
 plt.ylabel(r"Counts $N$", fontsize=20)
+plt.xlim(0., 1500.)
+plt.xticks(np.linspace(0., 1500., 7, endpoint=True))
 plt.tick_params(labelsize=16)
 plt.grid(True)
-#plt.savefig("MeanLifetime.pdf")
+#plt.savefig("EnergySpectrumAt0Degrees.pdf")
 plt.show()
 
-print(output1.beta)
-print(output1.sd_beta)
+print(output2.beta)
+print(output2.sd_beta)
+
+# Energy spectrum at 30 degrees:
+plt.figure("Energy spectrum at 30 degrees", figsize=(10, 7.5))
+plt.axvline(x=channel[399], color="C1", linestyle="--", linewidth=2.5, zorder=4)
+plt.errorbar(channel, BinnedCounts30Deg/ActiveMeasurementTime30Deg, xerr=np.repeat(0.5/np.sqrt(3), n), yerr=BinnedCounts30DegUnc/ActiveMeasurementTime30Deg, capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Binned data points")
+plt.plot(channel, LandauDistribution(output3.beta, channel), "-r", linewidth=3.5, zorder=3, label="Landau fit")
+plt.legend(loc="best", fontsize=18)
+plt.xlabel(r"Channel $K$", fontsize=20)
+plt.ylabel(r"Counts $N$", fontsize=20)
+plt.xlim(0., 1500.)
+plt.xticks(np.linspace(0., 1500., 7, endpoint=True))
+plt.tick_params(labelsize=16)
+plt.grid(True)
+#plt.savefig("EnergySpectrumAt30Degrees.pdf")
+plt.show()
+
+print(output3.beta)
+print(output3.sd_beta)

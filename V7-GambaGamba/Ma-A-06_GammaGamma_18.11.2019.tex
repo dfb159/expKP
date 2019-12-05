@@ -31,8 +31,7 @@ parskip = half,         % Abstand nach Absatz
 	\pagestyle{scrplain}
 	
 	% --- Titelseite einbinden
-	%     Falls die Datei „res/titelbild.pdf“ existiert, wird sie auf der Titelseite
-	%     eingefügt
+	%     Falls die Datei „res/titelbild.pdf“ existiert, wird sie auf der Titelseite eingefügt
 	\IfFileExists{tex/05_Titelseite.tex}{
 		\input{tex/05_Titelseite.tex}
 	}{}
@@ -53,19 +52,20 @@ parskip = half,         % Abstand nach Absatz
 	\newpage
 	\input{tex/11_Theorie.tex}
 	\newpage
-	%	\input{tex/12_Durchfuehrung.tex}
-	%\newpage
-	%	\input{tex/13_Auswertung.tex}
+	\input{tex/12_Durchfuehrung.tex}
+	\newpage
+	\input{tex/13_Auswertung.tex}
 	
-	%\input{tex/name.tex}
 	% --- Fazit des gesammten Versuchs einbinden, falls nötig
-	%	\IfFileExists{tex/19_Fazit.tex}{
-	%		\input{tex/19_Fazit.tex}
-	%	}{}
+	\IfFileExists{tex/19_Fazit.tex}{
+		\input{tex/19_Fazit.tex}
+	}{}
 	
 	% --- Anhang einbinden
-	%	\IfFileExists{tex/20_Anhang.tex}{
-	
+	\IfFileExists{tex/20_Anhang.tex}{
+		\input{tex/20_Anhang.tex}
+	}{}
+
 	%\appendix
 	%		\newpage
 	%		\section{Anhang}

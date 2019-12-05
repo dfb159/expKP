@@ -5,20 +5,30 @@
 
 \subsection{Cosmic rays and production of muons}
 
-High-energetic primary cosmic rays cover an energy range from $10^5\,$eV to $10^{20}\,$eV. They consist of protons (90\,\%), $\alpha$-particles (12,5\,\%) and heavier nuclei (2,5\,\%), while electrons and protons are almost completely suppressed.
+High-energetic primary cosmic rays cover an energy range from \SIrange{1e5}{1e20}{\electronvolt}.
+They consist of protons (85\,\%), $\alpha$-particles (12.5\,\%) and heavier nuclei (2.5\,\%), while electrons and photons are almost completely suppressed.
 
-When hitting the Earth's atmosphere, almost every particle within the primary rays causes an hadronic or electromagnetic shower by interacting with oxygen or nitrogen atoms in the atmosphere. These cascade reactions primarily lead to the production of many pions and photons. Neutral pions then mainly decay into two photons themselves. However, charged pions with a mean lifetime of $2,6\cdot10^{-8}\,$s decay into muons and muon neutrinos in 99,99\,\% of all cases:
+When hitting the Earth's atmosphere, almost every particle within the primary rays causes an hadronic or electromagnetic shower by interacting with oxygen or nitrogen atoms in the atmosphere.
+These cascade reactions primarily lead to the production of many pions and photons.
+Neutral pions then mainly decay into two photons themselves.
+However, charged pions with a mean lifetime of \SI{26}{\nano\second}\cite{pdg} decay into muons and muon neutrinos in 99,99\,\% of all cases:
 \begin{align}
 	\pi^+&\longrightarrow \mu^++\nu_\mu\\
 	\pi^-&\longrightarrow \mu^-+\bar{\nu}_\mu
 \end{align}
-At sea level, the majority of all detected charged particles are muons (almost 80\,\%) and electrons (20\,\%, rest roughly makes up 1\,\%). Also, muons almost entirely make up the so called \emph{hard component} of cosmic rays detected at sea level, which is per definition the component that can pass through 10\,cm of lead. Furthermore, muons have a mass of $105,7\,$MeV $\approx207\cdot m_e$. In Münster, the detected rate of muons is approximately 200 muons per square meter and second. 
+At sea level, the majority of all detected charged particles are muons (almost 80\,\%) and electrons (20\,\%, rest roughly makes up 1\,\%).
+Also, muons almost entirely make up the so called \emph{hard component} of cosmic rays detected at sea level, which is per definition the component that can pass through \SI{10}{\centi\meter} of lead.
+Furthermore, muons have a mass of \SI{105.7}{\mega\electronvolt} $\approx 207 \cdot m_e$.
+In Münster, the detected rate of muons is approximately 200 muons per square meter and second.
 
 \subsection{Characteristics of muons detected at sea level}
 
 \subsubsection{MIP peak and energy loss distribution}
 
-Particles that are able to pass the detector are minimally ionizing, i.\,e. their energy loss $\Delta E$ inside the detector module only depends on the travelled distance and follows a Landau distribution. The latter one looks similar to a Gaussian but introduces an asymmetry. As it cannot be represented by a closed analytical expression, the following approximation \cite{landau} will be used:
+Particles that are able to pass the detector are minimally ionizing, i.\,e. their energy loss $\Delta E$ inside the detector module only depends on the travelled distance and follows a Landau distribution.
+The latter one looks similar to a Gaussian but introduces an asymmetry.
+As it cannot be represented by a closed analytical expression, the following approximation \cite{landau} will be used:
+
 \begin{align}
 	\rho(\Delta E)\approx \frac{1}{\sqrt{2\pi}}\exp\left[ -\frac{1}{2}\left( \left(\Delta E-\Delta E_\text{max} \right) +e^{-\left(\Delta E-\Delta E_\text{max} \right)}\right) \right] ,
 \end{align} 
@@ -26,11 +36,13 @@ where $\Delta E_\text{max}$ is the most probable energy loss referred to as MIP 
 
 \subsubsection{Dependency of the detected spectrum on zenith angle}
 
-The measured flux $I_\mu$ of low-energy muons with energies $\leq 5\,$TeV depends on zenith angle $\theta$ as follows:
+The measured flux $I_\mu$ of low-energy muons with energies $\leq$ \SI{5}{\tera\electronvolt} depends on zenith angle $\theta$ as follows:
 \begin{align}
 	I_\mu \sim \cos^2\theta
 \end{align}
-For greater angles muons need to travel a longer distance through the Earth's atmosphere, thus they are more likely to be absorbed before reaching sea level. On the other hand, it becomes more probable that a high-energy pion or kaon decays into a muon with energies $>5\,$TeV. Hence, their measured flux follows:
+For greater angles muons need to travel a longer distance through the Earth's atmosphere, thus they are more likely to be absorbed before reaching sea level.
+On the other hand, it becomes more probable that a high-energy pion or kaon decays into a muon with energies larger than \SI{5}{\tera\electronvolt}.
+Hence, their measured flux follows:
 \begin{align}
 	I_\mu \sim \frac{1}{\cos\theta}
 \end{align}
@@ -51,10 +63,13 @@ It can be derived from the differential equation
 \begin{align}
 	\dot{N}(t)=-\frac{1}{\tau}N(t)
 \end{align}
-using separation of variables. Hence, the more muons the more decays. Furthermore, $\tau$ is the so-called mean lifetime. For free muons, positive or negative, it is:
-\begin{align}
-	\tau_\text{free}=(2,19703\pm 0,00004)\,\mu\text{s}
-\end{align}
+using separation of variables.
+Hence, the more muons the more decays.
+Furthermore, $\tau$ is the so-called mean lifetime.
+For free muons, positive or negative, it is\cite{pdg}:
+\begin{equation}
+	\tau_\text{free} = \SI{2.1969811 \pm 0.0000022}{\micro\second}.
+\end{equation}
 Negatively charged muons can also be captured by a proton inside the detector via
 \begin{align}
 	\mu^-+p \longrightarrow n+\nu_\mu\,.

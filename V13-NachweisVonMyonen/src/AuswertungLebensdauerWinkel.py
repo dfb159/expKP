@@ -16,7 +16,8 @@ Counts75Deg = np.loadtxt("landau_75_working.txt", dtype=int, skiprows=12, usecol
 # Initialize global variables:
 n = len(pulse)
 channel = np.linspace(0, n-1, num=n)
-ActiveMeasurementTime = [78561., 88443., 91368., 260489.]
+ActiveMeasurementTime = np.array([78561., 88443., 91368., 260489.])
+Angle = np.array([0., 30., 45., 75.])
 
 
 # Some functions to fit and calculate:
@@ -38,6 +39,9 @@ def exponential(parameter, x):
 def LandauDistribution(parameter, x):
     A, x0, b = parameter
     return (A * np.exp( -.5 * ( (x-x0)/b + np.exp(-1.*(x-x0)/b) ) ))/np.sqrt(2.*np.pi)
+
+def KosinusQuadrat(A, theta):
+    return A * (np.cos((np.pi * theta)/180.))**2
 
 def OneOrGreater(arg):
     if arg > 0.0:
@@ -145,7 +149,7 @@ for i in range(0, n, 4):
     BinnedCounts0DegUnc[i+2] = BinnedCounts0DegUnc[i]
     BinnedCounts0DegUnc[i+3] = BinnedCounts0DegUnc[i]
 
-# Create a Landau fit for the energy spectrum; because of background start at the array element 400:
+# Create a Landau fit for the energy loss spectrum; because of background start at the array element 400:
 model2 = odr.Model(LandauDistribution)
 data2 = odr.RealData(channel[400:], BinnedCounts0Deg[400:]/ActiveMeasurementTime[0], sx=np.repeat(0.5/np.sqrt(3), int(n - 400)), sy=np.divide(list(map(OneOrGreater, BinnedCounts0DegUnc)), ActiveMeasurementTime[0])[400:])
 ODR2 = odr.ODR(data2, model2, beta0=[0.002, 500., 250.])
@@ -166,7 +170,7 @@ for i in range(0, n, 4):
     BinnedCounts30DegUnc[i+2] = BinnedCounts30DegUnc[i]
     BinnedCounts30DegUnc[i+3] = BinnedCounts30DegUnc[i]
 
-# Create a Landau fit for the energy spectrum; because of background start at the array element 400:
+# Create a Landau fit for the energy loss spectrum; because of background start at the array element 400:
 model3 = odr.Model(LandauDistribution)
 data3 = odr.RealData(channel[400:], BinnedCounts30Deg[400:]/ActiveMeasurementTime[1], sx=np.repeat(0.5/np.sqrt(3), int(n - 400)), sy=np.divide(list(map(OneOrGreater, BinnedCounts30DegUnc)), ActiveMeasurementTime[1])[400:])
 ODR3 = odr.ODR(data3, model3, beta0=[0.01, 500., 50.])
@@ -187,7 +191,7 @@ for i in range(0, n, 4):
     BinnedCounts45DegUnc[i+2] = BinnedCounts45DegUnc[i]
     BinnedCounts45DegUnc[i+3] = BinnedCounts45DegUnc[i]
 
-# Create a Landau fit for the energy spectrum; because of background start at the array element 400:
+# Create a Landau fit for the energy loss spectrum; because of background start at the array element 400:
 model4 = odr.Model(LandauDistribution)
 data4 = odr.RealData(channel[400:], BinnedCounts45Deg[400:]/ActiveMeasurementTime[2], sx=np.repeat(0.5/np.sqrt(3), int(n - 400)), sy=np.divide(list(map(OneOrGreater, BinnedCounts45DegUnc)), ActiveMeasurementTime[2])[400:])
 ODR4 = odr.ODR(data4, model4, beta0=[0.01, 500., 50.])
@@ -208,133 +212,160 @@ for i in range(0, n, 4):
     BinnedCounts75DegUnc[i+2] = BinnedCounts75DegUnc[i]
     BinnedCounts75DegUnc[i+3] = BinnedCounts75DegUnc[i]
 
-# Create a Landau fit for the energy spectrum; because of background start at the array element 450:
+# Create a Landau fit for the energy loss spectrum; because of background start at the array element 450:
 model5 = odr.Model(LandauDistribution)
 data5 = odr.RealData(channel[450:800], BinnedCounts75Deg[450:800]/ActiveMeasurementTime[3], sx=np.repeat(0.5/np.sqrt(3), int(800 - 450)), sy=np.divide(list(map(OneOrGreater, BinnedCounts75DegUnc)), ActiveMeasurementTime[3])[450:800])
 ODR5 = odr.ODR(data5, model5, beta0=[0.001, 500., 55.])
 output5 = ODR5.run()
 
 
-# Calculate the count rates:
-print(sum(Counts0Deg)/ActiveMeasurementTime[0])
-print(sum(Counts30Deg)/ActiveMeasurementTime[1])
-print(sum(Counts45Deg)/ActiveMeasurementTime[2])
-print(sum(Counts75Deg)/ActiveMeasurementTime[3])
-#CountRates = []
+# Calculate the count rates and their uncertainties:
+CountRates = np.divide(np.array([ sum(Counts0Deg[int(output2.beta[1] - output2.beta[2]):int(output2.beta[1] + output2.beta[2])]), sum(Counts30Deg[int(output3.beta[1] - output3.beta[2]):int(output3.beta[1] + output3.beta[2])]), sum(Counts45Deg[int(output4.beta[1] - output4.beta[2]):int(output4.beta[1] + output4.beta[2])]), sum(Counts75Deg[int(output5.beta[1] - output5.beta[2]):int(output5.beta[1] + output5.beta[2])]) ]), ActiveMeasurementTime)
+CountRatesUnc = np.divide(np.sqrt(np.array([ sum(Counts0Deg[int(output2.beta[1] - output2.beta[2]):int(output2.beta[1] + output2.beta[2])]), sum(Counts30Deg[int(output3.beta[1] - output3.beta[2]):int(output3.beta[1] + output3.beta[2])]), sum(Counts45Deg[int(output4.beta[1] - output4.beta[2]):int(output4.beta[1] + output4.beta[2])]), sum(Counts75Deg[int(output5.beta[1] - output5.beta[2]):int(output5.beta[1] + output5.beta[2])]) ])), ActiveMeasurementTime)
+
+
+# Create a squared cosine fit for the angular dependency of the cosmic muons:
+model6 = odr.Model(KosinusQuadrat)
+data6 = odr.RealData(Angle, CountRates, sy=CountRatesUnc)
+ODR6 = odr.ODR(data6, model6, beta0=[0.18])
+output6 = ODR6.run()
 
 
 #------------------------------------------------------------------------------
 # Show results:
 # Time calibration:
-#plt.figure("Time calibration", figsize=(10, 7.5))
-#plt.errorbar(PeakPositions, dt, xerr=PeakPositionsUnc, capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Data points")
-#plt.plot(np.linspace(0., 4000., 2), line(output0.beta, np.linspace(0., 4000., 2)), "-r", linewidth=3., zorder=3, label="Linear fit")
-#plt.legend(loc="best", fontsize=18)
-#plt.xlabel(r"Channel $K$", fontsize=20)
-#plt.ylabel(r"$\Delta$t $\left[ \mu s\right]$", fontsize=20)
-#plt.xlim(0., 4000.)
-#plt.tick_params(labelsize=16)
-#plt.grid(True)
+plt.figure("Time calibration", figsize=(10, 7.5))
+plt.errorbar(PeakPositions, dt, xerr=PeakPositionsUnc, capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Data points")
+plt.plot(np.linspace(0., 4000., 2), line(output0.beta, np.linspace(0., 4000., 2)), "-r", linewidth=3.5, zorder=3, label="Linear fit with"+"\n"+r"$m=(2.65463\pm 0.00011)\cdot 10^{-3}\,\mu$s"+"\n"+r"and $n=(-0.7299\pm 0.0002)\,\mu$s")
+plt.legend(loc="best", fontsize=18)
+plt.xlabel(r"Channel $K$", fontsize=20)
+plt.ylabel(r"Time interval $\Delta$t $\left[ \mu s\right]$", fontsize=20)
+plt.xlim(0., 4000.)
+plt.ylim(-1., 10.)
+plt.yticks(np.linspace(-1., 10., 12, endpoint=True))
+plt.tick_params(labelsize=16)
+plt.grid(True)
+plt.title("Time calibration", fontsize=20)
 #plt.savefig("TimeCalibration.pdf")
-#plt.show()
+plt.show()
 
-#print("Steigung: m = (", output0.beta[0], "+/-", output0.sd_beta[0], ")")
-#print("y-Achsenabschnitt: n = (", output0.beta[1], "+/-", output0.sd_beta[1], ")")
+print("Steigung: m = (", output0.beta[0], "+/-", output0.sd_beta[0], ")")
+print("y-Achsenabschnitt: n = (", output0.beta[1], "+/-", output0.sd_beta[1], ")")
 
 # Mean lifetime and decay measurement:
-#plt.figure("Mean lifetime and decay measurement", figsize=(10, 7.5))
-#plt.axvline(x=Time[135], color="C1", linestyle="--", linewidth=2.5, zorder=4)
-#plt.axvline(x=Time[8008], color="C1", linestyle="--", linewidth=2.5, zorder=4)
-#plt.errorbar(Time, BinnedCounts, xerr=TimeUnc, yerr=BinnedCountsUnc, capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Binned data points")
-#plt.plot(Time[136:8008], exponential(output1.beta, Time)[136:8008], "-r", linewidth=3.5, zorder=3, label="Exponential fit")
-#plt.legend(loc="best", fontsize=18)
-#plt.xlabel(r"Time $t$ $\left[ \mu s\right]$", fontsize=20)
-#plt.ylabel(r"Counts $N$", fontsize=20)
-#plt.tick_params(labelsize=16)
-#plt.grid(True)
+plt.figure("Mean lifetime and decay measurement", figsize=(10, 7.5))
+plt.axvline(x=Time[135], color="C1", linestyle="--", linewidth=2.5, zorder=4)
+plt.axvline(x=Time[8008], color="C1", linestyle="--", linewidth=2.5, zorder=4)
+plt.errorbar(Time, BinnedCounts, xerr=TimeUnc, yerr=BinnedCountsUnc, capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Binned data points")
+plt.plot(Time[136:8008], exponential(output1.beta, Time)[136:8008], "-r", linewidth=3.5, zorder=3, label=r"Exponential fit with $\tau =(2.103\pm 0.007)\,\mu$s")
+plt.legend(loc="best", fontsize=18)
+plt.xlabel(r"Time $t$ $\left[ \mu s\right]$", fontsize=20)
+plt.ylabel(r"Counts $N$", fontsize=20)
+plt.xlim(-2., 22.)
+plt.xticks(np.linspace(-2., 22., 13, endpoint=True))
+plt.tick_params(labelsize=16)
+plt.grid(True)
 #plt.savefig("MeanLifetime.pdf")
-#plt.show()
+plt.show()
 
-#print(output1.beta)
-#print(output1.sd_beta)
+print(output1.beta)
+print(output1.sd_beta)
 
 
 #------------------------------------------------------------------------------
 # Show results:
-# Energy spectrum at 0 degrees:
-plt.figure("Energy spectrum at 0 degrees", figsize=(10, 7.5))
+# Energy loss spectrum at 0 degrees:
+plt.figure("Energy loss spectrum at 0 degrees", figsize=(10, 7.5))
 plt.axvline(x=channel[399], color="C1", linestyle="--", linewidth=2.5, zorder=4)
 plt.errorbar(channel, BinnedCounts0Deg/ActiveMeasurementTime[0], xerr=np.repeat(0.5/np.sqrt(3), n), yerr=BinnedCounts0DegUnc/ActiveMeasurementTime[0], capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Binned data points")
-plt.plot(channel, LandauDistribution(output2.beta, channel), "-r", linewidth=3.5, zorder=3, label="Landau fit")
+plt.plot(channel, LandauDistribution(output2.beta, channel), "-r", linewidth=3.5, zorder=3, label="Landau fit with"+"\n"+r"$K_0=481.61\pm 0.13$ and"+"\n"+r"$w=41.56\pm 0.08$")
 plt.legend(loc="best", fontsize=18)
 plt.xlabel(r"Channel $K$", fontsize=20)
 plt.ylabel(r"Counts $N$", fontsize=20)
 plt.xlim(0., 1500.)
-plt.xticks(np.linspace(0., 1500., 7, endpoint=True))
+plt.xticks(np.linspace(0., 1400., 8, endpoint=True))
 plt.tick_params(labelsize=16)
 plt.grid(True)
+plt.title(r"Energy loss spectrum at $\theta =0\,$°", fontsize=20)
 #plt.savefig("EnergySpectrumAt0Degrees.pdf")
 plt.show()
 
 print(output2.beta)
 print(output2.sd_beta)
 
-# Energy spectrum at 30 degrees:
-plt.figure("Energy spectrum at 30 degrees", figsize=(10, 7.5))
+# Energy loss spectrum at 30 degrees:
+plt.figure("Energy loss spectrum at 30 degrees", figsize=(10, 7.5))
 plt.axvline(x=channel[399], color="C1", linestyle="--", linewidth=2.5, zorder=4)
 plt.errorbar(channel, BinnedCounts30Deg/ActiveMeasurementTime[1], xerr=np.repeat(0.5/np.sqrt(3), n), yerr=BinnedCounts30DegUnc/ActiveMeasurementTime[1], capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Binned data points")
-plt.plot(channel, LandauDistribution(output3.beta, channel), "-r", linewidth=3.5, zorder=3, label="Landau fit")
+plt.plot(channel, LandauDistribution(output3.beta, channel), "-r", linewidth=3.5, zorder=3, label="Landau fit with"+"\n"+r"$K_0=485.01\pm 0.15$ and"+"\n"+r"$w=42.80\pm 0.08$")
 plt.legend(loc="best", fontsize=18)
 plt.xlabel(r"Channel $K$", fontsize=20)
 plt.ylabel(r"Counts $N$", fontsize=20)
 plt.xlim(0., 1500.)
-plt.xticks(np.linspace(0., 1500., 7, endpoint=True))
+plt.xticks(np.linspace(0., 1400., 8, endpoint=True))
 plt.tick_params(labelsize=16)
 plt.grid(True)
+plt.title(r"Energy loss spectrum at $\theta =30\,$°", fontsize=20)
 #plt.savefig("EnergySpectrumAt30Degrees.pdf")
 plt.show()
 
 print(output3.beta)
 print(output3.sd_beta)
 
-# Energy spectrum at 45 degrees:
-plt.figure("Energy spectrum at 45 degrees", figsize=(10, 7.5))
+# Energy loss spectrum at 45 degrees:
+plt.figure("Energy loss spectrum at 45 degrees", figsize=(10, 7.5))
 plt.axvline(x=channel[399], color="C1", linestyle="--", linewidth=2.5, zorder=4)
 plt.errorbar(channel, BinnedCounts45Deg/ActiveMeasurementTime[2], xerr=np.repeat(0.5/np.sqrt(3), n), yerr=BinnedCounts45DegUnc/ActiveMeasurementTime[2], capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Binned data points")
-plt.plot(channel, LandauDistribution(output4.beta, channel), "-r", linewidth=3.5, zorder=3, label="Landau fit")
+plt.plot(channel, LandauDistribution(output4.beta, channel), "-r", linewidth=3.5, zorder=3, label="Landau fit with"+"\n"+r"$K_0=485.98\pm 0.17$ and"+"\n"+r"$w=44.06\pm 0.10$")
 plt.legend(loc="best", fontsize=18)
 plt.xlabel(r"Channel $K$", fontsize=20)
 plt.ylabel(r"Counts $N$", fontsize=20)
 plt.xlim(0., 1500.)
-plt.xticks(np.linspace(0., 1500., 7, endpoint=True))
+plt.xticks(np.linspace(0., 1400., 8, endpoint=True))
 plt.tick_params(labelsize=16)
 plt.grid(True)
+plt.title(r"Energy loss spectrum at $\theta =45\,$°", fontsize=20)
 #plt.savefig("EnergySpectrumAt45Degrees.pdf")
 plt.show()
 
 print(output4.beta)
 print(output4.sd_beta)
 
-# Energy spectrum at 75 degrees:
-plt.figure("Energy spectrum at 75 degrees", figsize=(10, 7.5))
+# Energy loss spectrum at 75 degrees:
+plt.figure("Energy loss spectrum at 75 degrees", figsize=(10, 7.5))
 plt.axvline(x=channel[449], color="C1", linestyle="--", linewidth=2.5, zorder=4)
 plt.errorbar(channel, BinnedCounts75Deg/ActiveMeasurementTime[3], xerr=np.repeat(0.5/np.sqrt(3), n), yerr=BinnedCounts75DegUnc/ActiveMeasurementTime[3], capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Binned data points")
-plt.plot(channel, LandauDistribution(output5.beta, channel), "-r", linewidth=3.5, zorder=3, label="Landau fit")
+plt.plot(channel, LandauDistribution(output5.beta, channel), "-r", linewidth=3.5, zorder=3, label="Landau fit with"+"\n"+r"$K_0=491.1\pm 1.4$ and"+"\n"+r"$w=49.9\pm 0.6$")
 plt.legend(loc="best", fontsize=18)
 plt.xlabel(r"Channel $K$", fontsize=20)
 plt.ylabel(r"Counts $N$", fontsize=20)
 plt.xlim(0., 1500.)
-plt.xticks(np.linspace(0., 1500., 7, endpoint=True))
+plt.xticks(np.linspace(0., 1400., 8, endpoint=True))
 plt.tick_params(labelsize=16)
 plt.grid(True)
+plt.title(r"Energy loss spectrum at $\theta =75\,$°", fontsize=20)
 #plt.savefig("EnergySpectrumAt75Degrees.pdf")
 plt.show()
 
 print(output5.beta)
 print(output5.sd_beta)
 
-#plt.figure("test", figsize=(10, 7.5))
-#plt.plot(channel[425:], BinnedCounts75Deg[425:]/ActiveMeasurementTime[3], ".k")
-#plt.xlim(0., 1500.)
-#plt.grid(True)
-#plt.show()
+# Angular dependency of the cosmic muons:
+plt.figure("Angular dependency of the cosmic muons", figsize=(10, 7.5))
+plt.plot(Angle, CountRates, ".k")
+plt.errorbar(Angle, CountRates, yerr=CountRatesUnc, capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Data points")
+plt.plot(np.linspace(0., 90., 1000), KosinusQuadrat(output6.beta, np.linspace(0., 90., 1000)), "-r", linewidth=3.5, zorder=3, label="Squared cosine fit with"+"\n"+r"$A_0=(0.179\pm 0.006)\,\frac{1}{s}$")
+plt.legend(loc="best", fontsize=18)
+plt.xlabel(r"Zenith angle $\theta$ $\left[ °\right]$", fontsize=20)
+plt.ylabel(r"Count rate $A$ $\left[\frac{1}{s}\right]$", fontsize=20)
+plt.xlim(0., 90.)
+plt.ylim(0., 0.2)
+plt.xticks(np.linspace(0., 90., 10, endpoint=True))
+plt.yticks(np.linspace(0., 0.2, 9, endpoint=True))
+plt.tick_params(labelsize=16)
+plt.grid(True)
+#plt.savefig("AngularDependency.pdf")
+plt.show()
+
+print(output6.beta)
+print(output6.sd_beta)

@@ -1,123 +1,46 @@
-\section{Datenanalyse}
+\documentclass[11pt,a4paper,titlepage]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{ngerman}
+\usepackage{lmodern}
+% Mathepaket (intlimits: Grenzen über/unter Integralzeichen)
+\usepackage[intlimits]{amsmath}
+% Ermöglicht die Nutzung von \SI{Zahl}{Einheit} u.a.
+\usepackage{siunitx}
+% Zum flexiblen Einbinden von Grafiken (\includegraphics)
+\usepackage{graphicx}
+% Abbildungen im Fließtext
+\usepackage{wrapfig}
+% Abbildungen nebeneinander (subfigure, subtable)
+\usepackage{subcaption}
+% Funktionen für Anführungszeichen
+\usepackage{csquotes}
+\usepackage{url}
+\usepackage{textcomp}
+\usepackage{pdfpages}
+%chemische Formeln
+\usepackage[version=4]{mhchem}	
+% Verlinkt Textstellen im PDF-Dokument
+\usepackage[unicode]{hyperref}
+% "Schlaue" Referenzen (nach hyperref laden!)
+\usepackage{cleveref}
+% Zusätzliche Sonderzeichen
+\usepackage{textcomp}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+\usepackage{float}
+%Schöne griechische Buchstaben für Teilchen:
+\usepackage{upgreek}
+\usepackage{cancel}
+\usepackage{rotating}
+\usepackage{svg}
+\usepackage{physics}
 
-	Dieser Abschnitt umfasst die Auswertung der aufgenommenen Daten.
+\begin{document}
 
-\subsection{Diodenkennlinie}
-	
-	In \cref{fig:kennlinie} ist die bei einer Frequenz von $\SI{5}{\giga\hertz}$ gemessenen Kennlinie in Abhängigkeit des Leistungspegels $L$ dargestellt gemeinsam mit einer der Theorie entsprechenden Anpassung $U(L)$.
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.7\textwidth]{img/Kennlinie.pdf}
-		\caption{Kennlinie der Diode bei einer Frequenz von $\SI{5}{\giga\hertz}$}
-		\label{fig:kennlinie}
-	\end{figure}	
-	Um bei der Bestimmung der Dämpfungsmaße von der gemessenen Spannung auf die ausgehende Leistung des Messobjektes zurückschließen zu können, bietet sich eine Anpassung der Kennlinie an. 
-	Zur Auswahl einer passenden Funktion sind zuerst einige Vorüberlegungen anzustellen. 
-	Die Strom-Spannungabhängigkeit einer Schottky-Diode wird durch den Zusammenhang
-	\begin{equation}
-		I = I_0 \exp(\frac{q U}{n k_B T}) \coloneqq \frac{\SI{1}{\milli\watt}}{B a} \exp(\frac{U}{a})
-		\label{eq:schottky}
-	\end{equation}
-	beschrieben \cite[S.~91]{schottky}. 
-	Da die Messung bei konstanter Temperatur $T$ durchgeführt wurde, bietet sich eine Redefinition der Konstanten an mit $a=\frac{n k_B T}{q}$ und $B=\frac{\SI{1}{\milli\watt}}{I_0 a}$. 
-	Über die Leistung $P=U I$ erhält man die Abhängigkeit vom Leistungspegel.
-	\begin{align}
-		10^{\frac{L}{\SI{10}{\decibelmilliwatt}}} \SI{1}{\milli\watt} &= \frac{\SI{1}{\milli\watt}}{B a} U \exp(\frac{U}{a}) \\
-		\Rightarrow B\cdot 10^{\frac{L}{\SI{10}{\decibelmilliwatt}}} &=f\left(\frac{U}{a}\right)
-	\end{align}
-	Dabei entspricht $f\left(\frac{U}{a}\right)$ dem Inversen der Lambert W-Funktion \cite{lambertW}. 
-	Dies führt zu
-	\begin{equation}
-		U_k(L)=a W_k\left(B\cdot 10^{\frac{L}{\SI{10}{\decibelmilliwatt}}}\right),
-	\end{equation}
-	wobei der Parameter den $k$-ten Ast der Funktion beschreibt. 
-	Zur Durchführung der Least-Square Anpassung wurde die Implementation der W-Funktion des \texttt{scipy.special} Pakets für $k=0$ genutzt \cite{scipyLambertW}. 
-	Daraus lassen sich die Parameter auf $a=\SI{0,772\pm0,023}{\volt}$ und $B=\SI{0,310\pm0,019}{}$ bestimmen. 
+\section{Analysis and Discussion}
 
-\subsection{Bauteile der Hochfrequenztechnik}
-	
-	Der anliegende Leistungspegel von $\SI{10}{\decibelmilliwatt}$ entspricht einer eingehenden Leistung von $P_\text{in}=\SI{10}{\milli\watt}$. 
-	Mit Hilfe der im vorigen Abschnitt bestimmten Parameter $a$ und $B$ lässt sich nun nach \cref{eq:schottky} auf die an der Diode abfallende Leistung $P_\text{out}$ über
-	\begin{equation}
-		P_\text{out}=\frac{\SI{1}{\milli\watt}}{a B} U \exp(\frac{U}{a})
-	\end{equation}
-	zurückschließen. 
-	Damit lässt sich im Allgemeinen das Dämpfungsmaß über
-	\begin{equation}
-		\alpha=10 \log_{10}\left(\frac{P_\text{in}}{P_\text{out}}\right) \si{\decibel}
-	\end{equation}
-	ausdrücken. 
-	In \cref{fig:isolator_daempfung} ist die Sperr- und Durchlassdämpfung für den Isolator dargestellt. 
-	Daraus leitet sich per Augenmaß eine Bandbreite $B_I=\SI{4}{\giga\hertz}$ von $\SI{4}{\giga\hertz}$ bis $\SI{8}{\giga\hertz}$ ab.
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.7\textwidth]{img/Isolator_Daempfung.pdf}
-		\caption{Sperr- sowie Durchlassdämpfung des Isolators in Abhängigkeit der Frequenz des Signals}
-		\label{fig:isolator_daempfung}
-	\end{figure}
-	Wie in \cref{fig:richtkoppler_daempfung} zu sehen ist, ist der Richtkoppler über den gesamten gemessenen Frequenzbereich einsetzbar.
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.7\textwidth]{img/Richtkoppler_Daempfung.pdf}
-		\caption{Koppel-, Einfüge- und Isolationsdämpfung des Richtleiters in Abhängigkeit der Frequenz des Signals}
-		\label{fig:richtkoppler_daempfung}
-	\end{figure}
-	Die beiden Dämpfungsmaße der untersuchten Zirkulatoren sind in \cref{fig:zirkulator_daempfung} dargestellt. 
-	Beide Zirkulatoren weisen eine Bandbreite von $B_\text{Z}=\SI{4}{\giga\hertz}$ auf. 
-	Allerdings gilt diese für den ersten ab $\SI{1}{\giga\hertz}$, während der zweite mit erst ab $\SI{4}{\giga\hertz}$ einsetzbar ist.
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.7\textwidth]{img/Zirkulator_Daempfung.pdf}
-		\caption{Sperr- und Durchlassdämpfung der beiden Zirkulatoren in Abhängigkeit der Frequenz des Signals}
-		\label{fig:zirkulator_daempfung}
-	\end{figure}
+First, 
 
-\subsection{Messen der stehenden Wellen/Resonanzen}
-	Im folgenden Teil werden zwei Koaxialkabel untersucht, welche im Folgenden als dunkles und helles Kabel bezeichnet werden.
-	Dazu wird über einen Koppler der Ausgang des Zirkulators kapazitiv mit dem Kabel verbunden.
-	Der Koppler reflektiert einen Großteil des einfallenden Signals und der transmittierte Anteil bildet im Kabel stehende Wellen aus.
-	Im Resonanzfall liegen diese genau so, dass das transmittierte Signal immer weiter ansteigt und dem reflektierten Signal destruktiv entgegenwirkt.
-	In beiden Messungen wird das jeweilige Kabel am Ende kurzgeschlossenen.
-	
-	\begin{figure}[H]
-		\centering
-		\begin{subfigure}[c]{\textwidth}		
-			\centering	
-			\includegraphics[width=0.8\textwidth]{data/kopplerDunkel.pdf}
-			\subcaption{}		
-		\end{subfigure}
-		
-		\begin{subfigure}[c]{\textwidth}
-			\centering
-			\includegraphics[width=0.8\textwidth]{data/kopplerHell.pdf}
-			\subcaption{}
-		\end{subfigure}
-		
-		\caption{Messung von zwei Koaxialkabeln. Oben sind die Daten des dunklen Kabels, unten die des hellen Kabels dargestellt. Des Weiteren sind jeweils die Frequenzen von zwei Resonanzen markiert.}
-		\label{fig:resonanz}
-	\end{figure}
-
-	Bei dem Vergleich der beiden Kabel fällt schnell auf, dass das dunkle Kabel mehr Resonanzen im beobachteten Frequenzintervall aufweist.
-	Quantitativ ist die Frequenzdifferenz zwischen zwei Resonanzen durch den Mittelwert $\Delta f = \frac{f_n - f_1}{n-1}$ gegeben.
-	Beim dunklen Kabel beträgt diese $\Delta f_\text{D} = \input{data/SIdunkelFrequenz.txt}$, während sie beim hellen Kabel $\Delta f_\text{H} = \input{data/SIhellFrequenz.txt}$ beträgt.
-	Die Positionen der Resonanzfrequenzen wurden hier manuell in die Mitte eines Spannungseinbruchs gelegt.
-	Die Unsicherheit einer Frequenz wurde durch die Breite eines Einbruchs mit $\SI{0,01}{\giga\hertz}$ abgeschätzt.
-	
-	Aus den ermittelten Frequenzabständen der Resonanzen kann nun nach $c = 2 l \Delta f$, Gl. (3.5) \cite{wwu} die Ausbreitungsgeschwindigkeit der Mikrowellen im Koaxialkabel berechnet werden.
-	Die Länge eines Kabels $l$ ist mit einem Maßband gemessen worden und die Unsicherheit wird mit $\Delta l = \SI{1}{\centi\meter}$ abgeschätzt, da die Reflektionspositionen im Koppler und im Abschlusswiderstand nicht genau bestimmt werden können.
-	Da die Permeabilitätszahl des nicht ferromagnetischen Dielektrikums $\mu_\text{r} \approx 1$ ist, kann aus der Ausbreitungsgeschwindigkeit jetzt die Permittivitätszahl des Dielektrikums $\epsilon_\text{r} = \left( \frac{c_0}{c} \right) ^2$, Gl. (3.7) \cite{wwu} bestimmt werden.
-	Die Werte für beide Kabel sind in Tab. \ref{tab:kabel} zusammengefasst.
-	
-	\begin{table}[H]
-		\centering
-		\caption{Gemessene und daraus ermittelte Eigenschaften der beiden Koaxialkabel.} 
-		\label{tab:kabel}
-		\begin{tabular}{l|c|c}
-			                                       &           dunkles Kabel           &          helles Kabel           \\ \hline
-			Kabellänge $l$                         &   \SI{122,5 +- 1}{\centi\meter}   &  \SI{101,5 +- 1}{\centi\meter}  \\
-			Resonanzabstände $\Delta f$            & \input{data/SIdunkelFrequenz.txt} & \input{data/SIhellFrequenz.txt} \\
-			Ausbreitungsgeschwindigkeit $c$        &    \input{data/SIdunkelC.txt}     &    \input{data/SIhellC.txt}     \\
-			Permittivitätszahl $\epsilon_\text{r}$ &     \input{data/dunkelE.txt}      &     \input{data/hellE.txt}
-		\end{tabular}
-	\end{table}
-	
+\end{document}

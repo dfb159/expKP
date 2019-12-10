@@ -1,6 +1,7 @@
 \section{Basic theory of cosmic rays and their detection}
 	
-	Before going into actual detection of cosmic rays, some basic theory is to be discussed. The presented theory is based on the instruction manual for this experiment \cite{wwu}.
+Before going into actual detection of cosmic rays, some basic theory needs to be discussed.
+The presented theory is based on the instruction manual for this experiment\cite{wwu}.
 	
 
 \subsection{Cosmic rays and production of muons}
@@ -23,18 +24,17 @@ In Münster, the detected rate of muons is approximately 200 muons per square me
 
 \subsection{Characteristics of muons detected at sea level}
 
-\subsubsection{MIP peak and energy loss distribution}
+\subsubsection{MIP peak and energy loss distribution} \label{PeakEnergyLossDistribution}
 
 Particles that are able to pass the detector are minimally ionizing, \ie their energy loss $\Delta E$ inside the detector module only depends on the travelled distance and follows a Landau distribution.
 The latter one looks similar to a Gaussian, but introduces an asymmetry.
 As it cannot be represented by a closed analytical expression, the following approximation \cite{landau} will be used:
-
 \begin{align}
 	\rho(\Delta E)\approx \frac{1}{\sqrt{2\pi}}\exp\left[ -\frac{1}{2}\left( \left(\Delta E-\Delta E_\text{max} \right) +e^{-\left(\Delta E-\Delta E_\text{max} \right)}\right) \right] ,
 \end{align} 
 where $\Delta E_\text{max}$ is the most probable energy loss referred to as MIP (minimum ionizing particle) peak.
 
-\subsubsection{Dependency of the detected spectrum on zenith angle}
+\subsubsection{Dependency of the detected spectrum on zenith angle} \label{DependencyZenithAngle}
 
 The measured flux $I_\mu$ of low-energy muons with energies $\leq$ \SI{5}{\tera\electronvolt} depends on zenith angle $\theta$ as follows:
 \begin{align}
@@ -48,7 +48,7 @@ Hence, their measured flux follows:
 \end{align}
 In comparison, the flux of low-energy muons is dominant.
 
-\subsubsection{Mean lifetime of muons}
+\subsubsection{Mean lifetime of muons} \label{MeanLifetimeOfMuons}
 
 Muons decay by almost 100\,\% probability within the following processes:
 \begin{align}
@@ -57,13 +57,13 @@ Muons decay by almost 100\,\% probability within the following processes:
 \end{align}
 Their decay follows an exponential law:
 \begin{align}
-	N(t)=N(0)\exp(-t/\tau)
+	N(t)=N_0\cdot\exp\left(-\frac{t}{\tau}\right)
 \end{align}
 It can be derived from the differential equation
 \begin{align}
 	\dot{N}(t)=-\frac{1}{\tau}N(t)
 \end{align}
-using separation of variables.
+by using separation of variables.
 Hence, the more muons the more decays.
 Furthermore, $\tau$ is the so-called mean lifetime.
 For free muons, positive or negative, it is\cite{pdg}:

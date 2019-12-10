@@ -1,31 +1,45 @@
-\subsection{Unsicherheiten}\label{VGuD}
+\appendix
+\section{Appendix}
+\label{sec:anhang}
 
-Jegliche Unsicherheiten werden nach GUM bestimmt und berechnet.
-Die Gleichungen dazu finden sich in \cref{fig:GUM_combine} und \cref{fig:GUM_formula}.
-Für die Unsicherheitsrechnungen wurde die Python Bibliothek \texttt{uncertainties} herangezogen, welche den Richtlinien des GUM folgt.
-%TODO uncertainties und GUM Vereinbarkeit klären und einbringen
-Für die Unsicherheiten der Parameter in Annäherungskurven wurden die $y$-Unsicherheiten der anzunähernden Werte beachtet und die Methode der kleinsten Quadrate angewandt.
-Dafür steht in der Bibliothek die Methode \texttt{scipy.optimize.curve\_fit()} zur Verfügung.
+\subsection*{Uncertainties}
 
-% Für digitale Messungen wird eine rechteckige Verteilung mit $\sigma_X = \frac{\Delta X}{2\sqrt{3}}$ und für analoges Ablesen wird eine Dreiecksverteilung mit $\sigma_X = \frac{\Delta X}{2\sqrt{6}}$ angenommen.
-% Die jeweiligen $\Delta X$ sind im konkreten Abschnitt zu finden.
+All uncertainties are calculated using the GUM standards \cite{gum}.
+The used equations are given in figures (\ref{eq:GUM_combine}) and (\ref{eq:GUM_formula}).
 
-\begin{figure}[ht]
-	\begin{equation*}
+\begin{figure}[H]
+	\centering
+	\begin{align}
 		x = \sum_{i=1}^{N} x_i
 		;\quad
 		\sigma_x = \sqrt{\sum_{i = 1}^{N} \sigma_{x_i}^2}
-	\end{equation*}
-	\caption{Formel für kombinierte Unsicherheiten des selben Typs nach GUM.}
+		\label{eq:GUM_combine}
+	\end{align}
+	\caption*{Equation for combined uncertainties of the same variable according to GUM \cite{gum}.}
 	\label{fig:GUM_combine}
 \end{figure}
 
-\begin{figure}[ht]
-	\begin{align*}
+\begin{figure}[H]
+	\centering
+	\begin{align}
 		f = f(x_1, \dots , x_N)
 		;\quad
 		\sigma_f = \sqrt{\sum_{i = 1}^{N}\left(\pdv{f}{x_i} \sigma_{x_i}\right) ^2}
-	\end{align*}
-	\caption{Formel für sich fortpflanzende Unsicherheiten nach GUM.}
+		\label{eq:GUM_formula}
+	\end{align}
+	\caption*{Equation for continued uncertainties according to GUM \cite{gum}.}
 	\label{fig:GUM_formula}
 \end{figure}
+
+\noindent For the calculation of uncertainties, the python library \texttt{uncertainties} is used.
+It follows the guidelines of the GUM standards and additionally uses higher order approximations for the continued uncertainty as given in equation(\ref{eq:GUM_formula}).
+
+For digital measurements a rectangular distribution with $\sigma_X = \frac{\Delta X}{2\sqrt{3}}$ is used, for analog measurements a triangular distribution with $\sigma_X = \frac{\Delta X}{2\sqrt{6}}$ is used.
+\\For all spectra $\sigma_N = \max\{\sqrt{N}, 1\}$ is used.
+
+\subsection*{Fitting models}
+
+For fitting the data to formulas with multiple free variables, the python library \texttt{scipy.odr} is used.
+To connect the data to a given model, the specific libraries \texttt{scipy.odr.Model()}, \texttt{scipy.odr.RealData()} and \texttt{scipy.odr.ODR()} are used.
+It will perform an orthogonal distance regression (short: ODR) and a least squares fit with a slightly modified Levenberg-Marquard-algorithm.
+ODR uses both $x$ and $y$ uncertainties within the fitting algorithm.

@@ -54,8 +54,8 @@ parskip = half,         % Abstand nach Absatz
 	\input{tex/11_Theorie.tex}
 	\newpage
 	\input{tex/12_Durchfuehrung.tex}
-	%\newpage
-	%	\input{tex/13_Auswertung.tex}
+	\newpage
+	\input{tex/13_Auswertung.tex}
 	
 	%\input{tex/name.tex}
 	% --- Fazit des gesammten Versuchs einbinden, falls nötig
@@ -64,14 +64,10 @@ parskip = half,         % Abstand nach Absatz
 	%	}{}
 	
 	% --- Anhang einbinden
-	%	\IfFileExists{tex/20_Anhang.tex}{
-	
-	%\appendix
-	%		\newpage
-	%		\section{Anhang}
-	%		\label{sec:anhang}
-	%		\input{tex/20_Anhang.tex}
-	%	}{}
+	\IfFileExists{tex/20_Anhang.tex}{
+		\newpage
+		\input{tex/20_Anhang.tex}
+	}{}
 	
 	\clearpage
 	\printbibliography

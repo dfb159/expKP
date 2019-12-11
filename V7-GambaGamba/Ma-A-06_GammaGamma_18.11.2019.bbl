@@ -38,6 +38,16 @@
       \field{note}{Versuchsanleitung, ausgehändigt an der WWU Münster}
       \field{title}{$\gamma$-$\gamma$-Winkelkorrelation}
     \endentry
+    \entry{schalen}{online}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{0aa614ace9f3a40ef5a67e7f7a184048}
+      \field{labeltitlesource}{title}
+      \field{title}{Nuclear shells and magic numbers in a harmonic oscillator with orbit–orbit and spin–orbit terms}
+      \verb{url}
+      \verb https://commons.wikimedia.org/wiki/File:Shells.png
+      \endverb
+      \warn{\item Entry 'schalen' (res/literatur.bib): Invalid format '06. 12. 2018' of date field 'date' - ignoring}
+    \endentry
   \endsortlist
 \endrefsection
 \endinput

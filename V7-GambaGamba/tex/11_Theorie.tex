@@ -28,8 +28,59 @@ Statt der Emission von Photonen kann die Energie auch an ein Elektron in der Hü
 
 \subsubsection{Auswahlregeln und Multipolstrahlung}
 
+Bei elektromagnetischen Übergängen muss der Gesamtdrehimpuls erhalten bleiben. Besitzt das emittierte Photon den Drehimpuls $l$ und die beteiligten Kernniveaus die Drehimpulse $I_i$ und $I_f$, dann muss gelten:
+\begin{align}
+	\left| I_i - I_f\right| \leq l \leq I_i + I_f
+\end{align}
+Man unterscheidet nun zwischen elektrischer (E$l$) und magnetischer (M$l$) $2^l$-Strahlung (Bsp. $l=1\Longrightarrow$ Dipolstrahlung, $l=2\Longrightarrow$ Quadrupolstrahlung, ...). Mit steigendem $l$ nimmt die Wahrscheinlichkeit für einen solchen Übergang exponentiell ab.
+
+Es lässt sich nun zusätzlich die Paritätsquantenzahl $P=\pm 1$ definieren, welche das Symmetrieverhalten einer Wellenfunktion unter einer Koordinatentransformation $\vec{x}\longrightarrow -\vec{x}$ beschreibt. Es gilt für die Parität von Anfangs- und Endzustand ($P_i$ und $P_f$):
+\begin{align}
+	\Delta P= P_i\cdot P_f = \begin{cases}
+	\left( -1\right)^l\,\,\,\,\,&\text{für E$l$-Strahlung} \\
+	\left( -1\right)^{l+1}\,\,\,\,\,&\text{für M$l$-Strahlung}
+	\end{cases}
+\end{align}
+
 \subsubsection{Winkelverteilung bei $\gamma$-$\gamma$-Kaskaden}
 
+Ausgangspunkt zur Berechnung der theoretisch erwarteten Winkelverteilung ist die Überlegung, dass der Detektor im Vergleich zur Ausdehnung der Quelle sehr weit von dieser entfernt ist (Details im Versuchsaufbau). Das hier nur klassisch betrachtete elektromagnetische Feld kann daher näherungsweise als quellfrei angenommen werden. Die Maxwell-Gleichungen vereinfachen sich daher zu:
+\begin{align}
+	\begin{split}
+		\vec{\nabla}\times\vec{E}=-\frac{\partial B}{\partial t}\qquad\qquad \vec{\nabla}\times\vec{B}=\frac{1}{c^2}\frac{\partial E}{\partial t}\\\vspace{0,2cm}
+		\vec{\nabla}\cdot\vec{E}=0 \,\,\qquad\qquad\qquad\vec{\nabla}\cdot\vec{B}=0\qquad\;
+	\end{split}
+\end{align}
+Die Lösungen sind gegeben durch:
+\begin{align}
+	\begin{split}
+		\vec{B}^m_l= f_l(kr)\cdot\vec{L}\cdot Y^m_l(\Theta,\Phi)\qquad ; \qquad \vec{E}^m_l = i \frac{c}{k} \cdot\vec{\nabla}\times \vec{B}^m_l\qquad\text{für $E$-Felder}\\
+		\vec{E}^m_l= f_l(kr)\cdot\vec{L}\cdot Y^m_l(\Theta,\Phi)\qquad ; \qquad \vec{B}^m_l = -i \frac{c}{k} \cdot\vec{\nabla}\times \vec{E}^m_l\qquad\text{für $M$-Felder}
+	\end{split}
+\end{align}
+Die Ausstrahlungscharakteristik ist durch den Poynting-Vektor $\vec{S}=\frac{1}{\mu_0}\left( \vec{E}\times\vec{B}\right) $ gegeben. Im Fernfeld gilt:
+\begin{align}
+	\epsilon_0\left| \vec{E}\right| ^2=\frac{1}{\mu_0}\left| \vec{B}\right| ^2
+\end{align}
+Damit folgt für die Winkelverteilung insgesamt:
+\begin{align}
+\begin{split}
+\left|\vec{S} \right| \sim \left| \vec{E}\right|^2 \sim \left| \vec{L}\cdot Y^m_l\right|^2\qquad\text{für $E$-Felder}\\
+\left|\vec{S} \right| \sim \left| \vec{B}\right|^2 \sim \left| \vec{L}\cdot Y^m_l\right|^2\qquad\text{für $M$-Felder}
+\end{split}
+\end{align}
+Das heißt, über die Kugelflächenfunktionen $Y^m_l(\Theta,\Phi)$ lässt sich die Winkelverteilung berechnen. Für die hier untersuchten $\gamma$-Kaskade beim Zerfall von $^{60}_{27}$Co in $^{60}_{28}$Ni erwartet man:
+\begin{align}
+	W(\Theta)\sim 1+\frac{1}{8}\cos^2(\Theta)+\frac{1}{24}\cos^4(\Theta)
+\end{align}
+Damit lässt sich auch die theoretisch erwartete Asymmetrie berechnen:
+\begin{align}
+	A_\text{theo.}=\frac{W(180\text{°})-W(90\text{°})}{W(90\text{°})}
+\end{align}
+Aus der gemessenen Koinzidenzrate bei den jeweiligen Winkeln lässt sich analog die experimentelle Asymmetrie berechnen und mit der theoretischen vergleichen:
+\begin{align}
+A_\text{exp.}=\frac{C(180\text{°})-C(90\text{°})}{C(90\text{°})}
+\end{align}
 \subsubsection{Wechselwirkung von Photonen mit Materie}
 
 Ein weiterer wichtiger Punkt ist die Absorption von Photonen in Materie. Es gibt drei verschiedene Prozesse zur Absorption von Photonen, die für unterschiedliche Energiebereiche dominant sind:

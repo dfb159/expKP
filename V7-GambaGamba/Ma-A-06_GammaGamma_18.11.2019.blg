@@ -1,17 +1,19 @@
-[0] Config.pm:354> INFO - This is Biber 2.7
-[0] Config.pm:357> INFO - Logfile is 'Ma-A-06_GammaGamma_18.11.2019.blg'
-[31] biber-MSWIN32:303> INFO - === 
-[55] Biber.pm:359> INFO - Reading 'Ma-A-06_GammaGamma_18.11.2019.bcf'
-[147] Biber.pm:835> INFO - Found 2 citekeys in bib section 0
-[162] Biber.pm:3670> INFO - Processing section 0
-[178] Biber.pm:3840> INFO - Looking for bibtex format file 'res/literatur.bib' for section 0
-[181] bibtex.pm:1435> INFO - Decoding LaTeX character macros into UTF-8
-[189] bibtex.pm:1292> INFO - Found BibTeX data source 'res/literatur.bib'
-[192] Utils.pm:164> WARN - Entry 'schalen' (res/literatur.bib): Invalid format '06. 12. 2018' of date field 'date' - ignoring
-[217] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[217] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'variable = shifted' with 'variable = non-ignorable'
-[218] Biber.pm:3499> INFO - Sorting list 'none/global/' of type 'entry' with scheme 'none' and locale 'de-DE'
-[218] Biber.pm:3505> INFO - No sort tailoring available for locale 'de-DE'
-[219] bbl.pm:608> INFO - Writing 'Ma-A-06_GammaGamma_18.11.2019.bbl' with encoding 'UTF-8'
-[220] bbl.pm:712> INFO - Output to Ma-A-06_GammaGamma_18.11.2019.bbl
-[220] Biber.pm:109> INFO - WARNINGS: 1
+[0] Config.pm:304> INFO - This is Biber 2.13
+[0] Config.pm:307> INFO - Logfile is 'Ma-A-06_GammaGamma_18.11.2019.blg'
+[38] biber-MSWIN64:315> INFO - === 
+[60] Biber.pm:375> INFO - Reading 'Ma-A-06_GammaGamma_18.11.2019.bcf'
+[164] Biber.pm:905> INFO - Found 2 citekeys in bib section 0
+[179] Biber.pm:4196> INFO - Processing section 0
+[181] Utils.pm:75> INFO - Globbing data source 'res/literatur.bib'
+[190] Utils.pm:91> INFO - Globbed data source 'res/literatur.bib' to res/literatur.bib
+[203] Biber.pm:4373> INFO - Looking for bibtex format file 'res/literatur.bib' for section 0
+[208] bibtex.pm:1462> INFO - LaTeX decoding ...
+[220] bibtex.pm:1281> INFO - Found BibTeX data source 'res/literatur.bib'
+[225] Utils.pm:300> WARN - Entry 'schalen' (res/literatur.bib): Invalid format '06. 12. 2018' of date field 'date' - ignoring
+[241] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'variable = shifted' with 'variable = non-ignorable'
+[241] UCollate.pm:68> INFO - Overriding locale 'de-DE' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[241] Biber.pm:4024> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'de-DE'
+[241] Biber.pm:4030> INFO - No sort tailoring available for locale 'de-DE'
+[248] bbl.pm:648> INFO - Writing 'Ma-A-06_GammaGamma_18.11.2019.bbl' with encoding 'UTF-8'
+[249] bbl.pm:751> INFO - Output to Ma-A-06_GammaGamma_18.11.2019.bbl
+[250] Biber.pm:110> INFO - WARNINGS: 1

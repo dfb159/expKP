@@ -1,20 +1,19 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
-\defcounter {refsection}{0}\relax 
-\select@language {ngerman}
-\contentsline {section}{\numberline {1}Einleitung}{1}{section.1}
-\contentsline {section}{\numberline {2}Theorie}{2}{section.2}
-\contentsline {subsection}{\numberline {2.1}Schalenmodell des Kerns}{2}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Emission von $\gamma $-Strahlung}{2}{subsection.2.2}
-\contentsline {subsubsection}{\numberline {2.2.1}Auswahlregeln und Multipolstrahlung}{4}{subsubsection.2.2.1}
-\contentsline {subsubsection}{\numberline {2.2.2}Winkelverteilung bei $\gamma $-$\gamma $-Kaskaden}{4}{subsubsection.2.2.2}
-\contentsline {subsubsection}{\numberline {2.2.3}Wechselwirkung von Photonen mit Materie}{4}{subsubsection.2.2.3}
-\contentsline {subsection}{\numberline {2.3}Positronium}{5}{subsection.2.3}
-\contentsline {subsection}{\numberline {2.4}Szintillatoren}{5}{subsection.2.4}
-\contentsline {subsection}{\numberline {2.5}Photomultiplier}{6}{subsection.2.5}
-\contentsline {section}{\numberline {3}Versuchsaufbau und -durchf\IeC {\"u}hrung}{7}{section.3}
-\contentsline {section}{\numberline {4}Datenanalyse}{10}{section.4}
-\contentsline {subsection}{\numberline {4.1}Diodenkennlinie}{10}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Bauteile der Hochfrequenztechnik}{10}{subsection.4.2}
-\contentsline {section}{\numberline {5}Diskussion \& Schlussfolgerung}{11}{section.5}
-\contentsline {subsection}{\numberline {5.1}Unsicherheiten}{12}{subsection.5.1}
-\contentsline {section}{\nonumberline Literatur}{14}{section*.8}
+\babel@toc {ngerman}{}
+\contentsline {section}{\numberline {1}Einleitung}{1}{section.1}%
+\contentsline {section}{\numberline {2}Theorie}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Schalenmodell des Kerns}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Emission von $\gamma $-Strahlung}{2}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Auswahlregeln und Multipolstrahlung}{4}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Winkelverteilung bei $\gamma $-$\gamma $-Kaskaden}{4}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Wechselwirkung von Photonen mit Materie}{6}{subsubsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.3}Positronium}{6}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Szintillatoren}{7}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Photomultiplier}{8}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Versuchsaufbau und -durchführung}{9}{section.3}%
+\contentsline {section}{\numberline {4}Datenanalyse}{12}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Diodenkennlinie}{12}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Bauteile der Hochfrequenztechnik}{12}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Diskussion \& Schlussfolgerung}{13}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Unsicherheiten}{14}{subsection.5.1}%
+\contentsline {section}{\nonumberline Literatur}{16}{section*.8}%

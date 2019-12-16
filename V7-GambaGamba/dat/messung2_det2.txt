@@ -1,0 +1,1 @@
+\SI{5869 \pm 7}{1\per\second}

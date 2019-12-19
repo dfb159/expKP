@@ -1,0 +1,31 @@
+\subsection{Unsicherheiten}\label{VGuD}
+
+Jegliche Unsicherheiten werden nach GUM bestimmt und berechnet.
+Die Gleichungen dazu finden sich in \cref{fig:GUM_combine} und \cref{fig:GUM_formula}.
+Für die Unsicherheitsrechnungen wurde die Python Bibliothek \texttt{uncertainties} herangezogen, welche den Richtlinien des GUM folgt.
+%TODO uncertainties und GUM Vereinbarkeit klären und einbringen
+Für die Unsicherheiten der Parameter in Annäherungskurven wurden die $y$-Unsicherheiten der anzunähernden Werte beachtet und die Methode der kleinsten Quadrate angewandt.
+Dafür steht in der Bibliothek die Methode \texttt{scipy.optimize.curve\_fit()} zur Verfügung.
+
+Für digitale Messungen wird eine rechteckige Verteilung mit $\sigma_X = \frac{\Delta X}{2\sqrt{3}}$ und für analoges Ablesen wird eine Dreiecksverteilung mit $\sigma_X = \frac{\Delta X}{2\sqrt{6}}$ angenommen.
+Die jeweiligen $\Delta X$ sind im konkreten Abschnitt zu finden.
+
+\begin{figure}[ht]
+	\begin{equation*}
+		x = \sum_{i=1}^{N} x_i
+		;\quad
+		\sigma_x = \sqrt{\sum_{i = 1}^{N} \sigma_{x_i}^2}
+	\end{equation*}
+	\caption{Formel für kombinierte Unsicherheiten des selben Typs nach GUM.}
+	\label{fig:GUM_combine}
+\end{figure}
+
+\begin{figure}[ht]
+	\begin{align*}
+		f = f(x_1, \dots , x_N)
+		;\quad
+		\sigma_f = \sqrt{\sum_{i = 1}^{N}\left(\pdv{f}{x_i} \sigma_{x_i}\right) ^2}
+	\end{align*}
+	\caption{Formel für sich fortpflanzende Unsicherheiten nach GUM.}
+	\label{fig:GUM_formula}
+\end{figure}

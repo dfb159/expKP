@@ -1,4 +1,4 @@
-# %% Importanweisungen
+ # %% Importanweisungen
 import matplotlib.pyplot as plt
 import matplotlib
 from matplotlib import colors as mcolors
@@ -75,10 +75,14 @@ p0 = [1200, 0.333, 0.1, 0]
 wechselT = 0.199
 xdata, ydata = zip(*[(t,c) for t,c in zip(dt,counts) if t >= wechselT])
 p = (A,x0,d,y0) = fit.fitXY(xdata, ydata, gauss, p0)
-latex.value(A, data_out, "messung1_A")
-latex.SI(x0, "\\micro\\second", data_out, "messung1_x0")
-latex.SI(d, "\\micro\\second", data_out, "messung1_d")
-latex.value(y0, data_out, "messung1_y0")
+eff = gaussUnc(0.333, *p) / A
+print("eff = %s" % eff)
+
+latex.SI(eff, "", data_out, "messung1_eff")
+latex.SI(A.format("3f"), "", data_out, "messung1_A")
+latex.SI(x0*C.kilo, "\\nano\\second", data_out, "messung1_x0")
+latex.SI(d*C.kilo, "\\nano\\second", data_out, "messung1_d")
+latex.SI(y0, "", data_out, "messung1_y0")
 
 xfit1 = np.linspace(wechselT, max(unv(dt)), num=250)
 yfit1 = gaussUnc(xfit1, *p)
@@ -86,7 +90,7 @@ xfit2 = np.linspace(min(unv(dt)), wechselT, num=250)
 yfit2 = gaussUnc(xfit2, *p)
 
 print("A=%s\nx0=%s\nd=%s\ny0=%s" % (A,x0,d,y0))
-sigma = 2
+sigma = 1
 plt.fill_between(unv(xfit1), unv(yfit1) - sigma*usd(yfit1), unv(yfit1) + sigma*usd(yfit1), color="C1", alpha=0.4, zorder=8)
 plt.plot(unv(xfit1), unv(yfit1), color="C1", alpha=1, linewidth=2, zorder=9, label="Gauss-Fit $\\pm %s\\sigma$" % sigma)
 plt.fill_between(unv(xfit2), unv(yfit2) - sigma*usd(yfit2), unv(yfit2) + sigma*usd(yfit2), color="C1", alpha=0.4, zorder=8)
@@ -123,6 +127,12 @@ latex.SI(det2, "1\\per\\second", data_out, "messung2_det2")
 latex.SI(koinz, "1\\per\\second", data_out, "messung2_koinz")
 latex.SI(zweiT/C.nano, "\\nano\\second", data_out, "messung2_zweiT")
 
+halbwertszeit = unc.ufloat(30.08, 0.09)
+aktiv = 100 * C.micro * 3.7e10 * 2**(np.log(0.5) * (2020 - 1962) / halbwertszeit) # Becquerel
+print(2**(np.log(0.5) * (2020 - 1962) / halbwertszeit))
+print(det1 / aktiv)
+print(det2 / aktiv)
+
 # %% 3. Vernichtungsstrahlung
 
 det1 = stat(27134) / (2*60) # s-1
@@ -156,6 +166,7 @@ plt.errorbar(unv(winkel), unv(counts), xerr=usd(winkel), yerr=usd(counts), fmt="
 p0 = [22, 180, 5]
 xfit, yfit, p = fit.fitspaceXY(winkel, counts, gauss, p0, range=(160,200), num=250, functionUnc=gaussUnc)
 A,x0,d = p
+winkelaufloesung = d
 latex.SI(A, "1\\per\\second", data_out, "messung3_A")
 latex.SI(x0, "\\degrees", data_out, "messung3_x0")
 latex.SI(d, "\\degrees", data_out, "messung3_d")
@@ -190,10 +201,23 @@ koniz = det1 * det2 * zweiT
 
 zufall = stat(9) / (5*60) # s-1
 count90 = stat(2198) / (30*60) #s-1
-count180 = stat(2305) / (30*60) # s-1
+count180 = stat(2505) / (30*60) # s-1
+print(count90, count180, koinz, zufall)
 
-Aexp = (count180 - count90)/ (count90 - zufall)
+winkel = unp.uarray([90,180], unv(winkelaufloesung) + usd(winkelaufloesung))
+counts = np.array([count90, count180]) - zufall
+
+Aexp = (counts[1] - counts[0])/ (counts[0])
 print("A_exp = %s" % Aexp)
+
+def Wtheo(theta, A=1):
+    return A * (1+1/8 * np.cos(theta)**2 + 1/24 * np.cos(theta)**4)
+
+def WtheoUnc(theta, A=1):
+    return A * (1+1/8 * unp.cos(theta)**2 + 1/24 * unp.cos(theta)**4
+                )
+Atheo = (Wtheo(180*C.grad) - Wtheo(90*C.grad)) / Wtheo(90*C.grad)
+print("A_theo = %s" % Atheo)
 
 
 latex.SI(det1, "1\\per\\second", data_out, "messung4_det1")
@@ -203,6 +227,36 @@ latex.SI(zufall, "1\\per\\second", data_out, "messung4_zufall")
 latex.SI(count90, "1\\per\\second", data_out, "messung4_count90")
 latex.SI(count180, "1\\per\\second", data_out, "messung4_count180")
 latex.value(Aexp, data_out, "messung4_Aexp")
+latex.value(Atheo, data_out, "messung4_Atheo")
 
-# TODO netter Grapg mit den theoretischen Kurven
+fig = plt.Figure(figsize=fullscreen)
 
+plt.errorbar(unv(winkel), unv(counts), xerr=usd(winkel), yerr=usd(counts), fmt=" ", color="C0", zorder=10, label="Messung")
+
+p0 = [2300]
+xfit, yfit, p = fit.fitspaceXY(winkel, counts, Wtheo, p0, range=(0,2*math.pi), num=250, functionUnc=WtheoUnc)
+xfit /= C.grad
+A = p[0]
+print(A)
+
+
+print("A=%s" % (A))
+sigma = 1
+plt.fill_between(unv(xfit), unv(yfit) - sigma*usd(yfit), unv(yfit) + sigma*usd(yfit), color="C1", alpha=0.4, zorder=8)
+plt.plot(unv(xfit), unv(yfit), color="C1", alpha=1, linewidth=2, zorder=9, label="Gauss-Fit $\\pm %s\\sigma$" % sigma)
+#plt.fill_between(unv(xfit2), unv(yfit2) - sigma*usd(yfit2), unv(yfit2) + sigma*usd(yfit2), color="C1", alpha=0.4, zorder=8)
+#plt.plot(unv(xfit2), unv(yfit2), color="C1", alpha=0.5, linestyle=":", linewidth=1, zorder=9, label="Gauss-Fit $\\pm %s\\sigma$" % sigma)
+
+plt.xlabel(u"Winkel zwischen Detektoren $\\theta$ [$°$]")
+plt.ylabel(u"Zählrate [$1/s$]")
+#plt.grid()
+#plt.xlim(0, 256)
+#plt.ylim(0, 2000)
+plt.legend(prop={'size':fig_legendsize})#, loc="lower center")
+plt.tick_params(labelsize=fig_labelsize, direction="in")
+#plt.xscale('log')
+#plt.yscale('log', nonposy='clip')
+plt.savefig(data_out + "theoKurve.png")
+plt.savefig(data_out + "theoKurve.pdf")
+plt.show()
+plt.close()

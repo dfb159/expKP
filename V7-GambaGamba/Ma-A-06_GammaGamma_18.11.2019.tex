@@ -63,16 +63,12 @@ parskip = half,         % Abstand nach Absatz
 	
 	% --- Anhang einbinden
 	\IfFileExists{tex/20_Anhang.tex}{
-		\input{tex/20_Anhang.tex}
+			\newpage
+			\section{Anhang}
+			\label{sec:anhang}
+			\input{tex/20_Anhang.tex}
 	}{}
 
-	%\appendix
-	%		\newpage
-	%		\section{Anhang}
-	%		\label{sec:anhang}
-	%		\input{tex/20_Anhang.tex}
-	%	}{}
-	
 	\clearpage
 	\printbibliography
 	

@@ -1,1 +1,1 @@
-\SI{0,0548 \pm 0,0029}{\micro\second}
+\SI{54,8 \pm 2,9}{\nano\second}

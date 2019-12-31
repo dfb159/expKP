@@ -2,34 +2,51 @@
 
 	Dieser Abschnitt umfasst die Auswertung der aufgenommenen Daten.
 
-\subsection{Diodenkennlinie}
+\subsection{Verzögerungsdauer}
 	
-	Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 
-	
-	\begin{equation}
-		U_k(L)=a W_k\left(B\cdot 10^{\frac{L}{\SI{10}{\decibelmilliwatt}}}\right),
-	\end{equation}
-	
-	Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. 
-
-\subsection{Bauteile der Hochfrequenztechnik}
-
-	Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 
-	
-	Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. 
-	\begin{table}[ht]
+	Um möglichst viele Koinzidenzen zu messen, wird die Zählrate nach der Koinzidenzeinheit gegen die eingestellte Verzögerung aufgezeichnet.
+	Hierzu wird $^{22}\text{Na}$ verwendet, um durch den Zerfall des Parapositroniums zwei $\gamma$-Quanten im Winkel von \SI{180}{\degree} zu gewährleisten.
+	Die Überlagerungswahrscheinlichkeit ist durch eine Gauß-Kurve abgeschätzt und in \cref{fig:zeitdiff} dargestellt.
+	\begin{figure}[ht]
 		\centering
-		\caption{Energieaufspaltungen aller sechs Peaks von Absorber C.} 
-		\label{tab:isoC}
-		\begin{tabular}{c|ccc}
-			\toprule
-			       & $v_\text{res}$ & $\Delta v_\text{iso}$ & $\Delta E_\text{iso}$ \\ \midrule
-			Peak 1 &      123       &          123          &          123          \\
-			Peak 2 &      123       &          123          &          123          \\
-			Peak 3 &      123       &          123          &          123          \\
-			Peak 4 &      123       &          123          &          123          \\
-			Peak 5 &      123       &          123          &          123          \\
-			Peak 6 &      123       &          123          &          123          \\ \bottomrule
-		\end{tabular}
-	\end{table} 
+		\includegraphics[width=0.7\textwidth]{dat/zeitdifferenz.pdf}
+		\caption{Zusammenhang von der eingestellten Verzögerung zwischen beiden Signalen und der Zählrate.
+			Die Daten wurden mit einer Gauß-Kurve $A \cdot \exp{-\frac{(\Delta t - \Delta t_0)^2}{2 \sigma_{\Delta t}^2}} + y_0$ angepasst.
+			Alle konkreten Fit-Parameter finden sich in \cref{sec:fitval}.}
+		\label{fig:zeitdiff}
+	\end{figure}
+	Da Werte mit Verzögerungsdauern kleiner als \SI{0.2}{\micro\second} eine statistisch relevante Abweichung von Null haben, wurden diese nicht in die Anpassung der Gauß-Kurve eingebunden.
+	Die Position des Peaks liegt bei $\Delta t_0 = \input{dat/messung1_x0.txt}$.
+	In allen folgenden Messungen ist die Signalverzögerung fest auf \SI{333}{\nano\second} eingestellt.
+	Diese Einstellung ist mit der Peakposition kompatibel und liefert eine Signaleffizienz von $\epsilon = \input{dat/messung1_eff.txt}$ im Bezug zum Peakmaximum.
+	Die Breite $\sigma_{\Delta t} = \input{dat/messung1_d.txt}$ der Kurve ist eine grobe Abschätzung für die Zeitauflösung.
 	
+\subsection{Koinzidenzauflösungszeit}
+	
+	Eine genauere Bestimmung der Auflösungszeit $2\theta$ von zwei aufeinander folgenden Signalen ist mit
+	\begin{equation}
+		N_Z = N_1 \cdot N_2 \cdot 2\tau \Leftrightarrow 2\tau = \frac{N_Z}{N_1 N_2} = \input{dat/messung2_zweiT.txt}
+	\end{equation}
+	möglich.
+	Dabei sind $N_1 = \input{dat/messung2_det1.txt}$, $N_2 = \input{dat/messung2_det2.txt}$ die Zählraten beider Detektoren vor und $N_Z = \input{dat/messung2_koinz.txt}$ die Zählrate nach der Koinzidenzeinheit.
+	Die Probe hatte im Jahr 1962 eine Aktivität von \SI{3.7}{\mega\becquerel} und somit werden bei der Messung ca. \SI{0.4}{\%} aller Zerfälle gemessen.
+	Das errechnete Ergebnis liegt in der Größenordnung der Abschätzung.
+		
+\subsection{Vernichtungsstrahung}
+
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=0.7\textwidth]{dat/vernichtung.pdf}
+		\caption{Winkelauflösung der Detektoren.}
+		\label{fig:vernichtung}
+	\end{figure}
+	%TODO mit 0,4% aus sec2 übereinstimmend?
+
+\subsection{Winkelkorrelation}
+
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=0.7\textwidth]{dat/theoKurve.pdf}
+		\caption{Theoretischer Kurvenverlauf und gemessene Einzelwerte.}
+		\label{fig:theoKurve}
+	\end{figure}

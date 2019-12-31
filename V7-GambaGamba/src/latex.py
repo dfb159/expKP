@@ -2,11 +2,13 @@
 def value(val, path, file):
     s = str(val)
     s = s.replace('+/-', ' \\pm ') # plus minus with latex notation
-    s = s.replace('.', ',') # german comma
+    s = s.replace('.', ',') # german comma, can be ignored in latex setup
+    s = s.replace('(', '') # remove parenthesis
+    s = s.replace(')', '') # remove parenthesis
     with open(path + ("" if path[-1] == "/" else "/") + "%s.txt" % file, 'w+') as f:
         f.write(s)
 
-def SI(val, unit, path, file):
+def SI(val, unit="", path="dat", file="tmp"):
     value("\\SI{%s}{%s}" % (val, unit), path, file)
 
 def table(df, file, header=None, text=[]):

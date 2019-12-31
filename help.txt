@@ -1,0 +1,39 @@
+single figure:
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=0.7\textwidth]{img/Kennlinie.pdf}
+		\caption{caption :D}
+		\label{fig:kennlinie}
+	\end{figure}
+
+multiple figures:
+	\begin{figure}[ht]
+		\centering
+		\begin{subfigure}[c]{0.45\textwidth}		
+			\centering	
+			\includegraphics[width=\textwidth]{data/file1.pdf}
+			\subcaption{}		
+		\end{subfigure}
+	
+		\begin{subfigure}[c]{0.45\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{data/file2.pdf}
+			\subcaption{}
+		\end{subfigure}
+	
+		\caption{caption for both figures}
+		\label{fig:bothlabel}
+	\end{figure}
+
+table:
+	\begin{table}[H]
+		\centering
+		\caption{tabellencaption} 
+		\label{tab:isoB}
+		\begin{tabular}{c|ccc}
+			\toprule
+			header & Äpfel & Birnen \\ \midrule
+			Peak 1 &   2   &   3    \\
+			Peak 2 &   4   &   1    \\ \bottomrule
+		\end{tabular}
+	\end{table}

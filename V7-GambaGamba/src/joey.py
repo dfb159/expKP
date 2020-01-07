@@ -6,9 +6,6 @@ import math
 import numpy as np
 import statistics as stat
 import scipy as sci
-from scipy import optimize
-from scipy.interpolate import CubicSpline
-from scipy.odr import *
 import uncertainties as unc
 import uncertainties.unumpy as unp
 import uncertainties.umath as umath
@@ -168,8 +165,8 @@ xfit, yfit, p = fit.fitspaceXY(winkel, counts, gauss, p0, range=(160,200), num=2
 A,x0,d = p
 winkelaufloesung = d
 latex.SI(A, "1\\per\\second", data_out, "messung3_A")
-latex.SI(x0, "\\degrees", data_out, "messung3_x0")
-latex.SI(d, "\\degrees", data_out, "messung3_d")
+latex.SI(x0, "\\degree", data_out, "messung3_x0")
+latex.SI(d, "\\degree", data_out, "messung3_d")
 
 
 print("A=%s\nx0=%s\nd=%s\ny0=%s" % (A,x0,d,y0))
@@ -202,7 +199,7 @@ koniz = det1 * det2 * zweiT
 zufall = stat(9) / (5*60) # s-1
 count90 = stat(2198) / (30*60) #s-1
 count180 = stat(2505) / (30*60) # s-1
-print(count90, count180, koinz, zufall)
+print("count90 =  %s\ncount180 = %s\nkoinz =    %s\nzufall =   %s" % (count90, count180, koinz, zufall))
 
 winkel = unp.uarray([90,180], unv(winkelaufloesung) + usd(winkelaufloesung))
 counts = np.array([count90, count180]) - zufall
@@ -226,8 +223,8 @@ latex.SI(koinz, "1\\per\\second", data_out, "messung4_koinz")
 latex.SI(zufall, "1\\per\\second", data_out, "messung4_zufall")
 latex.SI(count90, "1\\per\\second", data_out, "messung4_count90")
 latex.SI(count180, "1\\per\\second", data_out, "messung4_count180")
-latex.value(Aexp, data_out, "messung4_Aexp")
-latex.value(Atheo, data_out, "messung4_Atheo")
+latex.SI(Aexp.format(".3f"), "", data_out, "messung4_Aexp")
+latex.SI("%.3f" % Atheo, "", data_out, "messung4_Atheo")
 
 fig = plt.Figure(figsize=fullscreen)
 
@@ -237,10 +234,8 @@ p0 = [2300]
 xfit, yfit, p = fit.fitspaceXY(winkel, counts, Wtheo, p0, range=(0,2*math.pi), num=250, functionUnc=WtheoUnc)
 xfit /= C.grad
 A = p[0]
-print(A)
-
-
 print("A=%s" % (A))
+latex.SI(A, r"\per\second", data_out, "messung4_A")
 sigma = 1
 plt.fill_between(unv(xfit), unv(yfit) - sigma*usd(yfit), unv(yfit) + sigma*usd(yfit), color="C1", alpha=0.4, zorder=8)
 plt.plot(unv(xfit), unv(yfit), color="C1", alpha=1, linewidth=2, zorder=9, label="Gauss-Fit $\\pm %s\\sigma$" % sigma)

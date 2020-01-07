@@ -1,1 +1,1 @@
-\SI{180,6 \pm 0,5}{\degrees}
+\SI{180,6 \pm 0,5}{\degree}

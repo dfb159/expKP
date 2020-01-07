@@ -41,10 +41,29 @@ Die jeweiligen $\Delta X$ sind im konkreten Abschnitt zu finden.
 \begin{figure}[H]
 	\begin{align*}
 		A &= \input{dat/messung1_A.txt} \\
-		x_0 &= \input{dat/messung1_x0.txt} \\
-		\sigma_{\Delta t} &= \input{dat/messung1_d.txt} \\
+		\Delta t_0 &= \input{dat/messung1_x0.txt} \\
+		\sigma_{\Delta t_0} &= \input{dat/messung1_d.txt} \\
 		y_0 &= \input{dat/messung1_y0.txt}
 	\end{align*}
-	\caption{Fit-Parameter für die Funktion $C(\Delta t) = A \cdot \exp{-\frac{(\Delta t - \Delta t_0)^2}{2 \sigma_{\Delta t}^2}} + y_0$ der ersten Messung.}
+	\caption{Fit-Parameter für die Funktion $C(\Delta t) = A \cdot \exp{-\frac{(\Delta t - \Delta t_0)^2}{2 \sigma_{\Delta t_0}^2}} + y_0$ Verzögerungsdauer.}
 	\label{fig:fitval1}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{align*}
+	A &= \input{dat/messung3_A.txt} \\
+	\theta_0 &= \input{dat/messung3_x0.txt} \\
+	\sigma_{\theta_0} &= \input{dat/messung3_d.txt}
+	\end{align*}
+	\caption{Fit-Parameter für die Funktion $C(\theta) = A \cdot \exp{-\frac{(\theta - \theta_0)^2}{2 \sigma_{\theta_0}^2}}$ der Vernichtungsstrahlung.}
+	\label{fig:fitval3}
+\end{figure}
+
+
+\begin{figure}[H]
+	\begin{align*}
+	A &= \input{dat/messung4_A.txt}
+	\end{align*}
+	\caption{Fit-Parameter für die Funktion $W(\theta) = A \cdot \left( 1 + \frac{1}{8} \cos^2 \theta + \frac{1}{24} \cos^4 \theta \right)$ der theoretischen Winkelkorrelation.}
+	\label{fig:fitval4}
 \end{figure}

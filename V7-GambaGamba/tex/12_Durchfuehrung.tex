@@ -13,17 +13,17 @@ Der Aufbau dieses Versuchs ist in Abbildung \ref{schaltung} schematisch dargeste
 Deren Zerfallsschemata sind in Abbildung \ref{Zerfallsschemata} zu sehen.
 \begin{figure}[H]
 	\centering
-	\begin{subfigure}[t]{0.5\textwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/ZerfallsschemaVonNa22}
 		\caption{Zerfallsschema von $^{22}$Na.}
 	\end{subfigure}
-	\begin{subfigure}[t]{0.5\textwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/ZerfallsschemaVonCs137}
 		\caption{Zerfallsschema von $^{137}$Cs.}
 	\end{subfigure}
-	\begin{subfigure}[t]{0.5\textwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/ZerfallsschemaVonCo60}
 		\caption{Zerfallsschema von $^{60}$Co.}
@@ -43,6 +43,20 @@ Diese ist über einen ADC (engl. \emph{analog-to-digital converter}) mit dem Com
 \subsection{Elektronik}
 
 Registriert ein NaJ-Detektor ein Photon, so entsteht am Photomultiplier der im Oszilloskopbild \ref{SignalNachPhotomultiplier} dargestellte unipolare Puls.
+Die Höhe der Amplitude dieses Pulses ist proportional zur im Szintillator deponierten Energie.
+
+Der Hauptverstärker wandelt die unipolaren in bipolare Signale um, indem er sie differenziert.
+Das Oszilloskopbild \ref{SignalNachHauptverstärker} zeigt solch ein bipolares Signal nach dem Verlassen des Hauptverstärkers.
+Überschreitet der positive Teil des bipolaren Pulses eine gewisse Schwelle, so wird der Puls gezählt, sobald er wieder Null erreicht.
+Dies entspricht immer dem Maximum des ursprünglichen, nicht-differenzierten Signals.
+Somit liefert der Nulldurchgang des bipolaren Signals die eindeutige Zeitinformation und der Zeitnullpunkt ist von der Höhe der Amplitude unabhängig.
+
+Der TSCA registriert die vom Hauptverstärker ausgehenden bipolaren Pulse und gibt Rechteckpulse aus, was im Oszilloskopbild \ref{SignalNachTSCA} zu sehen ist.
+Der TSCA besitzt eine untere und eine obere Schwelle, sodass Signale, deren Höhe oberhalb der unteren und unterhalb der oberen Schwelle liegt, zu einem Rechteckpuls am Ausgang des TSCA führen.
+Sobald es beim Signal am Eingang des TSCA zum Nulldurchgang kommt, beginnt der Rechteckpuls.
+Zusätzlich bietet der TSCA die Möglichkeit mit Hilfe eines eingebauten Verzögerungsglieds (Delay) ein Signal zu verzögern.
+Diese Verzögerungsglieder dienen dem künstlichen Ausgleich der Verzögerung von Signalen, welche zwar zeitlich gegeneinander verschobenen, aber eigentlich koinzident sind.
+Die besagte Signalverzögerung kommt aufgrund der unterschiedlichen Kabellängen und der elektronischen Verarbeitungszeit in den verschiedenen Komponenten zustande.
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}[t]{0.495\textwidth}
@@ -72,20 +86,6 @@ Registriert ein NaJ-Detektor ein Photon, so entsteht am Photomultiplier der im O
 	\caption{Die Abbildung zeigt die mit einem Oszilloskop aufgenommenen Bilder des Signals bzw. der Signale an vier verschiedenen Stellen im Blockschaltbild, welches in Abbildung \ref{schaltung} zu sehen ist.}
 	\label{Oszilloskopbilder}
 \end{figure}
-\noindent Die Höhe der Amplitude dieses Pulses ist proportional zur im Szintillator deponierten Energie.
-
-Der Hauptverstärker wandelt die unipolaren in bipolare Signale um, indem er sie differenziert.
-Das Oszilloskopbild \ref{SignalNachHauptverstärker} zeigt solch ein bipolares Signal nach dem Verlassen des Hauptverstärkers.
-Überschreitet der positive Teil des bipolaren Pulses eine gewisse Schwelle, so wird der Puls gezählt, sobald er wieder Null erreicht.
-Dies entspricht immer dem Maximum des ursprünglichen, nicht-differenzierten Signals.
-Somit liefert der Nulldurchgang des bipolaren Signals die eindeutige Zeitinformation und der Zeitnullpunkt ist von der Höhe der Amplitude unabhängig.
-
-Der TSCA registriert die vom Hauptverstärker ausgehenden bipolaren Pulse und gibt Rechteckpulse aus, was im Oszilloskopbild \ref{SignalNachTSCA} zu sehen ist.
-Der TSCA besitzt eine untere und eine obere Schwelle, sodass Signale, deren Höhe oberhalb der unteren und unterhalb der oberen Schwelle liegt, zu einem Rechteckpuls am Ausgang des TSCA führen.
-Sobald es beim Signal am Eingang des TSCA zum Nulldurchgang kommt, beginnt der Rechteckpuls.
-Zusätzlich bietet der TSCA die Möglichkeit mit Hilfe eines eingebauten Verzögerungsglieds (Delay) ein Signal zu verzögern.
-Diese Verzögerungsglieder dienen dem künstlichen Ausgleich der Verzögerung von Signalen, welche zwar zeitlich gegeneinander verschobenen, aber eigentlich koinzident sind.
-Die besagte Signalverzögerung kommt aufgrund der unterschiedlichen Kabellängen und der elektronischen Verarbeitungszeit in den verschiedenen Komponenten zustande.
 
 Bei der Koinzidenzeinheit handelt es sich um eine \glqq Fast-Coincidence-Unit\grqq .
 Das vor der Koinzidenzeinheit aufgenommene Oszilloskopbild \ref{BeideSignaleVorKoinzidenzeinheit} zeigt zwei von den TSCA ausgehende (Rechteck-)Signale.

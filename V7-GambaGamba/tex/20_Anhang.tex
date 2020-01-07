@@ -4,16 +4,13 @@ Jegliche Unsicherheiten werden nach GUM bestimmt und berechnet.
 Die Gleichungen dazu finden sich in \cref{fig:GUM_combine} und \cref{fig:GUM_formula}.
 Für die Unsicherheitsrechnungen wurde die Python Bibliothek \texttt{uncertainties} herangezogen, welche den Richtlinien des GUM folgt.
 
-Für die Unsicherheiten der Parameter in Annäherungskurven wurden die $y$-Unsicherheiten der anzunähernden Werte beachtet und die Methode der kleinsten Quadrate angewandt.
-Dafür steht in der Bibliothek die Methode \texttt{scipy.optimize.curve\_fit()} zur Verfügung.
-
 Zur Erstellung von Anpassungskurven wird das Python-Paket \texttt{scipy.odr} verwendet, welches unter anderem die Methoden \texttt{scipy.odr.Model()}, \texttt{scipy.odr.RealData()} und \texttt{scipy.odr.ODR()} zur Verfügung stellt.
 Dabei wird auf die sogenannte orthogonale lineare Regression (engl. \emph{Orthogonal Distance Regression} (Abkürzung: ODR)) zurückgegriffen, welche auf der Methode der kleinsten Quadrate basiert und einen modifizierten Levenberg-Marquardt-Algorithmus darstellt.
 Für die Parameter von Anpassungskurven und deren Unsicherheiten werden die $x$- und $y$-Unsicherheiten der anzunähernden Werte berücksichtigt und entsprechend gewichtet.
-Bei digitalen Messungen wird eine Rechteckverteilung mit $\sigma_X = \frac{\Delta X}{2\sqrt{3}}$ und bei analogem Ablesen eine Dreieckverteilung mit $\sigma_X = \frac{\Delta X}{2\sqrt{6}}$ angenommen.
-Die konkreten Werte der jeweiligen Fehlerintervalle $\Delta X$ werden in den entsprechenden Abschnitten angemerkt.
+Bei digitalen Messungen wird eine Rechteckverteilung mit $\sigma_X = \frac{\delta X}{2\sqrt{3}}$ und bei analogem Ablesen eine Dreieckverteilung mit $\sigma_X = \frac{\delta X}{2\sqrt{6}}$ angenommen.
+Die konkreten Werte der jeweiligen Fehlerintervalle $\delta X$ werden in den entsprechenden Abschnitten angemerkt.
 
-Die jeweiligen $\Delta X$ sind im konkreten Abschnitt zu finden.
+Die jeweiligen $\delta X$ sind im konkreten Abschnitt zu finden.
 
 \begin{figure}[H]
 	\begin{equation*}
@@ -40,7 +37,7 @@ Die jeweiligen $\Delta X$ sind im konkreten Abschnitt zu finden.
 
 \begin{table}[H]
 	\centering
-	\caption{Fit-Parameter für die Anzahl der Ereignisse $C(\Delta t) = A \cdot \exp{-\frac{(\Delta t - \Delta t_0)^2}{2 \sigma_{\Delta t_0}^2}} + y_0$ bei eingestellter Verzögerung $\Delta t$.}
+	\caption{Fit-Parameter für die Anzahl der Ereignisse $N(\Delta t) = A \cdot \exp{-\frac{(\Delta t - \Delta t_0)^2}{2 \sigma_{\Delta t_0}^2}} + y_0$ bei eingestellter Verzögerung $\Delta t$.}
 	\label{fig:fitval1}
 	\begin{tabular}{cc|c}
 		\toprule

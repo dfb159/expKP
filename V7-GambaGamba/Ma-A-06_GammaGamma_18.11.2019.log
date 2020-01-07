@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.11.24)  7 JAN 2020 12:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2019.11.24)  7 JAN 2020 13:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1866,75 +1866,70 @@ Package pdftex.def Info: img/schaltung.png  used on input line 8.
 File: img/ZerfallsschemaVonNa22.jpg Graphic file (type jpg)
 <use img/ZerfallsschemaVonNa22.jpg>
 Package pdftex.def Info: img/ZerfallsschemaVonNa22.jpg  used on input line 18.
-(pdftex.def)             Requested size: 224.06548pt x 239.54222pt.
-<img/ZerfallsschemaVonCs137.jpg, id=140, 1711.89563pt x 1385.92781pt>
+(pdftex.def)             Requested size: 201.65755pt x 215.5916pt.
+<img/ZerfallsschemaVonCs137.jpg, id=140, 2282.5275pt x 1847.90375pt>
 File: img/ZerfallsschemaVonCs137.jpg Graphic file (type jpg)
 <use img/ZerfallsschemaVonCs137.jpg>
 Package pdftex.def Info: img/ZerfallsschemaVonCs137.jpg  used on input line 23.
 
-(pdftex.def)             Requested size: 224.06548pt x 181.38234pt.
-<img/ZerfallsschemaVonCo60.jpg, id=141, 1670.49094pt x 1653.17625pt>
+(pdftex.def)             Requested size: 201.65755pt x 163.25891pt.
+<img/ZerfallsschemaVonCo60.jpg, id=141, 2227.32124pt x 2204.235pt>
 File: img/ZerfallsschemaVonCo60.jpg Graphic file (type jpg)
 <use img/ZerfallsschemaVonCo60.jpg>
 Package pdftex.def Info: img/ZerfallsschemaVonCo60.jpg  used on input line 28.
-(pdftex.def)             Requested size: 224.06548pt x 221.73131pt.
+(pdftex.def)             Requested size: 201.65755pt x 199.54977pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 31.
 Package cleveref Info: loaded `ngerman' language definitions on input line 33.
  [9 <./img/schaltung.png>]
-Package cleveref Info: loaded `ngerman' language definitions on input line 34.
- [10]
-Overfull \vbox (161.63312pt too high) has occurred while \output is active []
-
-Package cleveref Info: loaded `ngerman' language definitions on input line 34.
-
-[11 <./img/ZerfallsschemaVonNa22.jpg> <./img/ZerfallsschemaVonCs137.jpg> <./img
-/ZerfallsschemaVonCo60.jpg>]
-<img/SignalNachPhotomultiplier.png, id=163, 489.32813pt x 308.65312pt>
+Package cleveref Info: loaded `ngerman' language definitions on input line 42.
+ [10 <./img/ZerfallsschemaVonNa22.jpg> <./img/ZerfallsschemaVonCs137.jpg> <./im
+g/ZerfallsschemaVonCo60.jpg>]
+<img/SignalNachPhotomultiplier.png, id=160, 489.32813pt x 308.65312pt>
 File: img/SignalNachPhotomultiplier.png Graphic file (type png)
 <use img/SignalNachPhotomultiplier.png>
 Package pdftex.def Info: img/SignalNachPhotomultiplier.png  used on input line 
-50.
+64.
 (pdftex.def)             Requested size: 221.82263pt x 139.91931pt.
-<img/SignalNachHauptverstärker.png, id=164, 489.32813pt x 308.65312pt>
+<img/SignalNachHauptverstärker.png, id=161, 489.32813pt x 308.65312pt>
 File: img/SignalNachHauptverstärker.png Graphic file (type png)
 <use img/SignalNachHauptverstärker.png>
 Package pdftex.def Info: img/SignalNachHauptverstärker.png  used on input line
- 56.
+ 70.
 (pdftex.def)             Requested size: 221.82263pt x 139.91931pt.
-<img/SignalNachTSCA.png, id=165, 489.32813pt x 308.65312pt>
+<img/SignalNachTSCA.png, id=162, 489.32813pt x 308.65312pt>
 File: img/SignalNachTSCA.png Graphic file (type png)
 <use img/SignalNachTSCA.png>
-Package pdftex.def Info: img/SignalNachTSCA.png  used on input line 62.
+Package pdftex.def Info: img/SignalNachTSCA.png  used on input line 76.
 (pdftex.def)             Requested size: 221.82263pt x 139.91931pt.
-<img/BeideSignaleVorKoinzidenzeinheit.png, id=166, 489.32813pt x 308.65312pt>
+<img/BeideSignaleVorKoinzidenzeinheit.png, id=163, 489.32813pt x 308.65312pt>
 File: img/BeideSignaleVorKoinzidenzeinheit.png Graphic file (type png)
 <use img/BeideSignaleVorKoinzidenzeinheit.png>
 Package pdftex.def Info: img/BeideSignaleVorKoinzidenzeinheit.png  used on inpu
-t line 68.
+t line 82.
 (pdftex.def)             Requested size: 221.82263pt x 139.91931pt.
-Package cleveref Info: loaded `ngerman' language definitions on input line 75.
- [12]
-Package cleveref Info: loaded `ngerman' language definitions on input line 82.
- [13 <./img/SignalNachPhotomultiplier.png> <./img/SignalNachHauptverstärker.pn
+Package cleveref Info: loaded `ngerman' language definitions on input line 88.
+ [11]
+Package cleveref Info: loaded `ngerman' language definitions on input line 96.
+ [12 <./img/SignalNachPhotomultiplier.png> <./img/SignalNachHauptverstärker.pn
 g> <./img/SignalNachTSCA.png> <./img/BeideSignaleVorKoinzidenzeinheit.png>]
-Package cleveref Info: loaded `ngerman' language definitions on input line 110.
+Package cleveref Info: loaded `ngerman' language definitions on input line 111.
 
- [14])
+ [13])
 Package cleveref Info: loaded `ngerman' language definitions on input line 56.
- [15]
-Package cleveref Info: loaded `ngerman' language definitions on input line 56.
- [16] (./tex/13_Auswertung.tex
-<dat/zeitdifferenz.pdf, id=201, 433.62pt x 289.08pt>
+ [14] (./tex/13_Auswertung.tex
+
+LaTeX Warning: Citation '1' on page 15 undefined on input line 4.
+
+<dat/zeitdifferenz.pdf, id=195, 433.62pt x 289.08pt>
 File: dat/zeitdifferenz.pdf Graphic file (type pdf)
 <use dat/zeitdifferenz.pdf>
-Package pdftex.def Info: dat/zeitdifferenz.pdf  used on input line 12.
+Package pdftex.def Info: dat/zeitdifferenz.pdf  used on input line 16.
 (pdftex.def)             Requested size: 313.69029pt x 209.13873pt.
-
 (./dat/messung1_x0.txt) (./dat/messung1_eff.txt) (./dat/messung1_d.txt)
-Package cleveref Info: loaded `ngerman' language definitions on input line 24.
+Package cleveref Info: loaded `ngerman' language definitions on input line 26.
 
-[17 <./dat/zeitdifferenz.pdf>] (./dat/messung2_zweiT.txt)
+[15 <./dat/zeitdifferenz.pdf>] (./dat/messung2_zweiT.txt)
 (./dat/messung2_det1.txt
 LaTeX Font Info:    Calculating math sizes for size <8.4> on input line 1.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -1945,39 +1940,40 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <4.2> on input line 1.
 ) (./dat/messung2_det2.txt) (./dat/messung2_koinz.txt)
 (./dat/messung3_koinz.txt)
-Package cleveref Info: loaded `ngerman' language definitions on input line 52.
- [18]
-<dat/vernichtung.pdf, id=267, 433.62pt x 289.08pt>
+Package cleveref Info: loaded `ngerman' language definitions on input line 55.
+ [16]
+<dat/vernichtung.pdf, id=258, 433.62pt x 289.08pt>
 File: dat/vernichtung.pdf Graphic file (type pdf)
 <use dat/vernichtung.pdf>
-Package pdftex.def Info: dat/vernichtung.pdf  used on input line 55.
+Package pdftex.def Info: dat/vernichtung.pdf  used on input line 58.
 (pdftex.def)             Requested size: 313.69029pt x 209.13873pt.
  (./dat/messung3_x0.txt) (./dat/messung3_d.txt)
 (./dat/messung4_koinz.txt)
-Package cleveref Info: loaded `ngerman' language definitions on input line 82.
- [19 <./dat/vernichtung.pdf>]
-<dat/theoKurve.pdf, id=325, 433.62pt x 289.08pt>
+Package cleveref Info: loaded `ngerman' language definitions on input line 85.
+ [17 <./dat/vernichtung.pdf>]
+<dat/theoKurve.pdf, id=318, 433.62pt x 289.08pt>
 File: dat/theoKurve.pdf Graphic file (type pdf)
 <use dat/theoKurve.pdf>
-Package pdftex.def Info: dat/theoKurve.pdf  used on input line 85.
+Package pdftex.def Info: dat/theoKurve.pdf  used on input line 88.
 (pdftex.def)             Requested size: 313.69029pt x 209.13873pt.
 
 (./dat/messung4_Atheo.txt) (./dat/messung4_Aexp.txt) (./dat/messung4_Atheo.txt)
 (./dat/messung4_Aexp.txt)
-Package cleveref Info: loaded `ngerman' language definitions on input line 100.
+Package cleveref Info: loaded `ngerman' language definitions on input line 103.
 
- [20 <./dat/theoKurve.pdf>])
+ [18 <./dat/theoKurve.pdf>])
 Package cleveref Info: loaded `ngerman' language definitions on input line 70.
- [21] (./tex/20_Anhang.tex
-Package cleveref Info: loaded `ngerman' language definitions on input line 37.
-[22] (./dat/messung1_A.txt) (./dat/messung1_x0.txt) (./dat/messung1_d.txt)
-(./dat/messung1_y0.txt) (./dat/messung3_A.txt) (./dat/messung3_x0.txt)
+ [19] (./tex/20_Anhang.tex (./dat/messung1_A.txt) (./dat/messung1_x0.txt) (./da
+t/messung1_d.txt)
+(./dat/messung1_y0.txt)
+Package cleveref Info: loaded `ngerman' language definitions on input line 50.
+ [20] (./dat/messung3_A.txt) (./dat/messung3_x0.txt)
 (./dat/messung3_d.txt) (./dat/messung4_A.txt))
 Package cleveref Info: loaded `ngerman' language definitions on input line 72.
- [23]
+ [21]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 75.
 Package cleveref Info: loaded `ngerman' language definitions on input line 75.
- [24
+ [22
 
 ]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 75.
@@ -1990,47 +1986,57 @@ Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 75.
 Package rerunfilecheck Info: File `Ma-A-06_GammaGamma_18.11.2019.out' has not c
 hanged.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+
+
+LaTeX Warning: There were undefined references.
+
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                Ma-A-06_GammaGamma_18.11.2019
+(biblatex)                and rerun LaTeX afterwards.
+
 Package logreq Info: Writing requests to 'Ma-A-06_GammaGamma_18.11.2019.run.xml
 '.
 \openout1 = `Ma-A-06_GammaGamma_18.11.2019.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 47330 strings out of 492164
- 920876 string characters out of 6122423
- 1516517 words of memory out of 5000000
- 50757 multiletter control sequences out of 15000+600000
- 893847 words of font info for 441 fonts, out of 8000000 for 9000
+ 47341 strings out of 492164
+ 921014 string characters out of 6122423
+ 1516478 words of memory out of 5000000
+ 50759 multiletter control sequences out of 15000+600000
+ 897280 words of font info for 447 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  68i,24n,118p,10088b,2380s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Program Files/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/P
 rogram Files/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Progr
-am Files/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Program Files
-/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Program Files/texlive
+am Files/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Program Files
+/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Program Files/texlive
 /2019/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Program Files/texlive/201
 9/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}<c:/Program Files/texlive/2019/te
 xmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Program Files/texlive/2019/texmf-
-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/Program Files/texlive/2019/texmf-dis
-t/fonts/type1/public/lm/lmex10.pfb><c:/Program Files/texlive/2019/texmf-dist/fo
-nts/type1/public/lm/lmmi10.pfb><c:/Program Files/texlive/2019/texmf-dist/fonts/
-type1/public/lm/lmmi12.pfb><c:/Program Files/texlive/2019/texmf-dist/fonts/type
-1/public/lm/lmmi6.pfb><c:/Program Files/texlive/2019/texmf-dist/fonts/type1/pub
-lic/lm/lmmi8.pfb><c:/Program Files/texlive/2019/texmf-dist/fonts/type1/public/l
-m/lmr10.pfb><c:/Program Files/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr
-12.pfb><c:/Program Files/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr17.pf
-b><c:/Program Files/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/
-Program Files/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Progra
-m Files/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Program File
-s/texlive/2019/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Program Files/te
-xlive/2019/texmf-dist/fonts/type1/public/lm/lmro12.pfb><c:/Program Files/texliv
-e/2019/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb><c:/Program Files/texlive/
-2019/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Program Files/texlive/2019
-/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/Program Files/texlive/2019/texm
-f-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on Ma-A-06_GammaGamma_18.11.2019.pdf (26 pages, 2456157 bytes).
+dist/fonts/type1/public/lm/lmbx12.pfb><c:/Program Files/texlive/2019/texmf-dist
+/fonts/type1/public/lm/lmcsc10.pfb><c:/Program Files/texlive/2019/texmf-dist/fo
+nts/type1/public/lm/lmex10.pfb><c:/Program Files/texlive/2019/texmf-dist/fonts/
+type1/public/lm/lmmi10.pfb><c:/Program Files/texlive/2019/texmf-dist/fonts/type
+1/public/lm/lmmi12.pfb><c:/Program Files/texlive/2019/texmf-dist/fonts/type1/pu
+blic/lm/lmmi6.pfb><c:/Program Files/texlive/2019/texmf-dist/fonts/type1/public/
+lm/lmmi8.pfb><c:/Program Files/texlive/2019/texmf-dist/fonts/type1/public/lm/lm
+r10.pfb><c:/Program Files/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr12.p
+fb><c:/Program Files/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c
+:/Program Files/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/Prog
+ram Files/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Program Fi
+les/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Program Files/te
+xlive/2019/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Program Files/texliv
+e/2019/texmf-dist/fonts/type1/public/lm/lmro12.pfb><c:/Program Files/texlive/20
+19/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb><c:/Program Files/texlive/2019
+/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Program Files/texlive/2019/tex
+mf-dist/fonts/type1/public/lm/lmsy8.pfb><c:/Program Files/texlive/2019/texmf-di
+st/fonts/type1/public/lm/lmtt12.pfb>
+Output written on Ma-A-06_GammaGamma_18.11.2019.pdf (24 pages, 1911757 bytes).
 PDF statistics:
- 569 PDF objects out of 1000 (max. 8388607)
- 376 compressed objects within 4 object streams
- 75 named destinations out of 1000 (max. 500000)
- 98037 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 564 PDF objects out of 1000 (max. 8388607)
+ 373 compressed objects within 4 object streams
+ 73 named destinations out of 1000 (max. 500000)
+ 98549 words of extra memory for PDF output out of 106986 (max. 10000000)
 

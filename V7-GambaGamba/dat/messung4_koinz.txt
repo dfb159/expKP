@@ -1,1 +1,1 @@
-\SI{0,00477 \pm 0,00008}{1\per\second}
+\SI{0,00477 \pm 0,00008}{\per\second}

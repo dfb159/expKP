@@ -1,1 +1,1 @@
-\SI{226,1 \pm 1,4}{1\per\second}
+\SI{226,1 \pm 1,4}{\per\second}

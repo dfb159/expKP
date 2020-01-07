@@ -1,1 +1,1 @@
-\SI{592,3 \pm 2,2}{1\per\second}
+\SI{592,3 \pm 2,2}{\per\second}

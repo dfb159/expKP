@@ -1,1 +1,1 @@
-\SI{21,3 \pm 0,6}{1\per\second}
+\SI{21,3 \pm 0,6}{\per\second}

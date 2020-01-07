@@ -119,10 +119,10 @@ det2 = stat(704247) / (2*60) # s-1
 koinz = stat(4575) / (30*60) # s-1
 zweiT = koinz / (det1 * det2) # s
 print(zweiT/C.nano)
-latex.SI(det1, "1\\per\\second", data_out, "messung2_det1")
-latex.SI(det2, "1\\per\\second", data_out, "messung2_det2")
-latex.SI(koinz, "1\\per\\second", data_out, "messung2_koinz")
-latex.SI(zweiT/C.nano, "\\nano\\second", data_out, "messung2_zweiT")
+latex.SI(det1, r"\per\second", data_out, "messung2_det1")
+latex.SI(det2, r"\per\second", data_out, "messung2_det2")
+latex.SI(koinz, r"\per\second", data_out, "messung2_koinz")
+latex.SI(zweiT/C.nano, r"\nano\second", data_out, "messung2_zweiT")
 
 halbwertszeit = unc.ufloat(30.08, 0.09)
 aktiv = 100 * C.micro * 3.7e10 * 2**(np.log(0.5) * (2020 - 1962) / halbwertszeit) # Becquerel
@@ -137,11 +137,11 @@ det2 = stat(30375) / (2*60) # s-1
 koinz = det1 * det2 * zweiT # s-1
 koinz90 = stat(557) / (10*60) - koinz # s-1
 koinz120 = stat(486) / (10*60) - koinz #s-1
-latex.SI(det1, "1\\per\\second", data_out, "messung3_det1")
-latex.SI(det2, "1\\per\\second", data_out, "messung3_det2")
-latex.SI(koinz, "1\\per\\second", data_out, "messung3_koinz")
-latex.SI(koinz90, "1\\per\\second", data_out, "messung3_koinz90")
-latex.SI(koinz120, "1\\per\\second", data_out, "messung3_koinz120")
+latex.SI(det1, r"\per\second", data_out, "messung3_det1")
+latex.SI(det2, r"\per\second", data_out, "messung3_det2")
+latex.SI(koinz, r"\per\second", data_out, "messung3_koinz")
+latex.SI(koinz90, r"\per\second", data_out, "messung3_koinz90")
+latex.SI(koinz120, r"\per\second", data_out, "messung3_koinz120")
 
 print("Zufall: %s\n90 deg: %s\n120deg: %s" % (koinz, koinz90, koinz120))
 
@@ -164,9 +164,9 @@ p0 = [22, 180, 5]
 xfit, yfit, p = fit.fitspaceXY(winkel, counts, gauss, p0, range=(160,200), num=250, functionUnc=gaussUnc)
 A,x0,d = p
 winkelaufloesung = d
-latex.SI(A, "1\\per\\second", data_out, "messung3_A")
-latex.SI(x0, "\\degree", data_out, "messung3_x0")
-latex.SI(d, "\\degree", data_out, "messung3_d")
+latex.SI(A, r"\per\second", data_out, "messung3_A")
+latex.SI(x0, r"\degree", data_out, "messung3_x0")
+latex.SI(d, r"\degree", data_out, "messung3_d")
 
 
 print("A=%s\nx0=%s\nd=%s\ny0=%s" % (A,x0,d,y0))
@@ -179,7 +179,7 @@ plt.plot(unv(xfit), unv(yfit), color="C1", alpha=1, linewidth=2, zorder=9, label
 plt.xlabel(u"Winkel zwischen Detektoren $\\theta$ [$°$]")
 plt.ylabel(u"Zählrate [$1/s$]")
 #plt.grid()
-#plt.xlim(0, 256)
+plt.xlim(160, 200)
 #plt.ylim(0, 2000)
 plt.legend(prop={'size':fig_legendsize}, loc="lower center")
 plt.tick_params(labelsize=fig_labelsize, direction="in")
@@ -217,12 +217,12 @@ Atheo = (Wtheo(180*C.grad) - Wtheo(90*C.grad)) / Wtheo(90*C.grad)
 print("A_theo = %s" % Atheo)
 
 
-latex.SI(det1, "1\\per\\second", data_out, "messung4_det1")
-latex.SI(det2, "1\\per\\second", data_out, "messung4_det2")
-latex.SI(koinz, "1\\per\\second", data_out, "messung4_koinz")
-latex.SI(zufall, "1\\per\\second", data_out, "messung4_zufall")
-latex.SI(count90, "1\\per\\second", data_out, "messung4_count90")
-latex.SI(count180, "1\\per\\second", data_out, "messung4_count180")
+latex.SI(det1, r"\per\second", data_out, "messung4_det1")
+latex.SI(det2, r"\per\second", data_out, "messung4_det2")
+latex.SI(koinz, r"\per\second", data_out, "messung4_koinz")
+latex.SI(zufall, r"\per\second", data_out, "messung4_zufall")
+latex.SI(count90, r"\per\second", data_out, "messung4_count90")
+latex.SI(count180, r"\per\second", data_out, "messung4_count180")
 latex.SI(Aexp.format(".3f"), "", data_out, "messung4_Aexp")
 latex.SI("%.3f" % Atheo, "", data_out, "messung4_Atheo")
 
@@ -245,7 +245,7 @@ plt.plot(unv(xfit), unv(yfit), color="C1", alpha=1, linewidth=2, zorder=9, label
 plt.xlabel(u"Winkel zwischen Detektoren $\\theta$ [$°$]")
 plt.ylabel(u"Zählrate [$1/s$]")
 #plt.grid()
-#plt.xlim(0, 256)
+plt.xlim(0,360)
 #plt.ylim(0, 2000)
 plt.legend(prop={'size':fig_legendsize})#, loc="lower center")
 plt.tick_params(labelsize=fig_labelsize, direction="in")

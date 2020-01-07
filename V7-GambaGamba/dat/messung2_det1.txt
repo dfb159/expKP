@@ -1,1 +1,1 @@
-\SI{5201 \pm 7}{1\per\second}
+\SI{5201 \pm 7}{\per\second}

@@ -1,1 +1,0 @@
-\SI{83,3 \pm 1,2}{\nano\second}

@@ -1,6 +1,6 @@
 \section{Versuchsanordnung und -durchführung}
 
-\subsection{Versuchsaufbau}
+\subsection{Versuchsaufbau und Elektronik}
 
 Der Aufbau dieses Versuchs ist in Abbildung \ref{Aufbau} schematisch dargestellt und besteht aus einer Vakuumkammer, zwei Detektoren, drei Mylar-Folien, einer Strahlungsquelle, der signalverarbeitenden Elektronik sowie einem Computer.
 \begin{figure}[H]
@@ -17,17 +17,44 @@ Bei den beiden Detektoren handelt es sich um mit Hochspannung (Abkürzung: HV) b
 Dabei ist der von einem einfallenden $\alpha$-Teilchen zuerst getroffene Detektor ungefähr $7\,$cm dick und wird als $\Delta E$-Detektor bezeichnet.
 Der dem $\Delta E$-Detektor nachstehende sogenannte $E$-Detektor ist circa $20\,$cm dick.
 An den $\Delta E$-Detektor wird eine Spannung von $+3\,$V und an den $E$-Detektor eine Spannung von $+250\,$V angelegt.
-Die Folien und der $\Delta E$-Detektor sind aus dem Strahlengang entfernbar.
+Die Folien und der $\Delta E$-Detektor sind aus dem $\alpha$-Strahlengang entfernbar.
 Beide Detektoren sind jeweils an Vorverstärker mit der Modellbezeichnung \glqq Canberra 970\grqq\ angeschlossen, welche über externe Spannungsquellen versorgt werden.
-
-
-%Computer mit ADC und CAMAC-Karte.
-%Diese ist über einen ADC (engl. \emph{analog-to-digital converter}) mit dem Computer verbunden, welcher über eine entsprechende Datenaufnahme-Software verfügt und somit den Zähler bildet.
-
-\subsection{Elektronik}
+Die zwei Vorverstärker sind jeweils mit einem Hauptverstärker verbunden.
+Wobei einer dieser beiden Hauptverstärker vom Typ \glqq Canberra 2022\grqq\ und der andere vom Typ \glqq Ortec 575\grqq\ ist.
+Die von den zwei Hauptverstärkern ausgehenden unipolaren Signale werden von einem CAMAC ADC (engl. \emph{analog-to-digital converter}) mit der Modellbezeichnung \glqq LeCroy 2259B\grqq\ ausgelesen.
+Der CAMAC ADC ist über eine CAMAC-Karte mit dem Computer verbunden, welcher über eine entsprechende Datenaufnahme-Software verfügt.
+Zusätzlich wird das Signal des dem $E$-Detektor zuzuordnenden Vorverstärkers an einen Diskriminator vom Typ \glqq Ortec 584\grqq\ weitergeleitet.
+Dieser gibt das Signal erst ab einer bestimmten Signalhöhe weiter, sodass das Hintergrundrauschen herausgefiltert wird.
+Der Diskriminator ist an einen Timer mit der Modellbezeichnung \glqq CAEN N93B\grqq\ angeschlossen, welcher das Eingangssignal in ein Rechtecksignal umwandelt.
+Letzteres dient als Gate für den nachstehenden CAMAC ADC und gibt den Zeitraum an, bei dem dieser Signale aufnehmen kann.
+Auf diese Weise werden nur koinzidente Ereignisse aufgenommen.
 
 
 
 \subsection{Durchführung}
 
+Zunächst wird der $E$-Detektor kalibriert.
+Dazu wird der $\Delta E$-Detektor und der Folienhalter samt Mylar-Folien aus dem $\alpha$-Strahlengang entfernt.
+Anschließend soll das vom $E$-Detektor gemessene $\alpha$-Energiespektrum von $^{241}$Am aufgenommen werden.
+Diese Kalibrierungsmessung wird solange durchgeführt, bis eine adäquate Anzahl von Ereignissen registriert worden ist.
 
+Im zweiten Teilexperiment soll die Kalibrierung und die Dickebestimmung des $\Delta E$-Detektors stattfinden.
+Dafür wird der $\Delta E$-Detektor wieder in den $\alpha$-Strahlengang eingesetzt.
+Danach werden die von beiden Detektoren gemessenen $\alpha$-Energiespektren mit einer adäquaten Anzahl von Ereignissen aufgenommen.
+
+Nun soll mit Hilfe des $E$-Detektors die Dicke von einer, zwei und drei Mylar-Folien bestimmt werden.
+Im Zuge dessen wird der $\Delta E$-Detektor erneut aus dem $\alpha$-Strahlengang entfernt und zuerst der Folienhalter mit einer Mylar-Folie eingesetzt, sodass sich die Folie zwischen der Strahlungsquelle und dem $E$-Detektor befindet.
+Dabei ist die Längsseite der Folie senkrecht zum $\alpha$-Strahlengang auszurichten, was einem Winkel von $0\,$° entspricht.
+Anschließend wird das vom $E$-Detektor gemessene $\alpha$-Energiespektrum aufgenommen.
+Diese Messung soll mit zwei und mit drei Folien wiederholt werden.
+
+Im letzten Teilexperiment wird der Energieverlust im $\Delta E$-Detektor bei verschiedenen $\alpha$-Energien bestimmt.
+Dazu wird der $\Delta E$-Detektor wieder in den $\alpha$-Strahlengang eingesetzt.
+Unter Verwendung des CAMAC-Messsystems sollen nun koinzidente Ereignisse gemessen werden.
+Dies bedeutet, dass nur dann ein Messwert aufgenommen wird, wenn in beiden Detektoren zur gleichen Zeit ein Ereignis stattfindet.
+Hierbei ist anzumerken, dass die von den Detektoren ausgehenden Signale nicht wirklich koinzident sind.
+Aufgrund der hohen Geschwindigkeit eines einfallenden $\alpha$-Teilchens und des geringen Abstands zwischen dem $\Delta E$-Detektor und dem $E$-Detektor entsteht jedoch eine scheinbare Koinzidenz.
+Zunächst wird der Folienhalter samt Mylar-Folien aus dem $\alpha$-Strahlengang entfernt und das Energiespektrum mit Hilfe beider Detektoren aufgenommen.
+Für jede der drei Mylar-Folien wird der Folienhalter mit der entsprechenden Folie in den $\alpha$-Strahlengang gebracht und der Winkel zwischen der Längsseite einer Folie und dem $\alpha$-Strahlengang in $15\,$°-Schritten von $0\,$° bis $60\,$° variiert.
+Bei jedem dieser $15\,$°-Schritte wird unter Verwendung beider Detektoren das Energiespektrum mit einer adäquaten Anzahl von Ereignissen aufgenommen.
+Anzumerken ist, dass vor allem bei niedrigen Zählraten die Messzeit ausreichend groß gewählt werden sollte, um genügend Datenpunkte sammeln zu können.

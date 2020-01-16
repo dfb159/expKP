@@ -3,13 +3,14 @@
 Jegliche Unsicherheiten werden nach GUM bestimmt und berechnet.
 Die Gleichungen dazu finden sich in \cref{fig:GUM_combine} und \cref{fig:GUM_formula}.
 Für die Unsicherheitsrechnungen wurde die Python Bibliothek \texttt{uncertainties} herangezogen, welche den Richtlinien des GUM folgt.
-%TODO uncertainties und GUM Vereinbarkeit klären und einbringen
-Für die Unsicherheiten der Parameter in Annäherungskurven wurden die $y$-Unsicherheiten der anzunähernden Werte beachtet und die Methode der kleinsten Quadrate angewandt.
-Dafür steht in der Bibliothek die Methode \texttt{scipy.optimize.curve\_fit()} zur Verfügung.
 
-Für digitale Messungen wird eine rechteckige Verteilung mit $\sigma_X = \frac{\Delta X}{2\sqrt{3}}$ und für analoges Ablesen wird eine Dreiecksverteilung mit $\sigma_X = \frac{\Delta X}{2\sqrt{6}}$ angenommen.
-Die jeweiligen $\Delta X$ sind im konkreten Abschnitt zu finden.
+Zur Erstellung von Anpassungskurven wird das Python-Paket \texttt{scipy.odr} verwendet, welches unter anderem die Methoden \texttt{scipy.odr.Model()}, \texttt{scipy.odr.RealData()} und \texttt{scipy.odr.ODR()} zur Verfügung stellt.
+Dabei wird auf die sogenannte orthogonale lineare Regression (engl. \emph{Orthogonal Distance Regression} (Abkürzung: ODR)) zurückgegriffen, welche auf der Methode der kleinsten Quadrate basiert und einen modifizierten Levenberg-Marquardt-Algorithmus darstellt.
+Für die Parameter von Anpassungskurven und deren Unsicherheiten werden die $x$- und $y$-Unsicherheiten der anzunähernden Werte berücksichtigt und entsprechend gewichtet.
+Bei digitalen Messungen wird eine Rechteckverteilung mit $\sigma_X = \frac{\delta X}{2\sqrt{3}}$ und bei analogem Ablesen eine Dreieckverteilung mit $\sigma_X = \frac{\delta X}{2\sqrt{6}}$ angenommen.
+Die konkreten Werte der jeweiligen Fehlerintervalle $\delta X$ werden in den entsprechenden Abschnitten angemerkt.
 
+Die jeweiligen $\delta X$ sind im konkreten Abschnitt zu finden.
 \begin{figure}[ht]
 	\begin{equation*}
 		x = \sum_{i=1}^{N} x_i
@@ -29,3 +30,13 @@ Die jeweiligen $\Delta X$ sind im konkreten Abschnitt zu finden.
 	\caption{Formel für sich fortpflanzende Unsicherheiten nach GUM.}
 	\label{fig:GUM_formula}
 \end{figure}
+
+\subsection{Fit-Parameter}
+\label{sec:fitval}
+
+\begin{table}[H]
+	\centering
+	\caption{Fit-Parameter für die normierte Doppelgaussfunktion \mbox{$n(E) = A_1 \cdot \exp{-\frac{(E - E_1)^2}{2 \sigma_1^2}} + A_2 \cdot \exp{-\frac{(E - E_2)^2}{2 \sigma_2^2}} + E_0$} der Dickebestimmung.}
+	\label{tab:fitval1}
+	\input{dat/m3_fitdaten.txt}
+\end{table}

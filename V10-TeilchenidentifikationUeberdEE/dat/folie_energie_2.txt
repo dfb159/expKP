@@ -1,0 +1,1 @@
+\SI[separate-uncertainty=true]{3370 \pm 115}{\kilo\electronvolt}

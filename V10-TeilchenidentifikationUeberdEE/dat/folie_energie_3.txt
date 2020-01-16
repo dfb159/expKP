@@ -1,0 +1,1 @@
+\SI[separate-uncertainty=true]{2022 \pm 121}{\kilo\electronvolt}

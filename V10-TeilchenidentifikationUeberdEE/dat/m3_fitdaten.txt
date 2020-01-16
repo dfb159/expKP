@@ -1,0 +1,12 @@
+\begin{tabular}{c|cccc}
+\toprule
+ & ohne & 1. Folie & 2. Folie & 3. Folie\\ \midrule
+$A_1$ & \SI{0,95 \pm 0,04}{} & \SI{0,903 \pm 0,035}{} & \SI{0,870 \pm 0,032}{} & \SI{0,941 \pm 0,026}{}\\
+$E_1$ & \SI{5485 \pm 4}{\kilo\electronvolt} & \SI{4508 \pm 4}{\kilo\electronvolt} & \SI{3370 \pm 4}{\kilo\electronvolt} & \SI{2022 \pm 4}{\kilo\electronvolt}\\
+$\sigma_1$ & \SI{67,2 \pm 2,6}{\kilo\electronvolt} & \SI{92,9 \pm 2,8}{\kilo\electronvolt} & \SI{114,6 \pm 3,2}{\kilo\electronvolt} & \SI{121,3 \pm 3,0}{\kilo\electronvolt}\\
+$A_2$ & \SI{0,298 \pm 0,014}{} & \SI{0,320 \pm 0,017}{} & \SI{0,412 \pm 0,020}{} & \SI{0,541 \pm 0,020}{}\\
+$E_2$ & \SI{5139 \pm 8}{\kilo\electronvolt} & \SI{4077 \pm 8}{\kilo\electronvolt} & \SI{2878 \pm 6}{\kilo\electronvolt} & \SI{1594 \pm 6}{\kilo\electronvolt}\\
+$\sigma_2$ & \SI{135 \pm 6}{\kilo\electronvolt} & \SI{141 \pm 7}{\kilo\electronvolt} & \SI{134 \pm 6}{\kilo\electronvolt} & \SI{124 \pm 5}{\kilo\electronvolt}\\
+$A_0$ & \SI{0,00199 \pm 0,00028}{} & \SI{0,0022 \pm 0,0004}{} & \SI{0,0013 \pm 0,0004}{} & \SI{0,00033 \pm 0,00031}{}\\
+\bottomrule
+\end{tabular}

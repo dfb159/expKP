@@ -37,7 +37,7 @@ parskip = half,         % Abstand nach Absatz
 	}{}
 	
 	% --- Inhaltsverzeichnis einbinden
-	\ifthenelse{\boolean{showTOC}}{
+	\ifthenelse{\boolean{showTOC}}{ 
 		\tableofcontents
 		\clearpage
 	}{}
@@ -63,15 +63,11 @@ parskip = half,         % Abstand nach Absatz
 	
 	% --- Anhang einbinden
 	\IfFileExists{tex/20_Anhang.tex}{
+		\newpage
+		\section{Anhang}
+		\label{sec:anhang}
 		\input{tex/20_Anhang.tex}
 	}{}
-
-	%\appendix
-	%		\newpage
-	%		\section{Anhang}
-	%		\label{sec:anhang}
-	%		\input{tex/20_Anhang.tex}
-	%	}{}
 	
 	\clearpage
 	\printbibliography

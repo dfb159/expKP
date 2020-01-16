@@ -1,0 +1,1 @@
+\SI[separate-uncertainty=true]{4508 \pm 93}{\kilo\electronvolt}

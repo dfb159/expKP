@@ -7,7 +7,7 @@ Um die Dicken der Mylar-Folien zu bestimmen, werden zunächst die Restenergien d
 Dazu wird der $\Delta E$ - Detektor aus dem Strahlengang gedreht und das Energiespektrum der transmittierten Teilchen aufgenommen.
 Als Referenz wird hier die Kalibrationsmessung ohne Folie verwendet.
 In \cref{fig:foliendicke} sind die vier Messungen normiert nebeneinander eingezeichnet.
-Alle konkreten Fitparameter der Doppelgausskurven sind in \cref{tab:fitval1} angegeben.
+Alle konkreten Fitparameter der Doppelgaußkurven sind in \cref{tab:fitval1} angegeben.
 Im Diagramm ist ein einzelner stark abweichender Datenpunkt bei \SI{4000}{\kilo\electronvolt} auffällig, welcher im Folgenden allerdings nicht weiter dis
 
 \begin{figure}[ht]
@@ -16,7 +16,7 @@ Im Diagramm ist ein einzelner stark abweichender Datenpunkt bei \SI{4000}{\kilo\
 	\caption{Energiespektren nach Passieren der einzelnen Folien.
 			Die Zählrate ist normiert, um die Folien besser zu vergleichen.
 			Es werden nur die Datenpunkte im Bereich um den Energiepeak ungleich Null angezeigt.
-			Über die Daten ist ein Doppelgauss gelegt, welcher die Parameter in \cref{tab:fitval1} annimmt und mit einer Unsicherheit $\pm 3 \sigma$ eingezeichnet ist.}
+			Über die Daten ist ein Doppelgauß gelegt, welcher die Parameter in \cref{tab:fitval1} annimmt und mit einer Unsicherheit $\pm 3 \sigma$ eingezeichnet ist.}
 	\label{fig:foliendicke}
 \end{figure}
 
@@ -67,7 +67,33 @@ Die Messdaten, sowie theoretisch errechnete Kurven für Protonen, Deuteronen, Tr
 
 Man kann erkennen, dass die theoretische Kurve für $\alpha$-Teilchen durch die beiden hellsten Punkte sowie durch einen weiteren Häufungspunkt bei $E=\SI{5100}{\kilo\electronvolt}$ verläuft.
 Allerdings liegen die beiden Punkte bei $E = \SI{3000}{\kilo\electronvolt}$ und $E=\SI{3400}{\kilo\electronvolt}$ nicht auf der theoretischen Kurve.
+Auch Helium-3 könnte im weitergehenden Zusammenhang ein Kandidat der verwendeten Teilchenart sein, da dessen Kurve ebenfalls in dem Gebiet der Messung liegt.
 
 Um die theoretischen Kurven zu berechnen, ist die Bethe Bloch Formel nach \cref{eq:bethebloch} für Silikon implementiert worden.
 Nun kann wie in \cref{sec:dicke} eine schrittweise Integration durch den Detektor durchgeführt werden.
 Die Abbruchbedingung ist diesmal die Dicke des Detektors $d = \SI{8.5257}{\micro\meter}$, welche aus \cref{sec:de_kalibration} bekannt ist. %TODO ref jannik aufgabe 2
+
+Um zu entscheiden, ob nun $\alpha$-Teilchen oder Helium-3 Kerne vorliegen, wird der gesamte Datensatz auf $\Delta \cdot \beta^2$ projiziert und als Histogramm dargestellt.
+Dabei wird in $\beta$ die Masse $M$ des Teilchens benötigt und man muss für jedes zu überprüfende Teilchen eine eigene Verteilung erstellen.
+Auch hier wird wieder ein theoretischer Kurvenverlauf benötigt.
+Der Mittelwert der Kurve kann mit $E = \SI{5485}{\kilo\electronvolt}$ und dem Energieverlust $\Delta E$, welcher durch der oben genannten Integration bekannt ist, bestimmt werden.
+Die Breite der Gaußkurve wird hier als konstant angesehen und entsprechend der Detektorgenauigkeit gewählt.
+In \cref{fig:debeta} sind die beiden Verteilungen für $\alpha$-Teilchen und Helium-3 Kerne eingezeichnet.
+Andere Teilchenarten sind in \cref{fig:debeta_full} gegeben.
+
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}[c]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{dat/debeta_Helium-3.pdf}
+	\end{subfigure}
+	\begin{subfigure}[c]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{dat/debeta_Alpha.pdf}
+	\end{subfigure}
+	\caption{$\Delta E \beta^2$ Verteilungen für $\alpha$-Teilchen und Helium-3 Kerne. Eingezeichnet sind die gemessenen Werte, sowie die theoretisch zu erwartenden Verteilungen.}
+	\label{fig:debeta}
+\end{figure}
+
+Man kann erkennen, dass die theoretische Verteilung der $\alpha$-Teilchen am besten auf den gemessenen Daten liegt.
+Abschließend lässt sich zusammenfassen, dass es sich bei den abgestrahlten Teilchen des Americium-241 tatsächlich um $\alpha$-Teilchen handelt.

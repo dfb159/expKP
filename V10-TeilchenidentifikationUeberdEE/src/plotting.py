@@ -44,7 +44,7 @@ def fit(x, y, sigma=1, alpha=0.4, alphaData=0.7, label=None, color="C1", zorder=
     if filltype == "x":
         plt.fill_betweenx(unv(y), unv(x) - sigma*usd(x), unv(x) + sigma*usd(x), alpha=alpha, color=color, zorder=zorder, **kwargs)
 
-def params(xlabel=None, ylabel=None, xlim=None, ylim=None, grid=False, legend=True, legendloc="best", xscale=None, yscale=None, xscaleparams={}, yscaleparams={}):
+def params(xlabel=None, ylabel=None, xlim=None, ylim=None, grid=False, legend=True, legendloc="best", xscale=None, yscale=None, xscaleparams={}, yscaleparams={}, title=None):
     if xlabel:
         plt.xlabel(xlabel)
     if ylabel:
@@ -66,6 +66,8 @@ def params(xlabel=None, ylabel=None, xlim=None, ylim=None, grid=False, legend=Tr
         if yscale == "log" and "nonposy" not in yscaleparams:
             yscaleparams["nonposy"] = "clip"
         plt.yscale(yscale, **yscaleparams)
+    if title:
+        plt.title(title)
         
 def save(path, formats=["png", "pdf"],transparent=False):
     for f in formats:

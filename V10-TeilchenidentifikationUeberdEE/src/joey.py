@@ -253,6 +253,7 @@ data = []
 for k in folien_dat:
     data.extend(tuple(zip(*k)))
 data = np.array(data)
+data2 = data
 
 N, M = 100, 50
 E_max2 = max(data[:,0])
@@ -279,18 +280,17 @@ for i in range(200):
 my_cmap = matplotlib.cm.get_cmap('plasma')
 my_cmap.set_under((0,0,0,0))
 data = xs.T[::-1,:]
-X, Y = np.meshgrid([E_min + 1.3*i * (E_max-E_min) / 200 for i in range(200)], [dE_max - i * (dE_max-dE_min) / 200 for i in range(200)])
-plt.imshow(data, cmap=my_cmap, vmax=50, vmin=0.1, extent=(E_min,E_max*1.3, dE_min, dE_max), zorder=15,interpolation="bicubic")
+plt.imshow(data, cmap=my_cmap, vmax=50, vmin=.1, extent=(E_min,E_max*1.3, dE_min, dE_max), zorder=-15,interpolation="bicubic")
+#X, Y = np.meshgrid([E_min + 1.3*i * (E_max-E_min) / 200 for i in range(200)], [dE_max - i * (dE_max-dE_min) / 200 for i in range(200)])
 #plt.pcolormesh(X, Y, data, cmap=my_cmap, vmax=50, vmin=0.1, zorder=15, shading="flat")
 
 x = np.linspace(0, 8000, 100) # keV
 name = ["Proton", "Deuteron", "Triton", "Helium-3", "Alpha", "Lithium"]
 for g, m in zip(betheblochformeln,name):
     ydraw = g(x) # MeV cm-1
-    plt.plot(x, ydraw, label=m,zorder = 25)
+    plt.plot(x, ydraw, label=m,zorder = -5)
 
 plot.params(xlabel=u"kinetische Energie $E_{kin}$ [keV]", ylabel=u"Energieverlust $dE$ [keV]", xlim=(0,7500), ylim=(0,3000), grid=True)
-plot.params(xlabel=u"kinetische Energie $E_{kin}$ [keV]", ylabel=u"Energieverlust $dE$ [keV]", xlim=(0,10000), ylim=(0,10000), grid=True)
 plot.save(data_out + "energieverlust")
 
 #%%
@@ -313,10 +313,12 @@ E0 = 5485.56
 # sort through data
 N = 20
 m, n = 500, 1750
+start, end = 0, 3000
 erg = []
 bins = np.zeros((N), int)
-for f in debetaformeln:
-    d = [f(E,dE,n) for E, dE, n in data]
+name = ["Proton", "Deuteron", "Triton", "Helium-3", "Alpha", "Lithium"]
+for i, (f, p, nam) in enumerate(zip(debetaformeln,betheblochformeln,name)):
+    d = [f(E,dE,n) for E, dE, n in data2]
     erg.append(d)
     bins = np.zeros((N), int)
     for deb, k in d:
@@ -326,11 +328,14 @@ for f in debetaformeln:
     x = np.linspace(m,n,N)
     w = (n-m)/N*0.8
     plt.bar(x,bins, width=w)
-    plt.show()
-        
-
-# %%
     
-x = np.linspace(0,100, 50)
-y = np.exp(-(x-50)**2/10**2)
-plt.bar(x,y)
+    dE = p(E0)
+    x0 = f(E0, dE, 1)[0]
+    sigma = 200
+    xfit = np.linspace(x0 - 5* sigma, x0 + 5*sigma, 500)
+    yfit = gauss(xfit, max(bins), x0, sigma, 0)
+    plt.plot(xfit,yfit, color="C1")
+    plot.params(xlabel="$\\Delta E \\beta^2$", ylabel="counts", xlim=(start,end), title=nam, legend=False)
+    plot.save(data_out+"debeta_%s"%nam)
+    plot.finish()
+    

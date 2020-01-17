@@ -44,7 +44,7 @@ Die sich daraus ergebene Kalibrierungskurve ist im Diagramm in Abbildung \ref{ED
 Mithilfe der Steigung $m$ lassen sich nun die Kanäle $K$ des $E$-Detektors in Energien $E$ umrechnen.
 Die Werte für die Unsicherheit von $m$ und den Fit-Parameter $n$ liegen in der Größenordnung von $\sim10^{-30}$ und können daher zu Null abgeschätzt werden.
 
-\subsection{Kalibrierung des $\Delta E$-Detektors}
+\subsection{Kalibrierung des $\Delta E$-Detektors} \label{KalidEDet}
 
 Bei der Kalibrierung des $\Delta E$-Detektors wird auf ähnliche Art und Weise wie in Abschnitt \ref{KaliEDet} vorgegangen.
 Die Abbildungen \ref{dEDetectorCalibrationChannelSpectrumEDetector} und \ref{dEDetectorCalibrationChannelSpectrumdEDetector} zeigen die mit dem $E$- und dem $\Delta E$-Detektor aufgenommenen $\alpha$-Energiespektren, welche im Zuge der Kalibrierungsmessung des $\Delta E$-Detektors entstanden sind.
@@ -79,14 +79,27 @@ Anzumerken ist, dass die Werte für die Unsicherheit von $m$ und den Fit-Paramet
 \subsection{Dickebestimmung des $\Delta E$-Detektors} \label{sec:de_kalibration}
 
 Im Folgenden soll die Dicke des $\Delta E$-Detektors ermittelt werden.
-Dazu wird 
+Dazu werden zunächst die aus dem Anhang der Versuchsanleitung\cite{wwu} entnommenen Werte für den Energieverlust von $\alpha$-Teilchen in Silizium gemäß der Vorschrift
+\begin{align}
+\frac{dE}{dx} = \left( \frac{dE}{dx}\frac\right)_\text{Elec.} + \left( \frac{dE}{dx}\right)_\text{Nuclear}
+\end{align}
+\noindent addiert.
+Trägt man die im Zuge dessen erhaltenen Werte für den Energieverlust gegen die Energie $E$ des $\alpha$-Teilchens auf, ergibt sich das in Abbildung \ref{EnergyLossSpectrum} zu sehende Diagramm.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{src/EnergyLossSpectrum}
 	\caption{Das in dieser Abbildung dargestellte Diagramm veranschaulicht den Energieverlust $\frac{dE}{dx}$ von $\alpha$-Teilchen in Silizium als Funktion der Energie $E$ des $\alpha$-Teilchens. Hierbei ist ein Energiebereich von $3.200\,$keV bis $6.800\,$keV zu sehen.}
 	\label{EnergyLossSpectrum}
 \end{figure}
-\noindent 
+\noindent Mithilfe eines kubischen Spline-Algorithmus wird nun eine Interpolation der Tabellenwert vorgenommen.
+Die dadurch zustande kommende Kurve ist ebenfalls im Diagramm in Abbildung \ref{EnergyLossSpectrum} dargestellt.
+Über numerische Integration des Ausdrucks
+\begin{align}
+\Delta E = \int\limits_{0}^{d} \frac{dE}{dx} \ dx
+\end{align}
+\noindent lässt sich die Dicke $d$ des $\Delta E$-Detektors bestimmen.
+Dabei ist $\Delta E$ der in Abschnitt \ref{KalidEDet} berechnete Energieverlust eines $(5.485,56\pm 0,12)\,$keV-$\alpha$-Teilchens im $\Delta E$-Detektor.
+Letztlich erhält man für die Dicke des $\Delta E$-Detektors einen Wert von $d=8,5257\,\mu$m. 
 
 \subsection{Dickebestimmung der Mylar-Folien}
 \label{sec:dicke}

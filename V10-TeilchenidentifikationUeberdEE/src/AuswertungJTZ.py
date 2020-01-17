@@ -14,6 +14,7 @@ countsdE = np.loadtxt("histograms_adc_dE_working.txt", dtype=int, usecols=2)
 n = len(countsE)
 channel = np.linspace(0, n-1, num=n)
 E_0 = 5485.56
+E_0_Unc = 0.12
 dx = 1e-4
 IonEnergy = np.array([1000., 1100., 1200., 1300., 1400., 1500., 1600., 1700., 1800., 2000., 2250., 2500., 2750., 3000., 3250., 3500., 3750., 4000., 4500., 5000., 5500., 6000., 6500., 7000.])
 dEdxElec = np.array([304.6, 296.1, 287.8, 279.8, 272.2, 264.8, 257.9, 251.2, 245., 233.3, 220.4, 208.9, 198.8, 189.7, 181.5, 174.1, 167.4, 161.3, 150.5, 141.4, 133.4, 126.5, 120.3, 114.9])
@@ -50,7 +51,7 @@ output = ODR.run()
 EchannelCal = np.linspace(0., output.beta[1], 2)
 EchannelCalUnc = np.linspace(0.5/np.sqrt(3), output.beta[2], 2)
 EenergyCal = np.linspace(0., E_0, 2)
-EenergyCalUnc = np.linspace(1., 0.0012, 2)
+EenergyCalUnc = np.linspace(1., E_0_Unc, 2)
 
 model1 = odr.Model(line)
 data1 = odr.RealData(EchannelCal, EenergyCal, sx=EchannelCalUnc, sy=EenergyCalUnc)

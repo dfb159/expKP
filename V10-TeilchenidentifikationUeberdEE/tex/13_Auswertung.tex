@@ -4,102 +4,90 @@ Dieser Abschnitt umfasst die Auswertung der aufgenommenen Daten.
 Im Folgenden werden die Unsicherheiten sämtlicher Messdaten, Messwerte und Messergebnisse nach GUM\cite{1} bestimmt.
 Für weitere Angaben wird an dieser Stelle auf den Anhang in \cref{sec:anhang} verwiesen.
 
-\subsection{Kalibrierung des $E$-Detektors} \label{KaliEDet}
+\subsection{Kalibration des $E$-Detektors} \label{KaliEDet}
 
-In Abbildung \ref{EDetectorCalibrationChannelSpectrumEDetector} ist das im Zuge der Kalibrierungsmessung des $E$-Detektors entstandene und mit diesem aufgenommene $\alpha$-Energiespektrum zu sehen.
-\begin{figure}[H]
+In \cref{EDetectorCalibrationChannelSpectrumEDetector} ist das im Zuge der Kalibrationsmessung des $E$-Detektors entstandene und mit diesem aufgenommene $\alpha$-Energiespektrum zu sehen.
+\begin{figure}[ht]
 	\centering
-	\includegraphics[width=1.0\textwidth]{src/EDetectorCalibrationChannelSpectrumEDetector}
-	\caption{Die Abbildung zeigt das bei der Kalibrierungsmessung des $E$-Detektors entstandene und mit diesem aufgenommene $\alpha$-Energiespektrum. Hierbei werden die Energien auf der $x$-Achse dieses Diagramms als Kanäle $K$ ausgedrückt.}
+	\includegraphics[width=0.7\textwidth]{src/EDetectorCalibrationChannelSpectrumEDetector}
+	\caption{Die Abbildung zeigt das bei der Kalibrationsmessung des $E$-Detektors entstandene und mit diesem aufgenommene $\alpha$-Energiespektrum. Hierbei werden die Energien auf der $x$-Achse dieses Diagramms als Kanäle $K$ ausgedrückt.}
 	\label{EDetectorCalibrationChannelSpectrumEDetector}
 \end{figure}
-\noindent Dabei stellen die sich auf der $x$-Achse dieses Diagramms befindenden Kanäle $K$ des CAMAC ADC die Energien der $\alpha$-Teilchen dar.
+Dabei stellen die sich auf der $x$-Achse dieses Diagramms befindenden Kanäle $K$ des CAMAC ADC die Energien der $\alpha$-Teilchen dar.
 Die Unsicherheit jedes Kanals $K$ ist auf das Fehlerintervall $\pm 0,5$ zurückzuführen.
-Weil die Unsicherheit $u(N)$ der Counts $N$ auf einer Poisson-Verteilung beruht, gilt $u(N)=\pm\sqrt{N}$.
+Weil die Unsicherheit $\sigma(N)$ der Counts $N$ auf einer Poisson-Verteilung beruht, gilt $\sigma(N)=\sqrt{N}$.
 Im $\alpha$-Energiespektrum in Abbildung \ref{EDetectorCalibrationChannelSpectrumEDetector} sind zwei deutliche Peaks zu erkennen.
-Der linke Peak stammt von $\alpha$-Teilchen mit einer Energie von $(5.442,86\pm 0,12)\,$keV, welche von $^{241}$Am mit einer Wahrscheinlichkeit von $(13,23\pm 0,10)\,$\% ausgesendet werden.
-Der rechte Peak basiert auf den mit einer Wahrscheinlichkeit von $(84,45\pm 0,10)\,$\% emittierten $\alpha$-Teilchen, welche eine Energie von $E_{0}=(5.485,56\pm 0,12)\,$keV besitzen.
-Da lediglich der rechte Peak für die Kalibrierung des $E$-Detektors relevant ist, wird eine gaußsche Anpassungskurve mit der Gestalt
+Der linke Peak stammt von $\alpha$-Teilchen mit einer Energie von \SI{5442,86 +- 0,12}{\kilo\electronvolt}, welche von $^{241}$Am mit einer Wahrscheinlichkeit von \SI{13,2 +- 0,1}{\percent} ausgesendet werden.
+Der rechte Peak basiert auf den mit einer Wahrscheinlichkeit von \SI{84,5 +- 0,1}{\kilo\electronvolt} emittierten $\alpha$-Teilchen, welche eine Energie von $E_{0}=\SI{5485,56 +- 0,12}{\kilo\electronvolt}$ besitzen.
+Da lediglich der rechte Peak für die Kalibration des $E$-Detektors relevant ist, wird eine gaußsche Anpassungskurve mit der Gestalt
 \begin{align} \label{Gaussian}
 f(x)=A\cdot\exp\left( -\frac{(x-\mu)^2}{2\sigma ^2}\right) + B
 \end{align}
-\noindent an diesen Peak gefittet.
+an diesen Peak gefittet.
 Dabei werden nur die Messwerte berücksichtigt, welche sich im $\alpha$-Energiespektrum rechts von der orangefarbenen, gepunkteten, vertikalen Linie befinden.
-Die sich ergebene gaußsche Anpassungskurve und die dazugehörigen Werte der für die Kalibrierung des $E$-Detektors notwendigen Fit-Parameter sind im $\alpha$-Energiespektrum in Abbildung \ref{EDetectorCalibrationChannelSpectrumEDetector} zu sehen.
-Nun kann man dem Mittelwert $\mu$ die Energie $E_{0}$ zuordnen, wobei die Breite $\sigma$ der Gauß-Kurve die Unsicherheit von $\mu$ bildet.
-Denn eigentlich handelt es sich bei einem $\alpha$-Energiespektrum um ein diskretes Linienspektrum, weshalb man annehmen kann, dass die zu betrachtende $(5.485,56\pm 0,12)\,$keV-Linie im $\pm 1\sigma$-Bereich des rechten Peaks liegt.
-Nimmt man zusätzlich an, dass der Kanal $K=0$ der Energie $E=0\,$keV entspricht, so lässt sich das in Abbildung \ref{EDetectorCalibration} erkennbare Diagramm erstellen.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=1.0\textwidth]{src/EDetectorCalibration}
-	\caption{Das in dieser Abbildung dargestellte Diagramm zeigt die für den $E$-Detektor ermittelte Kalibrierungskurve.}
-	\label{EDetectorCalibration}
-\end{figure}
-\noindent Zwischen den Kanälen $K$ und den Energien $E$ besteht in guter Näherung ein linearer Zusammenhang, sodass man eine linearen Anpassungskurve der Form
-\begin{align} \label{line}
-g(x)=m\cdot x + n
-\end{align}
-\noindent an die Messwerte fitten kann.
-Die sich daraus ergebene Kalibrierungskurve ist im Diagramm in Abbildung \ref{EDetectorCalibration} zu sehen.
-Mithilfe der Steigung $m$ lassen sich nun die Kanäle $K$ des $E$-Detektors in Energien $E$ umrechnen.
-Die Werte für die Unsicherheit von $m$ und den Fit-Parameter $n$ liegen in der Größenordnung von $\sim10^{-30}$ und können daher zu Null abgeschätzt werden.
+Die sich ergebene gaußsche Anpassungskurve und die dazugehörigen Werte der für die Kalibration des $E$-Detektors notwendigen Fit-Parameter sind im $\alpha$-Energiespektrum in Abbildung \ref{EDetectorCalibrationChannelSpectrumEDetector} zu sehen.
+Nun kann man dem Mittelwert $\mu$ die Energie $E_{0}$ zuordnen, wobei die Breite $\sigma$ der Gauß-Kurve die Detektorgrnauigkeit angibt und im Folgenden die Standartabweichung von $\mu$ bildet.
+Eigentlich handelt es sich bei einem $\alpha$-Energiespektrum um ein diskretes Linienspektrum, weshalb man annehmen kann, dass die zu betrachtende \SI{5485,56 +- 0,12}{\kilo\electronvolt}-Linie im $\pm 1\sigma$-Bereich des rechten Peaks liegt.
+Nimmt man zusätzlich an, dass der Kanal $K=\SI{0}{}$ der Energie $E=\SI{0}{\kilo\electronvolt}$ entspricht, so lässt sich die lineare Relation $E(K) = \SI{32,68}{\kilo\electronvolt} \cdot K$ zwischen Kanalnummer und gemessener Energie herstellen.
 
-\subsection{Kalibrierung des $\Delta E$-Detektors} \label{KalidEDet}
+\subsection{Kalibration des $\Delta E$-Detektors} \label{KalidEDet}
 
-Bei der Kalibrierung des $\Delta E$-Detektors wird auf ähnliche Art und Weise wie in Abschnitt \ref{KaliEDet} vorgegangen.
-Die Abbildungen \ref{dEDetectorCalibrationChannelSpectrumEDetector} und \ref{dEDetectorCalibrationChannelSpectrumdEDetector} zeigen die mit dem $E$- und dem $\Delta E$-Detektor aufgenommenen $\alpha$-Energiespektren, welche im Zuge der Kalibrierungsmessung des $\Delta E$-Detektors entstanden sind.
-\begin{figure}[H]
+Bei der Kalibration des $\Delta E$-Detektors wird auf ähnliche Art und Weise wie in \cref{KaliEDet} vorgegangen.
+Die Abbildungen \ref{fig:kalibration_dE-_E_channel} zeigen die mit dem $E$- und dem $\Delta E$-Detektor aufgenommenen $\alpha$-Energiespektren, welche im Zuge der Kalibrationsmessung des $\Delta E$-Detektors entstanden sind.
+
+\begin{figure}[ht]
 	\centering
-	\includegraphics[width=1.0\textwidth]{src/dEDetectorCalibrationChannelSpectrumEDetector}
-	\caption{Die Abbildung zeigt das im Zuge der Kalibrierungsmessung des $\Delta E$-Detektors entstandene und mit dem $E$-Detektor aufgenommene $\alpha$-Energiespektrum. Hierbei werden die Energien auf der $x$-Achse dieses Diagramms als Kanäle $K$ ausgedrückt.}
-	\label{dEDetectorCalibrationChannelSpectrumEDetector}
+	\begin{subfigure}[c]{0.45\textwidth}		
+		\centering	
+		\includegraphics[width=\textwidth]{src/dEDetectorCalibrationChannelSpectrumEDetector}
+		\subcaption{$E$-Detektor}
+		\label{fig:kalibration_E}		
+	\end{subfigure}
+	\begin{subfigure}[c]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{src/dEDetectorCalibrationChannelSpectrumdEDetector}
+		\subcaption{$\Delta E$-Detektor}
+		\label{fig:kalibration_dE}
+	\end{subfigure}
+	
+	\caption{Die Abbildung zeigt das im Zuge der Kalibrationsmessung des $\Delta E$-Detektors aufgenommene $\alpha$-Energiespektrum. Hierbei werden die Energien auf der $x$-Achse dieses Diagramms als Kanäle $K$ ausgedrückt.
+		Links das aufgenommene Spektrum des $E$-Detektors. Rechts das aufgenommene Spektrum des $\Delta E$-Detektors.}
+	\label{fig:kalibration_dE-_E_channel}
 \end{figure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=1.0\textwidth]{src/dEDetectorCalibrationChannelSpectrumdEDetector}
-	\caption{Die Abbildung zeigt das bei der Kalibrierungsmessung des $\Delta E$-Detektors entstandene und mit diesem aufgenommene $\alpha$-Energiespektrum. Hierbei werden die Energien auf der $x$-Achse dieses Diagramms als Kanäle $K$ ausgedrückt.}
-	\label{dEDetectorCalibrationChannelSpectrumdEDetector}
-\end{figure}
-\noindent In beiden $\alpha$-Energiespektren lässt sich jeweils ein Peak erkennen.
+In beiden $\alpha$-Energiespektren lässt sich jeweils ein Peak erkennen.
 An die von beiden orangefarbenen, gepunkteten, vertikalen Linien eingegrenzten Messwerte kann man nun mit Hilfe der Gleichung (\ref{Gaussian}) eine gaußsche Anpassungskurve fitten.
-Die gaußschen Anpassungskurven und die dazugehörigen Werte der für die Kalibrierung des $\Delta E$-Detektors notwendigen Fit-Parameter sind in den $\alpha$-Energiespektren in Abbildung \ref{dEDetectorCalibrationChannelSpectrumEDetector} und \ref{dEDetectorCalibrationChannelSpectrumdEDetector} zu sehen.
-Beim Passieren des $\Delta E$-Detektors erleiden die $(5.485,56\pm 0,12)\,$keV-$\alpha$-Teilchen einen Energieverlust, welcher der Position $\mu$ des Peaks im $\alpha$-Energiespektrum des $\Delta E$-Detektors entspricht.
-Der Wert für diesen Energieverlust lässt sich über die betragsmäßige Differenz zwischen den Positionen der Peaks in den $\alpha$-Energiespektren in Abbildung \ref{dEDetectorCalibrationChannelSpectrumEDetector} und \ref{dEDetectorCalibrationChannelSpectrumdEDetector} sowie unter Verwendung der Kalibrierungskurve für den $E$-Detektor berechnen.
-Erneut wird angenommen, dass man dem Kanal $K=0$ die Energie $E=0\,$keV zuordnen kann, sodass sich das in Abbildung \ref{dEDetectorCalibration} dargestellte Diagramm ergibt.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=1.0\textwidth]{src/dEDetectorCalibration}
-	\caption{Das in dieser Abbildung dargestellte Diagramm zeigt die für den $\Delta E$-Detektor ermittelte Kalibrierungskurve.}
-	\label{dEDetectorCalibration}
-\end{figure}
-\noindent In Letzteres wird eine lineare Anpassungskurve eingefügt, wodurch man die Kalibrierungskurve für den $\Delta E$-Detektor erhält.
-Anzumerken ist, dass die Werte für die Unsicherheit von $m$ und den Fit-Parameter $n$ in der Größenordnung von $\sim10^{-30}$ liegen und daher zu Null abgeschätzt werden können.
+Die gaußschen Anpassungskurven und die dazugehörigen Werte der für die Kalibration des $\Delta E$-Detektors notwendigen Fit-Parameter sind in den Abbildungen angegeben.
+Beim Passieren des $\Delta E$-Detektors erleiden die \SI{5485,56 +- 0,12}{\kilo\electronvolt}-$\alpha$-Teilchen einen Energieverlust, welcher der Position $\mu$ des Peaks im $\alpha$-Energiespektrum des $\Delta E$-Detektors entspricht.
+Der Wert für diesen Energieverlust lässt sich über die Differenz zwischen den Positionen der Peaks im $E$-Detektor \cref{fig:kalibration_E} und \cref{EDetectorCalibrationChannelSpectrumEDetector} sowie unter Verwendung der Kalibrationskurve für den $E$-Detektor berechnen.
+Erneut wird angenommen, dass man dem Kanal $K=\SI{0}{}$ die Energie $E=\SI{0}{\kilo\electronvolt}$ zuordnen kann, sodass sich für den $\Delta E$-Detektor die Kalibrationsgerade $\Delta E(K) = \SI{14,54}{\kilo\electronvolt} \cdot K$ ergibt.
 
 \subsection{Dickebestimmung des $\Delta E$-Detektors} \label{sec:de_kalibration}
 
 Im Folgenden soll die Dicke des $\Delta E$-Detektors ermittelt werden.
 Dazu werden zunächst die aus dem Anhang der Versuchsanleitung\cite{wwu} entnommenen Werte für den Energieverlust von $\alpha$-Teilchen in Silizium gemäß der Vorschrift
 \begin{align}
-\frac{dE}{dx} = \left( \frac{dE}{dx}\frac\right)_\text{Elec.} + \left( \frac{dE}{dx}\right)_\text{Nuclear}
+	\dv{E}{x}= \left( \dv{E}{x}\right)_\text{Elektron} + \left(\dv{E}{x}\right)_\text{Kern}
 \end{align}
-\noindent addiert.
+addiert.
+Dabei ist der Energieverlust durch Kernwechselwirkung bedeutend kleiner als der durch Elektronenwechselwirkung, da es sich bei $\alpha$-Teilchen um leichte Kerne handelt, welche eine kleine Ordnungszahl besitzen.
 Trägt man die im Zuge dessen erhaltenen Werte für den Energieverlust gegen die Energie $E$ des $\alpha$-Teilchens auf, ergibt sich das in Abbildung \ref{EnergyLossSpectrum} zu sehende Diagramm.
-\begin{figure}[H]
+\begin{figure}[ht]
 	\centering
-	\includegraphics[width=1.0\textwidth]{src/EnergyLossSpectrum}
-	\caption{Das in dieser Abbildung dargestellte Diagramm veranschaulicht den Energieverlust $\frac{dE}{dx}$ von $\alpha$-Teilchen in Silizium als Funktion der Energie $E$ des $\alpha$-Teilchens. Hierbei ist ein Energiebereich von $3.200\,$keV bis $6.800\,$keV zu sehen.}
+	\includegraphics[width=0.7\textwidth]{src/EnergyLossSpectrum}
+	\caption{Das in dieser Abbildung dargestellte Diagramm veranschaulicht den Energieverlust $\dv{E}{x}$ von $\alpha$-Teilchen in Silizium als Funktion der Energie $E$ des $\alpha$-Teilchens. Hierbei ist ein Energiebereich von \SIrange{3200}{6800}{\kilo\electronvolt} zu sehen.}
 	\label{EnergyLossSpectrum}
 \end{figure}
-\noindent Mithilfe eines kubischen Spline-Algorithmus wird nun eine Interpolation der Tabellenwert vorgenommen.
+Mithilfe eines kubischen Spline-Algorithmus\footnote{Hierbei wird in python die Funktion \texttt{scipy.interpolate.interp1d} mit dem Parameter \texttt{kind="cubic"} genutzt.} wird nun eine Interpolation der Tabellenwert vorgenommen.
 Die dadurch zustande kommende Kurve ist ebenfalls im Diagramm in Abbildung \ref{EnergyLossSpectrum} dargestellt.
 Über numerische Integration des Ausdrucks
 \begin{align}
-\Delta E = \int\limits_{0}^{d} \frac{dE}{dx} \ dx
+	\Delta E = \int_{0}^{d} \dv{E}{x} (E) \dd x \approx \sum_i \dv{E}{x} (E_i) \cdot \delta x
 \end{align}
-\noindent lässt sich die Dicke $d$ des $\Delta E$-Detektors bestimmen.
-Dabei ist $\Delta E$ der in Abschnitt \ref{KalidEDet} berechnete Energieverlust eines $(5.485,56\pm 0,12)\,$keV-$\alpha$-Teilchens im $\Delta E$-Detektor.
-Letztlich erhält man für die Dicke des $\Delta E$-Detektors einen Wert von $d=8,5257\,\mu$m. 
+lässt sich die Dicke $d$ des $\Delta E$-Detektors bestimmen.
+Es wird so lange integriert, bis die Energie des Teilchens die gemessene Energie aus \cref{fig:kalibration_E} unterschritten hat.
+Mit $\delta x = \SI{1e-4}{\micro\meter} = \const$ ist die zurückgelegte Strecke $d = N \cdot \delta x$, wobei $N$ die Anzahl an benötigten Integrationsschritten ist.
+Man erhält für die Dicke des $\Delta E$-Detektors einen Wert von $d=\SI{8,5257}{\micro\meter}$. 
 
 \subsection{Dickebestimmung der Mylar-Folien}
 \label{sec:dicke}
@@ -109,7 +97,7 @@ Dazu wird der $\Delta E$ - Detektor aus dem Strahlengang gedreht und das Energie
 Als Referenz wird hier die Kalibrationsmessung ohne Folie verwendet.
 In \cref{fig:foliendicke} sind die vier Messungen normiert nebeneinander eingezeichnet.
 Alle konkreten Fitparameter der Doppelgaußkurven sind in \cref{tab:fitval1} angegeben.
-Im Diagramm ist ein einzelner stark abweichender Datenpunkt bei \SI{4000}{\kilo\electronvolt} auffällig, welcher im Folgenden allerdings nicht weiter dis
+Im Diagramm ist ein einzelner stark abweichender Datenpunkt bei \SI{4000}{\kilo\electronvolt} auffällig, welcher auf statistische Schwankungen zurückzuführen ist.
 
 \begin{figure}[ht]
 	\centering
@@ -127,9 +115,8 @@ Der Detektor hat eine begrenzte Messgenauigkeit welche sich durch die Breite der
 Um diese zu beachten, wird die Unsicherheit der Position $E_1$ mit der Breite $\sigma_1$ nach Formel (\ref{fig:GUM_combine}) kombiniert.
 
 Nun wird eine numerische Integration durch die Folien durchgeführt.
-Dazu wird zunächst der Energieverlust $\dv{E}{x}$ von $\alpha$-Teilchen in Mylar aus der Anleitung interpoliert\footnote{Hierbei wird in python die Funktion \texttt{scipy.interpolate.interp1d} mit dem Parameter \texttt{kind="cubic"} für eine kubische Splineinterpolation genutzt.}.
+Dazu wird zunächst der Energieverlust $\dv{E}{x}$ von $\alpha$-Teilchen in Mylar aus der Anleitung interpoliert.
 Für ein eintreffendes Teilchen mit \SI{5485}{\kilo\electronvolt} kann nun schrittweise der Energieverlust $\dd E_i = \dv{E}{x} \left(E_i\right) \cdot \delta x$ berechnet werden.
-Es wird so lange integriert, bis die Energie des Teilchens die gemessene Energie unterschritten hat.
 Mit $\delta x = \SI{1e-4}{\micro\meter} = \const$ ist die zurückgelegte Strecke $\bar{x} = N \cdot \delta x$, wobei $N$ die Anzahl an benötigten Integrationsschritten ist.
 Um die Standardabweichung für die Dicken zu bestimmen, wird die Integration ebenfalls für $E_1^\pm = \bar{E_1} \pm \sigma(E_1)$ durchgeführt.
 Nun wird mit den zu $E_1^\pm$ gehörenden Dicken $x^\pm$ die gemittelte Differenz $\sigma(x) = \frac{x^+ - x^-}{2}$ gebildet.

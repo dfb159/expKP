@@ -13,8 +13,7 @@ multiple figures:
 			\centering	
 			\includegraphics[width=\textwidth]{data/file1.pdf}
 			\subcaption{}		
-		\end{subfigure}
-	
+		\end{subfigure} % newline for figures below each other
 		\begin{subfigure}[c]{0.45\textwidth}
 			\centering
 			\includegraphics[width=\textwidth]{data/file2.pdf}

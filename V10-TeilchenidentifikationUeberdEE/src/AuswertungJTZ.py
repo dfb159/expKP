@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.odr as odr
 from scipy.interpolate import interp1d
+from scipy.misc import derivative
 
 
 # Read data:
@@ -37,7 +38,7 @@ def OneOrGreaterReturnSqrt(arg):
         return 1.0
 
 
-#------------------------------------------------------------------------------
+#%%------------------------------------------------------------------------------
 
 
 # Apply a gaussian fit to the channel spectrum of the $E$ detector, to calculate the peak position, start at channel number 163:
@@ -59,7 +60,7 @@ ODR1 = odr.ODR(data1, model1, beta0=[32., 0.001])
 output1 = ODR1.run()
 
 
-#------------------------------------------------------------------------------
+#%%------------------------------------------------------------------------------
 
 
 # Apply a gaussian fit to the spectrum of the $E$ detector, to calculate the position of the shifted peak, start at channel number 110, last used channel number is 135:
@@ -71,7 +72,8 @@ output2 = ODR2.run()
 
 # Calculate the energy loss of the particle in the $\Delta E$ detector by using channel numbers:
 EnergyLoss = output1.beta[0] * (output.beta[1] - output2.beta[1])
-EnergyLossUnc = output1.beta[0] * np.sqrt(output.beta[2]**2 + output2.beta[2]**2)
+EnergyLossUnc = output1.beta[0] * np.sqrt(output.beta[2]**2 + output2.beta[2]**2) # TODO warum sqrt(a**2 +  b**2)
+print(EnergyLoss, EnergyLossUnc)
 
 
 # Apply a gaussian fit to the spectrum of the $\Delta E$ detector with 75<=K<=95:
@@ -99,14 +101,30 @@ dEdx_interpolated = interp1d(IonEnergy, dEdx, kind="cubic")
 
 
 # Calculate the thickness of the $\Delta E$ detector by integration:
+
 E = E_0
 x = 0
+Es, xs = [E_0], [x]
 while E >= E_0 - EnergyLoss:
     E = E - dEdx_interpolated(E) * dx
     x = x + dx
+    
+    
+while Es[-1] >= E_0 - 2*EnergyLoss:
+    Es.append(Es[-1] - dEdx_interpolated(Es[-1]) * dx)
+    xs.append(xs[-1]+dx)
+    
+Es_inter = interp1d(xs, Es, kind="cubic") # E(x) energie nach dicke
+xs_inter = interp1d(Es, xs, kind="cubic") # x(E) dicke bei energie
 
+# %% --------------------------------------------------------------------------
+print("Energie:", EnergyLoss, "+-", EnergyLossUnc)
+dicke = xs_inter(E_0 - EnergyLoss)
+dickeUnc = abs(xs_inter(E_0 - EnergyLoss - EnergyLossUnc) - xs_inter(E_0 - EnergyLoss + EnergyLossUnc)) / 2
+print("Fehlerformel: +-", abs(derivative(xs_inter, E_0 - EnergyLoss, 1e-4) * EnergyLossUnc))
+print("Dicke:", dicke, "+-", dickeUnc)
 
-#------------------------------------------------------------------------------
+#%%----------------------------------------------------------------------------
 
 
 # Show results:
@@ -127,7 +145,7 @@ plt.show()
 print(output.beta)
 print(output.sd_beta)
 
-# Calibration fit for the $E$ detector:
+#%% Calibration fit for the $E$ detector:
 plt.figure(figsize=(10, 7.5))
 plt.errorbar(EchannelCal, EenergyCal, xerr=EchannelCalUnc, yerr=np.linspace(0., 0.0000012, 2), capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Messwerte")
 plt.plot(channel, line(output1.beta, channel), "-r", linewidth=3.5, zorder=3, label="Lineare Anpassungskurve"+"\n"+"mit $m=32,6763607\,$keV")
@@ -144,7 +162,7 @@ print(output1.beta)
 print(output1.sd_beta)
 
 
-# Channel spectrum of the $E$ detector:
+#%% Channel spectrum of the $E$ detector:
 plt.figure(figsize=(10, 7.5))
 plt.axvline(x=channel[109], color="C1", linestyle="--", linewidth=2.5, zorder=4)
 plt.axvline(x=channel[136], color="C1", linestyle="--", linewidth=2.5, zorder=4)
@@ -162,7 +180,7 @@ plt.show()
 print(output2.beta)
 print(output2.sd_beta)
 
-# Channel spectrum of the $\Delta E$ detector:
+#%% Channel spectrum of the $\Delta E$ detector:
 plt.figure(figsize=(10, 7.5))
 plt.axvline(x=channel[74], color="C1", linestyle="--", linewidth=2.5, zorder=4)
 plt.axvline(x=channel[96], color="C1", linestyle="--", linewidth=2.5, zorder=4)
@@ -180,7 +198,7 @@ plt.show()
 print(output3.beta)
 print(output3.sd_beta)
 
-# Calibration fit for the $\Delta E$ detector:
+#%% Calibration fit for the $\Delta E$ detector:
 plt.figure(figsize=(10, 7.5))
 plt.errorbar(dEchannelCal, dEenergyCal, xerr=dEchannelCalUnc, yerr=np.linspace(0., EnergyLossUnc, 2), capsize=5., ecolor="C0", fmt=".C0", zorder=2, label="Messwerte")
 plt.plot(channel, line(output4.beta, channel), "-r", linewidth=3.5, zorder=3, label="Lineare Anpassungskurve"+"\n"+"mit $m=14,5363747\,$keV")
@@ -196,7 +214,7 @@ plt.show()
 print(output4.beta)
 print(output4.sd_beta)
 
-# Energy loss as a function of the ion energy:
+#%% Energy loss as a function of the ion energy:
 plt.figure(figsize=(10, 7.5))
 plt.axvline(x=E_0, color="C1", linestyle="--", linewidth=2.5, zorder=4)
 plt.axvline(x=E_0 - EnergyLoss, color="C1", linestyle="--", linewidth=2.5, zorder=4)

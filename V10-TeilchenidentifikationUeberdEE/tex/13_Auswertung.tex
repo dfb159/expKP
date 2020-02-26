@@ -13,12 +13,13 @@ In \cref{EDetectorCalibrationChannelSpectrumEDetector} ist das im Zuge der Kalib
 	\caption{Die Abbildung zeigt das bei der Kalibrationsmessung des $E$-Detektors entstandene und mit diesem aufgenommene $\alpha$-Energiespektrum. Hierbei werden die Energien auf der $x$-Achse dieses Diagramms als Kanäle $K$ ausgedrückt.}
 	\label{EDetectorCalibrationChannelSpectrumEDetector}
 \end{figure}
-Dabei stellen die sich auf der $x$-Achse dieses Diagramms befindenden Kanäle $K$ des CAMAC ADC die Energien der $\alpha$-Teilchen dar.
+Dabei sind die Kanäle $K$ des CAMAC ADC proportional zu den gemessenen Energien der $\alpha$-Teilchen.
 Die Unsicherheit jedes Kanals $K$ ist auf das Fehlerintervall $\pm 0,5$ zurückzuführen.
 Weil die Unsicherheit $\sigma(N)$ der Counts $N$ auf einer Poisson-Verteilung beruht, gilt $\sigma(N)=\sqrt{N}$.
 Im $\alpha$-Energiespektrum in Abbildung \ref{EDetectorCalibrationChannelSpectrumEDetector} sind zwei deutliche Peaks zu erkennen.
-Der linke Peak stammt von $\alpha$-Teilchen mit einer Energie von \SI{5442,86 +- 0,12}{\kilo\electronvolt}, welche von $^{241}$Am mit einer Wahrscheinlichkeit von \SI{13,2 +- 0,1}{\percent} ausgesendet werden.
-Der rechte Peak basiert auf den mit einer Wahrscheinlichkeit von \SI{84,5 +- 0,1}{\kilo\electronvolt} emittierten $\alpha$-Teilchen, welche eine Energie von $E_{0}=\SI{5485,56 +- 0,12}{\kilo\electronvolt}$ besitzen.
+Der rechte Peak stammt von $\alpha$-Teilchen mit den Energien \SI{5442,86 +- 0,12}{\kilo\electronvolt} (\SI{13,2}{\percent}) und \SI{5485,56 +- 0,12}{\kilo\electronvolt} (\SI{84,5}{\percent}).
+Die Energien sind in der Messung nicht von einander zu unterscheiden und im Folgenden wird aufgrund der höheren Wahrscheinlichkeit stets $E_0 = \SI{5485,56 +- 0,12}{\kilo\electronvolt}$ referenziert.
+Der linke Peak stammt von Streuprozessen am $\Delta E$-Detektor und ist für die weitere Analyse nicht weiter von Bedeutung.
 Da lediglich der rechte Peak für die Kalibration des $E$-Detektors relevant ist, wird eine gaußsche Anpassungskurve mit der Gestalt
 \begin{align} \label{Gaussian}
 f(x)=A\cdot\exp\left( -\frac{(x-\mu)^2}{2\sigma ^2}\right) + B
@@ -26,9 +27,12 @@ f(x)=A\cdot\exp\left( -\frac{(x-\mu)^2}{2\sigma ^2}\right) + B
 an diesen Peak gefittet.
 Dabei werden nur die Messwerte berücksichtigt, welche sich im $\alpha$-Energiespektrum rechts von der orangefarbenen, gepunkteten, vertikalen Linie befinden.
 Die sich ergebene gaußsche Anpassungskurve und die dazugehörigen Werte der für die Kalibration des $E$-Detektors notwendigen Fit-Parameter sind im $\alpha$-Energiespektrum in Abbildung \ref{EDetectorCalibrationChannelSpectrumEDetector} zu sehen.
-Nun kann man dem Mittelwert $\mu$ die Energie $E_{0}$ zuordnen, wobei die Breite $\sigma$ der Gauß-Kurve die Detektorgrnauigkeit angibt und im Folgenden die Standartabweichung von $\mu$ bildet.
-Eigentlich handelt es sich bei einem $\alpha$-Energiespektrum um ein diskretes Linienspektrum, weshalb man annehmen kann, dass die zu betrachtende \SI{5485,56 +- 0,12}{\kilo\electronvolt}-Linie im $\pm 1\sigma$-Bereich des rechten Peaks liegt.
-Nimmt man zusätzlich an, dass der Kanal $K=\SI{0}{}$ der Energie $E=\SI{0}{\kilo\electronvolt}$ entspricht, so lässt sich die lineare Relation $E(K) = \SI{32,68}{\kilo\electronvolt} \cdot K$ zwischen Kanalnummer und gemessener Energie herstellen.
+Nun kann man dem Mittelwert $\mu$ die Energie $E_{0}$ zuordnen, wobei die Breite $\sigma$ der Gauß-Kurve die Detektorgenauigkeit angibt.
+Nimmt man an, dass der Kanal $K=\num{0}$ der Energie $E=\SI{0}{\kilo\electronvolt}$ entspricht und der Detektor ein lineares Spektrum aufnimmt, so lässt sich die Relation 
+\begin{align}
+E(K) = \SI{32,68}{\kilo\electronvolt} \cdot K
+\end{align}
+zwischen Kanalnummer und gemessener Energie herstellen.
 
 \subsection{Kalibration des $\Delta E$-Detektors} \label{KalidEDet}
 
@@ -58,9 +62,14 @@ Die Abbildungen \ref{fig:kalibration_dE-_E_channel} zeigen die mit dem $E$- und 
 In beiden $\alpha$-Energiespektren lässt sich jeweils ein Peak erkennen.
 An die von beiden orangefarbenen, gepunkteten, vertikalen Linien eingegrenzten Messwerte kann man nun mit Hilfe der Gleichung (\ref{Gaussian}) eine gaußsche Anpassungskurve fitten.
 Die gaußschen Anpassungskurven und die dazugehörigen Werte der für die Kalibration des $\Delta E$-Detektors notwendigen Fit-Parameter sind in den Abbildungen angegeben.
-Beim Passieren des $\Delta E$-Detektors erleiden die \SI{5485,56 +- 0,12}{\kilo\electronvolt}-$\alpha$-Teilchen einen Energieverlust, welcher der Position $\mu$ des Peaks im $\alpha$-Energiespektrum des $\Delta E$-Detektors entspricht.
+Beim Passieren des $\Delta E$-Detektors erleiden die $\alpha$-Teilchen einen Energieverlust, welcher der Position $\mu$ des Peaks im $\alpha$-Energiespektrum des $\Delta E$-Detektors entspricht.
 Der Wert für diesen Energieverlust lässt sich über die Differenz zwischen den Positionen der Peaks im $E$-Detektor \cref{fig:kalibration_E} und \cref{EDetectorCalibrationChannelSpectrumEDetector} sowie unter Verwendung der Kalibrationskurve für den $E$-Detektor berechnen.
-Erneut wird angenommen, dass man dem Kanal $K=\SI{0}{}$ die Energie $E=\SI{0}{\kilo\electronvolt}$ zuordnen kann, sodass sich für den $\Delta E$-Detektor die Kalibrationsgerade $\Delta E(K) = \SI{14,54}{\kilo\electronvolt} \cdot K$ ergibt.
+Erneut wird angenommen, dass man dem Kanal $K=\num{0}$ die Energie $E=\SI{0}{\kilo\electronvolt}$ zuordnen kann und der Detektor ein lineares Spektrum aufnimmt, sodass sich für den $\Delta E$-Detektor die Kalibrationsgerade
+\begin{align}
+\Delta E(K) = \SI{14,54}{\kilo\electronvolt} \cdot K
+\end{align}
+ergibt.
+Aufgrund der geringen Unsicherheiten von Mittelwert $\mu$, Kanalbreite und Energie $E_0$ gegenüber der Detektorgenauigkeit, wird hier keine Unsicherheit angegeben.
 
 \subsection{Dickebestimmung des $\Delta E$-Detektors} \label{sec:de_kalibration}
 
@@ -70,7 +79,7 @@ Dazu werden zunächst die aus dem Anhang der Versuchsanleitung\cite{wwu} entnomm
 	\dv{E}{x}= \left( \dv{E}{x}\right)_\text{Elektron} + \left(\dv{E}{x}\right)_\text{Kern}
 \end{align}
 addiert.
-Dabei ist der Energieverlust durch Kernwechselwirkung bedeutend kleiner als der durch Elektronenwechselwirkung, da es sich bei $\alpha$-Teilchen um leichte Kerne handelt, welche eine kleine Ordnungszahl besitzen.
+Dabei ist der Energieverlust durch Kernwechselwirkung bedeutend kleiner als der durch Elektronenwechselwirkung, da es sich bei $\alpha$-Teilchen um leichte Kerne mit einer geringen Ordnungszahl handelt.
 Trägt man die im Zuge dessen erhaltenen Werte für den Energieverlust gegen die Energie $E$ des $\alpha$-Teilchens auf, ergibt sich das in Abbildung \ref{EnergyLossSpectrum} zu sehende Diagramm.
 \begin{figure}[ht]
 	\centering
@@ -82,12 +91,15 @@ Mithilfe eines kubischen Spline-Algorithmus\footnote{Hierbei wird in python die 
 Die dadurch zustande kommende Kurve ist ebenfalls im Diagramm in Abbildung \ref{EnergyLossSpectrum} dargestellt.
 Über numerische Integration des Ausdrucks
 \begin{align}
-	\Delta E = \int_{0}^{d} \dv{E}{x} (E) \dd x \approx \sum_i \dv{E}{x} (E_i) \cdot \delta x
+	\label{eq:numInt}
+	\Delta E = \int_{0}^{d} \dv{E}{x} (E) \dd{x} \approx \sum_i \dv{E}{x} (E_i) \cdot \delta x
 \end{align}
 lässt sich die Dicke $d$ des $\Delta E$-Detektors bestimmen.
+Dabei wird schrittweise der Energieverlust $\dd E_i = \dv{E}{x} \left(E_i\right) \cdot \delta x$ berechnet, wobei hier $\delta x = \SI{1e-4}{\micro\meter} = \const$.
 Es wird so lange integriert, bis die Energie des Teilchens die gemessene Energie aus \cref{fig:kalibration_E} unterschritten hat.
-Mit $\delta x = \SI{1e-4}{\micro\meter} = \const$ ist die zurückgelegte Strecke $d = N \cdot \delta x$, wobei $N$ die Anzahl an benötigten Integrationsschritten ist.
-Man erhält für die Dicke des $\Delta E$-Detektors einen Wert von $d=\SI{8,5257}{\micro\meter}$. 
+Die zurückgelegte Strecke ist dann $\bar{x} = N \cdot \delta x$, wobei $N$ die Anzahl an benötigten Integrationsschritten ist.
+Die Unsicherheit gibt sich aus Formel (\ref{fig:GUM_formula}) der interpolierten Datenpunkte.
+Man erhält für die Dicke des $\Delta E$-Detektors einen Wert von $d=\SI{8.52 +- 0.77}{\micro\meter}$. 
 
 \subsection{Dickebestimmung der Mylar-Folien}
 \label{sec:dicke}
@@ -114,12 +126,9 @@ Diese gehören zur \SI{5485}{\kilo\electronvolt} $\alpha$-Strahlung der Probe.
 Der Detektor hat eine begrenzte Messgenauigkeit welche sich durch die Breite der Peaks widerspiegelt.
 Um diese zu beachten, wird die Unsicherheit der Position $E_1$ mit der Breite $\sigma_1$ nach Formel (\ref{fig:GUM_combine}) kombiniert.
 
-Nun wird eine numerische Integration durch die Folien durchgeführt.
+Die Bestimmung der Foliendicke kann nach (\ref{eq:numInt}) durchgeführt werden.
 Dazu wird zunächst der Energieverlust $\dv{E}{x}$ von $\alpha$-Teilchen in Mylar aus der Anleitung interpoliert.
-Für ein eintreffendes Teilchen mit \SI{5485}{\kilo\electronvolt} kann nun schrittweise der Energieverlust $\dd E_i = \dv{E}{x} \left(E_i\right) \cdot \delta x$ berechnet werden.
-Mit $\delta x = \SI{1e-4}{\micro\meter} = \const$ ist die zurückgelegte Strecke $\bar{x} = N \cdot \delta x$, wobei $N$ die Anzahl an benötigten Integrationsschritten ist.
-Um die Standardabweichung für die Dicken zu bestimmen, wird die Integration ebenfalls für $E_1^\pm = \bar{E_1} \pm \sigma(E_1)$ durchgeführt.
-Nun wird mit den zu $E_1^\pm$ gehörenden Dicken $x^\pm$ die gemittelte Differenz $\sigma(x) = \frac{x^+ - x^-}{2}$ gebildet.
+Für ein eintreffendes Teilchen mit \SI{5485}{\kilo\electronvolt} kann nun numerisch Integriert werden.
 Die ermittelten Energien und Dicken der Folien sind in \cref{tab:dicken} zusammengefasst.
 
 \begin{table}[ht]
@@ -135,9 +144,9 @@ Die ermittelten Energien und Dicken der Folien sind in \cref{tab:dicken} zusamme
 	\end{tabular}
 \end{table}
 
-Aus den bestimmten Dicken könnte man schließen, dass die Folien Vielfache von \SI{8}{\micro\meter} dick sind und im Falle der 1. und 2. Folie um ca. \SI{13}{\degree} gedreht sind oder keine gleichmäßige Dicke aufweisen.
+Aus den bestimmten Dicken kann man schließen, dass die Folien entweder Vielfache von \SI{8}{\micro\meter} dick sind und im Falle der 1. und 2. Folie um ca. \SI{13}{\degree} gedreht sind oder keine gleichmäßige Dicke aufweisen.
 Diese Angaben sind allerdings nicht zu überprüfen und sind als Spekulationen zu betrachten.
-Um die Unsicherheit zu erhöhen, muss die Detektorgenauigkeit erhöht werden.
+Um die Unsicherheit zu verringern, muss die Detektorgenauigkeit erhöht werden.
 Dies kann zum Beispiel über eine Faltung mit der Detektorverteilung einer wohlbekannten Kalibrationsmessung erzielt werden.
 
 \subsection{Bestimmung des Energieverlusts}
@@ -145,6 +154,7 @@ Dies kann zum Beispiel über eine Faltung mit der Detektorverteilung einer wohlb
 Um die Teilchenidentifikation durchzuführen, werden alle aufgenommenen Messungen aufaddiert und in ein Diagramm geschrieben.
 Dabei ist die Energie des Teilchens die Summe von gemessener Restenergie im $E$-Detektor und deponierter Energie im $\Delta E$-Detektor.
 Die Messdaten, sowie theoretisch errechnete Kurven für Protonen, Deuteronen, Tritonen, Helium-3-Kerne, $\alpha$-Teilchen und Lithium-Kerne sind in \cref{fig:energieverlust} dargestellt.
+Bei manchen Einstellungen der Folien wurden keine Daten gemessen und sind somit nicht im Diagramm zu erkennen.
 
 \begin{figure}[ht]
 	\centering
@@ -157,8 +167,8 @@ Man kann erkennen, dass die theoretische Kurve für $\alpha$-Teilchen durch die 
 Allerdings liegen die beiden Punkte bei $E = \SI{3000}{\kilo\electronvolt}$ und $E=\SI{3400}{\kilo\electronvolt}$ nicht auf der theoretischen Kurve.
 Auch Helium-3 könnte im weitergehenden Zusammenhang ein Kandidat der verwendeten Teilchenart sein, da dessen Kurve ebenfalls in dem Gebiet der Messung liegt.
 
-Um die theoretischen Kurven zu berechnen, ist die Bethe Bloch Formel nach \cref{eq:bethebloch} für Silikon implementiert worden.
-Nun kann wie in \cref{sec:dicke} eine schrittweise Integration durch den Detektor durchgeführt werden.
+Um die theoretischen Kurven zu berechnen, ist die Bethe Bloch Formel nach \cref{eq:bethebloch} für Silizium implementiert worden.
+Nun kann nach Formel (\ref{eq:numInt}) eine schrittweise Integration durch den Detektor durchgeführt werden.
 Die Abbruchbedingung ist diesmal die Dicke des Detektors $d = \SI{8.5257}{\micro\meter}$, welche aus \cref{sec:de_kalibration} bekannt ist.
 
 Um zu entscheiden, ob nun $\alpha$-Teilchen oder Helium-3 Kerne vorliegen, wird der gesamte Datensatz auf $\Delta \cdot \beta^2$ projiziert und als Histogramm dargestellt.
@@ -184,4 +194,3 @@ Andere Teilchenarten sind in \cref{fig:debeta_full} gegeben.
 \end{figure}
 
 Man kann erkennen, dass die theoretische Verteilung der $\alpha$-Teilchen am besten auf den gemessenen Daten liegt.
-Abschließend lässt sich zusammenfassen, dass es sich bei den abgestrahlten Teilchen des Americium-241 tatsächlich um $\alpha$-Teilchen handelt.

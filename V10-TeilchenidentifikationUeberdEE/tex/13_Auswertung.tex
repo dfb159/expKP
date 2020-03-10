@@ -97,9 +97,9 @@ Die dadurch zustande kommende Kurve ist ebenfalls im Diagramm in Abbildung \ref{
 lässt sich die Dicke $d$ des $\Delta E$-Detektors bestimmen.
 Dabei wird schrittweise der Energieverlust $\dd E_i = \dv{E\left(E_i\right)}{x} \cdot \delta x$ berechnet, wobei $\delta x = \SI{1e-4}{\micro\meter} = \text{konstant}$ ist.
 Es wird solange integriert, bis die Energie des $\alpha$-Teilchens die gemessene Energie aus \cref{fig:kalibration_E} unterschritten hat.
-Die zurückgelegte Strecke ist dann $\bar{x} = N \cdot \delta x$. %TODO Zusammenhang von \bar{x} mit d?
+Die zurückgelegte Strecke ist dann $d = N \cdot \delta x$.
 Hierbei ist $N$ die Anzahl der benötigten Summationsschritte.
-Die Unsicherheit ergibt sich aus der Gleichung (\ref{fig:GUM_formula}) der interpolierten Datenpunkte. %TODO Versteh' ich net.
+Die Unsicherheit ergibt sich aus der Fehlerfortpflanzung in Gleichung (\ref{fig:GUM_formula}) mit den interpolierten Datenpunkten.
 Somit erhält man für die Dicke des $\Delta E$-Detektors einen Wert von $d=\SI{8.52 +- 0.77}{\micro\meter}$. 
 
 \subsection{Dickebestimmung der Mylar-Folien}
